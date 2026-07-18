@@ -1,0 +1,7 @@
+# ==================================
+# DATASETS (large files)
+# ==================================
+
+datasets/raw/*
+datasets/processed/*
+datasets/partitions/*
