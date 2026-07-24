@@ -1,0 +1,737 @@
+{
+  "processed_ics_flow": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 30236,
+        "attack_type_other_attack": 4300,
+        "attack_type_dos_ddos": 4221,
+        "attack_type_reconnaissance_scanning": 3947,
+        "attack_type_mitm": 3014,
+        "attack_type_backdoor": 0,
+        "attack_type_injection": 0,
+        "attack_type_password_bruteforce": 0,
+        "attack_type_ransomware": 0,
+        "attack_type_xss": 0,
+        "attack_type_tampering": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 43984,
+        "proto_udp": 10,
+        "proto_icmp": 162,
+        "proto_other": 1562
+      },
+      "proto_pct": {
+        "proto_tcp": 96.21,
+        "proto_udp": 0.02,
+        "proto_icmp": 0.35,
+        "proto_other": 3.42
+      }
+    },
+    "class_balance": {
+      "n_total": 45718,
+      "n_normal": 30236,
+      "n_attack": 15482,
+      "attack_ratio": 0.3386
+    }
+  },
+  "processed_ton_iot": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 50000,
+        "attack_type_dos_ddos": 40000,
+        "attack_type_reconnaissance_scanning": 20000,
+        "attack_type_injection": 20000,
+        "attack_type_backdoor": 20000,
+        "attack_type_password_bruteforce": 20000,
+        "attack_type_ransomware": 20000,
+        "attack_type_xss": 20000,
+        "attack_type_mitm": 1043,
+        "attack_type_tampering": 0,
+        "attack_type_other_attack": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 168747,
+        "proto_udp": 42015,
+        "proto_icmp": 281,
+        "proto_other": 0
+      },
+      "proto_pct": {
+        "proto_tcp": 79.96,
+        "proto_udp": 19.91,
+        "proto_icmp": 0.13,
+        "proto_other": 0.0
+      }
+    },
+    "class_balance": {
+      "n_total": 211043,
+      "n_normal": 50000,
+      "n_attack": 161043,
+      "attack_ratio": 0.7631
+    }
+  },
+  "processed_x_iiotid": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 421417,
+        "attack_type_dos_ddos": 141261,
+        "attack_type_reconnaissance_scanning": 103129,
+        "attack_type_other_attack": 102117,
+        "attack_type_password_bruteforce": 47241,
+        "attack_type_injection": 5094,
+        "attack_type_ransomware": 458,
+        "attack_type_mitm": 117,
+        "attack_type_backdoor": 0,
+        "attack_type_xss": 0,
+        "attack_type_tampering": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 422334,
+        "proto_udp": 395620,
+        "proto_icmp": 2726,
+        "proto_other": 154
+      },
+      "proto_pct": {
+        "proto_tcp": 51.45,
+        "proto_udp": 48.2,
+        "proto_icmp": 0.33,
+        "proto_other": 0.02
+      }
+    },
+    "class_balance": {
+      "n_total": 820834,
+      "n_normal": 421417,
+      "n_attack": 399417,
+      "attack_ratio": 0.4866
+    }
+  },
+  "power_train": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 16901,
+        "attack_type_other_attack": 2132,
+        "attack_type_dos_ddos": 2069,
+        "attack_type_reconnaissance_scanning": 1952,
+        "attack_type_mitm": 1705,
+        "attack_type_backdoor": 0,
+        "attack_type_injection": 0,
+        "attack_type_password_bruteforce": 0,
+        "attack_type_ransomware": 0,
+        "attack_type_xss": 0,
+        "attack_type_tampering": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 24125,
+        "proto_udp": 0,
+        "proto_icmp": 92,
+        "proto_other": 542
+      },
+      "proto_pct": {
+        "proto_tcp": 97.44,
+        "proto_udp": 0.0,
+        "proto_icmp": 0.37,
+        "proto_other": 2.19
+      }
+    },
+    "class_balance": {
+      "n_total": 24759,
+      "n_normal": 16901,
+      "n_attack": 7858,
+      "attack_ratio": 0.3174
+    }
+  },
+  "power_test": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 4225,
+        "attack_type_other_attack": 530,
+        "attack_type_dos_ddos": 517,
+        "attack_type_reconnaissance_scanning": 496,
+        "attack_type_mitm": 422,
+        "attack_type_backdoor": 0,
+        "attack_type_injection": 0,
+        "attack_type_password_bruteforce": 0,
+        "attack_type_ransomware": 0,
+        "attack_type_xss": 0,
+        "attack_type_tampering": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 6031,
+        "proto_udp": 0,
+        "proto_icmp": 22,
+        "proto_other": 137
+      },
+      "proto_pct": {
+        "proto_tcp": 97.43,
+        "proto_udp": 0.0,
+        "proto_icmp": 0.36,
+        "proto_other": 2.21
+      }
+    },
+    "class_balance": {
+      "n_total": 6190,
+      "n_normal": 4225,
+      "n_attack": 1965,
+      "attack_ratio": 0.3174
+    }
+  },
+  "utilities_train": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 7288,
+        "attack_type_dos_ddos": 1308,
+        "attack_type_other_attack": 1304,
+        "attack_type_reconnaissance_scanning": 1212,
+        "attack_type_mitm": 703,
+        "attack_type_backdoor": 0,
+        "attack_type_injection": 0,
+        "attack_type_password_bruteforce": 0,
+        "attack_type_ransomware": 0,
+        "attack_type_xss": 0,
+        "attack_type_tampering": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 11059,
+        "proto_udp": 7,
+        "proto_icmp": 37,
+        "proto_other": 712
+      },
+      "proto_pct": {
+        "proto_tcp": 93.6,
+        "proto_udp": 0.06,
+        "proto_icmp": 0.31,
+        "proto_other": 6.03
+      }
+    },
+    "class_balance": {
+      "n_total": 11815,
+      "n_normal": 7288,
+      "n_attack": 4527,
+      "attack_ratio": 0.3832
+    }
+  },
+  "utilities_test": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 1822,
+        "attack_type_other_attack": 334,
+        "attack_type_dos_ddos": 327,
+        "attack_type_reconnaissance_scanning": 287,
+        "attack_type_mitm": 184,
+        "attack_type_backdoor": 0,
+        "attack_type_injection": 0,
+        "attack_type_password_bruteforce": 0,
+        "attack_type_ransomware": 0,
+        "attack_type_xss": 0,
+        "attack_type_tampering": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 2769,
+        "proto_udp": 3,
+        "proto_icmp": 11,
+        "proto_other": 171
+      },
+      "proto_pct": {
+        "proto_tcp": 93.74,
+        "proto_udp": 0.1,
+        "proto_icmp": 0.37,
+        "proto_other": 5.79
+      }
+    },
+    "class_balance": {
+      "n_total": 2954,
+      "n_normal": 1822,
+      "n_attack": 1132,
+      "attack_ratio": 0.3832
+    }
+  },
+  "sap_train": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 10864,
+        "attack_type_injection": 9749,
+        "attack_type_password_bruteforce": 8115,
+        "attack_type_dos_ddos": 3746,
+        "attack_type_reconnaissance_scanning": 2818,
+        "attack_type_xss": 514,
+        "attack_type_mitm": 407,
+        "attack_type_ransomware": 13,
+        "attack_type_backdoor": 0,
+        "attack_type_tampering": 0,
+        "attack_type_other_attack": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 25622,
+        "proto_udp": 10576,
+        "proto_icmp": 28,
+        "proto_other": 0
+      },
+      "proto_pct": {
+        "proto_tcp": 70.73,
+        "proto_udp": 29.19,
+        "proto_icmp": 0.08,
+        "proto_other": 0.0
+      }
+    },
+    "class_balance": {
+      "n_total": 36226,
+      "n_normal": 10864,
+      "n_attack": 25362,
+      "attack_ratio": 0.7001
+    }
+  },
+  "sap_test": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 2716,
+        "attack_type_injection": 2399,
+        "attack_type_password_bruteforce": 2155,
+        "attack_type_dos_ddos": 897,
+        "attack_type_reconnaissance_scanning": 669,
+        "attack_type_xss": 117,
+        "attack_type_mitm": 103,
+        "attack_type_ransomware": 1,
+        "attack_type_backdoor": 0,
+        "attack_type_tampering": 0,
+        "attack_type_other_attack": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 6414,
+        "proto_udp": 2639,
+        "proto_icmp": 4,
+        "proto_other": 0
+      },
+      "proto_pct": {
+        "proto_tcp": 70.82,
+        "proto_udp": 29.14,
+        "proto_icmp": 0.04,
+        "proto_other": 0.0
+      }
+    },
+    "class_balance": {
+      "n_total": 9057,
+      "n_normal": 2716,
+      "n_attack": 6341,
+      "attack_ratio": 0.7001
+    }
+  },
+  "pap_train": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 29136,
+        "attack_type_dos_ddos": 28305,
+        "attack_type_ransomware": 15999,
+        "attack_type_backdoor": 15904,
+        "attack_type_xss": 15554,
+        "attack_type_reconnaissance_scanning": 13183,
+        "attack_type_password_bruteforce": 7822,
+        "attack_type_injection": 6285,
+        "attack_type_mitm": 420,
+        "attack_type_tampering": 0,
+        "attack_type_other_attack": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 109385,
+        "proto_udp": 23026,
+        "proto_icmp": 197,
+        "proto_other": 0
+      },
+      "proto_pct": {
+        "proto_tcp": 82.49,
+        "proto_udp": 17.36,
+        "proto_icmp": 0.15,
+        "proto_other": 0.0
+      }
+    },
+    "class_balance": {
+      "n_total": 132608,
+      "n_normal": 29136,
+      "n_attack": 103472,
+      "attack_ratio": 0.7803
+    }
+  },
+  "pap_test": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 7284,
+        "attack_type_dos_ddos": 7052,
+        "attack_type_backdoor": 4096,
+        "attack_type_ransomware": 3987,
+        "attack_type_xss": 3815,
+        "attack_type_reconnaissance_scanning": 3330,
+        "attack_type_password_bruteforce": 1908,
+        "attack_type_injection": 1567,
+        "attack_type_mitm": 113,
+        "attack_type_tampering": 0,
+        "attack_type_other_attack": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 27326,
+        "proto_udp": 5774,
+        "proto_icmp": 52,
+        "proto_other": 0
+      },
+      "proto_pct": {
+        "proto_tcp": 82.43,
+        "proto_udp": 17.42,
+        "proto_icmp": 0.16,
+        "proto_other": 0.0
+      }
+    },
+    "class_balance": {
+      "n_total": 33152,
+      "n_normal": 7284,
+      "n_attack": 25868,
+      "attack_ratio": 0.7803
+    }
+  },
+  "beneficiation_train": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 83851,
+        "attack_type_dos_ddos": 60359,
+        "attack_type_other_attack": 18450,
+        "attack_type_ransomware": 116,
+        "attack_type_mitm": 95,
+        "attack_type_password_bruteforce": 2,
+        "attack_type_reconnaissance_scanning": 0,
+        "attack_type_backdoor": 0,
+        "attack_type_injection": 0,
+        "attack_type_xss": 0,
+        "attack_type_tampering": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 55299,
+        "proto_udp": 106548,
+        "proto_icmp": 910,
+        "proto_other": 116
+      },
+      "proto_pct": {
+        "proto_tcp": 33.95,
+        "proto_udp": 65.42,
+        "proto_icmp": 0.56,
+        "proto_other": 0.07
+      }
+    },
+    "class_balance": {
+      "n_total": 162873,
+      "n_normal": 83851,
+      "n_attack": 79022,
+      "attack_ratio": 0.4852
+    }
+  },
+  "beneficiation_test": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 20963,
+        "attack_type_dos_ddos": 14994,
+        "attack_type_other_attack": 4702,
+        "attack_type_ransomware": 38,
+        "attack_type_mitm": 22,
+        "attack_type_reconnaissance_scanning": 0,
+        "attack_type_injection": 0,
+        "attack_type_password_bruteforce": 0,
+        "attack_type_backdoor": 0,
+        "attack_type_xss": 0,
+        "attack_type_tampering": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 13847,
+        "proto_udp": 26599,
+        "proto_icmp": 235,
+        "proto_other": 38
+      },
+      "proto_pct": {
+        "proto_tcp": 34.01,
+        "proto_udp": 65.32,
+        "proto_icmp": 0.58,
+        "proto_other": 0.09
+      }
+    },
+    "class_balance": {
+      "n_total": 40719,
+      "n_normal": 20963,
+      "n_attack": 19756,
+      "attack_ratio": 0.4852
+    }
+  },
+  "granulation_train": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 253282,
+        "attack_type_reconnaissance_scanning": 82587,
+        "attack_type_other_attack": 63353,
+        "attack_type_dos_ddos": 52407,
+        "attack_type_password_bruteforce": 37907,
+        "attack_type_injection": 4018,
+        "attack_type_ransomware": 239,
+        "attack_type_backdoor": 0,
+        "attack_type_mitm": 0,
+        "attack_type_xss": 0,
+        "attack_type_tampering": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 282851,
+        "proto_udp": 209677,
+        "proto_icmp": 1265,
+        "proto_other": 0
+      },
+      "proto_pct": {
+        "proto_tcp": 57.28,
+        "proto_udp": 42.46,
+        "proto_icmp": 0.26,
+        "proto_other": 0.0
+      }
+    },
+    "class_balance": {
+      "n_total": 493793,
+      "n_normal": 253282,
+      "n_attack": 240511,
+      "attack_ratio": 0.4871
+    }
+  },
+  "granulation_test": {
+    "labels": {
+      "label_unique_values": [
+        0,
+        1
+      ],
+      "label_ok": true,
+      "missing_attack_type_columns": [],
+      "attack_type_rows_with_zero_category": 0,
+      "attack_type_rows_with_multiple_categories": 0,
+      "attack_type_distribution": {
+        "attack_type_normal": 63321,
+        "attack_type_reconnaissance_scanning": 20542,
+        "attack_type_other_attack": 15612,
+        "attack_type_dos_ddos": 13501,
+        "attack_type_password_bruteforce": 9332,
+        "attack_type_injection": 1076,
+        "attack_type_ransomware": 65,
+        "attack_type_backdoor": 0,
+        "attack_type_mitm": 0,
+        "attack_type_xss": 0,
+        "attack_type_tampering": 0
+      }
+    },
+    "missing_infinite": {
+      "nan_counts": {},
+      "inf_counts": {}
+    },
+    "proto_distribution": {
+      "proto_counts": {
+        "proto_tcp": 70337,
+        "proto_udp": 52796,
+        "proto_icmp": 316,
+        "proto_other": 0
+      },
+      "proto_pct": {
+        "proto_tcp": 56.98,
+        "proto_udp": 42.77,
+        "proto_icmp": 0.26,
+        "proto_other": 0.0
+      }
+    },
+    "class_balance": {
+      "n_total": 123449,
+      "n_normal": 63321,
+      "n_attack": 60128,
+      "attack_ratio": 0.4871
+    }
+  }
+}
