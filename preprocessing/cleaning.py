@@ -88,8 +88,8 @@ def load_ics_flow(path: str) -> pd.DataFrame:
     out["dst_pkts"] = _safe_numeric(df["rPackets"])
 
     # Labels
-    label_col = "IT_B_Label" if "IT_B_Label" in df.columns else "NST_B_Label"
-    attack_col = "IT_M_Label" if "IT_M_Label" in df.columns else "NST_M_Label"
+    label_col = "NST_B_Label" if "NST_B_Label" in df.columns else "IT_B_Label"
+    attack_col = "NST_M_Label" if "NST_M_Label" in df.columns else "IT_M_Label"
     out["label"] = _binarize_label(df[label_col])
     out["attack_type"] = df[attack_col].astype(str).str.strip()
 

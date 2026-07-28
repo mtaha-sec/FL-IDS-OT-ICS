@@ -12,9 +12,9 @@ Orchestre le pipeline complet de preparation des donnees, de bout en bout :
 
 Usage:
     python -m preprocessing.run_pipeline \
-        --ics-flow datasets/raw/iciot/ics_flow.csv \
-        --ton-iot  datasets/raw/tonio/ton_iot.csv \
-        --x-iiotid datasets/raw/xiiotid/x_iiotid.csv
+        --ics-flow ../datasets/raw/iciot/ics_flow.csv \
+        --ton-iot  ../datasets/raw/tonio/ton_iot.csv \
+        --x-iiotid ../datasets/raw/xiiotid/x_iiotid.csv
 """
 
 import argparse
@@ -23,9 +23,9 @@ import os
 
 import pandas as pd
 
-from preprocessing.cleaning import load_ics_flow, load_ton_iot, load_x_iiotid
-from preprocessing.feature_engineering import engineer_features, get_model_feature_columns
-from preprocessing.normalization import (
+from cleaning import load_ics_flow, load_ton_iot, load_x_iiotid
+from feature_engineering import engineer_features, get_model_feature_columns
+from normalization import (
     one_hot_encode_proto,
     encode_attack_type,
     fit_scaler,
@@ -33,16 +33,16 @@ from preprocessing.normalization import (
     apply_scaler,
     NUMERIC_COLUMNS_TO_SCALE,
 )
-from preprocessing.partitioning import build_client_partitions, train_test_split_per_client
+from partitioning import build_client_partitions, train_test_split_per_client
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
 
 def run(ics_flow_path: str, ton_iot_path: str, x_iiotid_path: str,
-        processed_dir: str = "datasets/processed",
-        partitions_dir: str = "datasets/partitions",
-        scaler_path: str = "datasets/processed/scaler.joblib") -> dict:
+        processed_dir: str = "../datasets/processed",
+        partitions_dir: str = "../datasets/partitions",
+        scaler_path: str = "../datasets/processed/scaler.joblib") -> dict:
 
     os.makedirs(processed_dir, exist_ok=True)
     os.makedirs(partitions_dir, exist_ok=True)
