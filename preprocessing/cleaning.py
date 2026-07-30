@@ -140,8 +140,7 @@ def load_ton_iot(path: str) -> pd.DataFrame:
 
     # Colonnes brutes utiles pour feature_engineering.py
     out["_raw_conn_state"] = df["conn_state"].astype(str).str.strip() if "conn_state" in df.columns else ""
-    out["_raw_src_ip_bytes"] = _safe_numeric(df["src_ip_bytes"]) if "src_ip_bytes" in df.columns else 0
-    out["_raw_dst_ip_bytes"] = _safe_numeric(df["dst_ip_bytes"]) if "dst_ip_bytes" in df.columns else 0
+  
 
     out["source_dataset"] = "ton_iot"
     logger.info("TON_IoT charge et harmonise : %d lignes", len(out))
@@ -177,8 +176,7 @@ def load_x_iiotid(path: str) -> pd.DataFrame:
     out["attack_type"] = df["class1"].astype(str).str.strip()
 
     # Colonnes brutes utiles pour feature_engineering.py
-    out["_raw_Scr_ip_bytes"] = _safe_numeric(df["Scr_ip_bytes"]) if "Scr_ip_bytes" in df.columns else 0
-    out["_raw_Des_ip_bytes"] = _safe_numeric(df["Des_ip_bytes"]) if "Des_ip_bytes" in df.columns else 0
+ 
     out["_raw_is_syn_only"] = _to_bool(df["is_syn_only"]) if "is_syn_only" in df.columns else 0
     out["_raw_Is_SYN_ACK"] = _to_bool(df["Is_SYN_ACK"]) if "Is_SYN_ACK" in df.columns else 0
     out["_raw_is_pure_ack"] = _to_bool(df["is_pure_ack"]) if "is_pure_ack" in df.columns else 0
