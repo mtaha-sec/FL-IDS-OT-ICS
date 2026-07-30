@@ -11,7 +11,7 @@ chaque client.
 
 Contenu :
   - ONE-HOT proto (vocabulaire fixe : tcp / udp / icmp / other)
-  - Harmonisation attack_type -> categories canoniques (keyword mapping)
+  - Harmonisation attack_type pour analyse et reporting uniquement
   - StandardScaler fit une seule fois sur l'ensemble concatene (etape de
     preparation centralisee, avant simulation FL) puis sauvegarde/rechargee
 """
@@ -84,10 +84,12 @@ def canonicalize_attack_type(series: pd.Series) -> pd.Series:
 
 
 def encode_attack_type(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Normalise attack_type uniquement pour analyse/reporting.
+    Ne crée pas de features ML pour éviter le data leakage.
+    """
     df = df.copy()
     df["attack_type"] = canonicalize_attack_type(df["attack_type"])
-    for cat in CANONICAL_ATTACK_CATEGORIES:
-        df[f"attack_type_{cat}"] = (df["attack_type"] == cat).astype(int)
     return df
 
 
