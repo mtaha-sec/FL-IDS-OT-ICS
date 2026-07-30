@@ -101,7 +101,7 @@ def _derive_rates_and_ratios(df: pd.DataFrame) -> pd.DataFrame:
 
 def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Point d'entree principal : applique toutes les derivations (Groupes A-E)
+    Point d'entree principal : applique toutes les derivations (Groupes A-D)
     sur un DataFrame harmonise (sortie de cleaning.load_*).
 
     Le DataFrame doit contenir 'source_dataset' et les colonnes '_raw_*'
@@ -140,7 +140,7 @@ def get_model_feature_columns() -> list:
     Retourne la liste finale des colonnes exploitables par le modele ML/DL
     proto et attack_type restent categorielles -> a encoder via normalization.py.
     """
-    direct = ["proto", "duration", "src_bytes", "dst_bytes", "src_pkts", "dst_pkts"]
+    direct = ["duration", "src_bytes", "dst_bytes", "src_pkts", "dst_pkts"]
     group_a = FLAG_COLUMNS
     group_b = ["byte_rate", "pkt_rate"]
     group_c = ["bytes_ratio", "pkts_ratio"]
