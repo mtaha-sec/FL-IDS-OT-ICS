@@ -55,9 +55,9 @@ def run(
         ics_flow_path: str,
         ton_iot_path: str,
         x_iiotid_path: str,
-        processed_dir: str = "../datasets/processed",
-        partitions_dir: str = "../datasets/partitions",
-        scaler_path: str = "../datasets/processed/scaler.joblib"
+        processed_dir: str = "datasets/processed",
+        partitions_dir: str = "datasets/partitions",
+        scaler_path: str = "datasets/processed/scaler.joblib"
 ) -> dict:
 
 
