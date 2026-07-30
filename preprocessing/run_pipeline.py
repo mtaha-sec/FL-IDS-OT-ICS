@@ -23,9 +23,9 @@ import os
 
 import pandas as pd
 
-from cleaning import load_ics_flow, load_ton_iot, load_x_iiotid
-from feature_engineering import engineer_features, get_model_feature_columns
-from normalization import (
+from .cleaning import load_ics_flow, load_ton_iot, load_x_iiotid
+from .feature_engineering import engineer_features, get_model_feature_columns
+from .normalization import (
     one_hot_encode_proto,
     encode_attack_type,
     fit_scaler,
@@ -33,7 +33,7 @@ from normalization import (
     apply_scaler,
     NUMERIC_COLUMNS_TO_SCALE,
 )
-from partitioning import build_client_partitions, train_test_split_per_client
+from .partitioning import build_client_partitions, train_test_split_per_client
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)

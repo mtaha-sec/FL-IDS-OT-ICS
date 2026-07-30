@@ -122,8 +122,7 @@ def apply_scaler(df: pd.DataFrame, numeric_columns: list, scaler: StandardScaler
 
 
 NUMERIC_COLUMNS_TO_SCALE = [
-    "duration", "src_bytes", "dst_bytes", "src_pkts", "dst_pkts",
-    "src_ip_bytes", "dst_ip_bytes", "byte_rate", "pkt_rate",
+    "duration", "src_bytes", "dst_bytes", "src_pkts", "dst_pkts", "byte_rate", "pkt_rate",
     "bytes_ratio", "pkts_ratio",
 ]
 
