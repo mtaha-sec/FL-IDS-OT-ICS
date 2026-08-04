@@ -138,14 +138,23 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 def get_model_feature_columns() -> list:
     """
     Retourne la liste finale des colonnes exploitables par le modele ML/DL
-    proto et attack_type restent categorielles -> a encoder via normalization.py.
+    (exclut src_ip, dst_ip, source_dataset, et les labels).
+
+    IMPORTANT : cette liste reflete l'etat APRES one_hot_encode_proto()
+    (normalization.py). La colonne categorielle 'proto' n'existe plus a ce
+    stade -- elle a ete remplacee par 4 colonnes binaires proto_tcp/proto_udp/
+    proto_icmp/proto_other.
+
+    attack_type N'APPARAIT PAS dans cette liste : ce n'est pas une feature
+    d'entree, c'est une metadonnee/label secondaire (data leakage sinon).
     """
+    proto_onehot = ["proto_tcp", "proto_udp", "proto_icmp", "proto_other"]
     direct = ["duration", "src_bytes", "dst_bytes", "src_pkts", "dst_pkts"]
     group_a = FLAG_COLUMNS
     group_b = ["byte_rate", "pkt_rate"]
     group_c = ["bytes_ratio", "pkts_ratio"]
     group_d = ["with_payload"]
-    return direct + group_a + group_b + group_c + group_d
+    return direct + group_a + group_b + group_c + group_d + proto_onehot
 
 
 if __name__ == "__main__":
