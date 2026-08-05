@@ -1,0 +1,146 @@
+{
+  "power": {
+    "client": "power",
+    "threshold": 3.9202988147735596,
+    "n_test": 6190,
+    "n_normal_test": 5134,
+    "n_attack_test": 1056,
+    "accuracy": 0.8873990306946689,
+    "precision": 0.997229916897507,
+    "recall": 0.3409090909090909,
+    "f1_score": 0.5081157374735357,
+    "roc_auc": 0.9257257764635053,
+    "confusion_matrix": [
+      [
+        5133,
+        1
+      ],
+      [
+        696,
+        360
+      ]
+    ],
+    "recon_error_normal_mean": 0.011932036839425564,
+    "recon_error_attack_mean": 12.981575965881348
+  },
+  "utilities": {
+    "client": "utilities",
+    "threshold": 1.2304315567016602,
+    "n_test": 2954,
+    "n_normal_test": 2208,
+    "n_attack_test": 746,
+    "accuracy": 0.8557887610020312,
+    "precision": 0.9938271604938271,
+    "recall": 0.4316353887399464,
+    "f1_score": 0.6018691588785047,
+    "roc_auc": 0.886114834673816,
+    "confusion_matrix": [
+      [
+        2206,
+        2
+      ],
+      [
+        424,
+        322
+      ]
+    ],
+    "recon_error_normal_mean": 0.008533867076039314,
+    "recon_error_attack_mean": 34.54448318481445
+  },
+  "sap": {
+    "client": "sap",
+    "threshold": 0.025013811886310577,
+    "n_test": 9057,
+    "n_normal_test": 2716,
+    "n_attack_test": 6341,
+    "accuracy": 0.8576791432041515,
+    "precision": 0.9964622641509434,
+    "recall": 0.7995584292698312,
+    "f1_score": 0.8872167293726485,
+    "roc_auc": 0.9750653460577177,
+    "confusion_matrix": [
+      [
+        2698,
+        18
+      ],
+      [
+        1271,
+        5070
+      ]
+    ],
+    "recon_error_normal_mean": 0.00396747887134552,
+    "recon_error_attack_mean": 1.6123110055923462
+  },
+  "pap": {
+    "client": "pap",
+    "threshold": 104.24349975585938,
+    "n_test": 33152,
+    "n_normal_test": 7284,
+    "n_attack_test": 25868,
+    "accuracy": 0.21980574324324326,
+    "precision": 1.0,
+    "recall": 0.00011597340343281275,
+    "f1_score": 0.00023191991032430135,
+    "roc_auc": 0.9328269941544989,
+    "confusion_matrix": [
+      [
+        7284,
+        0
+      ],
+      [
+        25865,
+        3
+      ]
+    ],
+    "recon_error_normal_mean": 0.007010140456259251,
+    "recon_error_attack_mean": 0.7790766954421997
+  },
+  "beneficiation": {
+    "client": "beneficiation",
+    "threshold": 0.032878655940294266,
+    "n_test": 40719,
+    "n_normal_test": 20963,
+    "n_attack_test": 19756,
+    "accuracy": 0.5503082099265699,
+    "precision": 0.9282750444576171,
+    "recall": 0.07926705810892894,
+    "f1_score": 0.1460616518211071,
+    "roc_auc": 0.6417616306623872,
+    "confusion_matrix": [
+      [
+        20842,
+        121
+      ],
+      [
+        18190,
+        1566
+      ]
+    ],
+    "recon_error_normal_mean": 0.0009648194536566734,
+    "recon_error_attack_mean": 0.007105142809450626
+  },
+  "granulation": {
+    "client": "granulation",
+    "threshold": 0.08941621333360672,
+    "n_test": 123449,
+    "n_normal_test": 63321,
+    "n_attack_test": 60128,
+    "accuracy": 0.5257474746656514,
+    "precision": 0.7649028801071668,
+    "recall": 0.03798563065460351,
+    "f1_score": 0.07237696865988529,
+    "roc_auc": 0.8476236591209716,
+    "confusion_matrix": [
+      [
+        62619,
+        702
+      ],
+      [
+        57844,
+        2284
+      ]
+    ],
+    "recon_error_normal_mean": 0.004713473375886679,
+    "recon_error_attack_mean": 0.04230385646224022
+  }
+}

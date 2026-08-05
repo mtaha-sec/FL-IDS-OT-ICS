@@ -3,45 +3,25 @@
     "client": "power",
     "model_type": "mlp",
     "n_train": 24759,
+    "n_val": 2476,
     "n_test": 6190,
-    "attack_ratio_train": 0.17064501345157623,
+    "pos_weight": 4.860862703840084,
+    "best_threshold": 0.5500000000000002,
+    "attack_ratio_train": 0.17062334716320038,
     "attack_ratio_test": 0.17059773206710815,
-    "accuracy": 0.9478190630048465,
-    "precision": 0.9014238773274917,
-    "recall": 0.7793560606060606,
-    "f1_score": 0.8359573387506348,
-    "roc_auc": 0.9542431399109914,
+    "accuracy": 0.9484652665589661,
+    "precision": 0.8834547346514048,
+    "recall": 0.8039772727272727,
+    "f1_score": 0.841844323252355,
+    "roc_auc": 0.9617722314693488,
     "confusion_matrix": [
       [
-        5044,
-        90
+        5022,
+        112
       ],
       [
-        233,
-        823
-      ]
-    ]
-  },
-  "power/logreg": {
-    "client": "power",
-    "model_type": "logreg",
-    "n_train": 24759,
-    "n_test": 6190,
-    "attack_ratio_train": 0.17064501345157623,
-    "attack_ratio_test": 0.17059773206710815,
-    "accuracy": 0.9092084006462036,
-    "precision": 0.9574074074074074,
-    "recall": 0.4895833333333333,
-    "f1_score": 0.6478696741854637,
-    "roc_auc": 0.7827600053416911,
-    "confusion_matrix": [
-      [
-        5111,
-        23
-      ],
-      [
-        539,
-        517
+        207,
+        849
       ]
     ]
   },
@@ -49,45 +29,25 @@
     "client": "utilities",
     "model_type": "mlp",
     "n_train": 11815,
+    "n_val": 1182,
     "n_test": 2954,
-    "attack_ratio_train": 0.25264495611190796,
+    "pos_weight": 2.95867460908414,
+    "best_threshold": 0.30000000000000004,
+    "attack_ratio_train": 0.2526097893714905,
     "attack_ratio_test": 0.25253891944885254,
-    "accuracy": 0.9617467840216656,
-    "precision": 0.9688888888888889,
-    "recall": 0.8766756032171582,
-    "f1_score": 0.9204785362420831,
-    "roc_auc": 0.9680172271438008,
+    "accuracy": 0.9610697359512526,
+    "precision": 0.9145860709592641,
+    "recall": 0.9329758713136729,
+    "f1_score": 0.9236894492368944,
+    "roc_auc": 0.972796946031006,
     "confusion_matrix": [
       [
-        2187,
-        21
+        2143,
+        65
       ],
       [
-        92,
-        654
-      ]
-    ]
-  },
-  "utilities/logreg": {
-    "client": "utilities",
-    "model_type": "logreg",
-    "n_train": 11815,
-    "n_test": 2954,
-    "attack_ratio_train": 0.25264495611190796,
-    "attack_ratio_test": 0.25253891944885254,
-    "accuracy": 0.9052132701421801,
-    "precision": 0.9515503875968992,
-    "recall": 0.6581769436997319,
-    "f1_score": 0.7781299524564184,
-    "roc_auc": 0.9255391678323035,
-    "confusion_matrix": [
-      [
-        2183,
-        25
-      ],
-      [
-        255,
-        491
+        50,
+        696
       ]
     ]
   },
@@ -95,45 +55,25 @@
     "client": "sap",
     "model_type": "mlp",
     "n_train": 36226,
+    "n_val": 3623,
     "n_test": 9057,
-    "attack_ratio_train": 0.7001048922538757,
+    "pos_weight": 0.4283273460089372,
+    "best_threshold": 0.1,
+    "attack_ratio_train": 0.7001196146011353,
     "attack_ratio_test": 0.7001214623451233,
-    "accuracy": 0.9783592801148283,
-    "precision": 0.9890179850389941,
-    "recall": 0.9799716133102034,
-    "f1_score": 0.9844740177439797,
-    "roc_auc": 0.9960119395039739,
+    "accuracy": 0.9822236943800375,
+    "precision": 0.9838709677419355,
+    "recall": 0.9908531777322189,
+    "f1_score": 0.9873497289227626,
+    "roc_auc": 0.995857400200068,
     "confusion_matrix": [
       [
-        2647,
-        69
+        2613,
+        103
       ],
       [
-        127,
-        6214
-      ]
-    ]
-  },
-  "sap/logreg": {
-    "client": "sap",
-    "model_type": "logreg",
-    "n_train": 36226,
-    "n_test": 9057,
-    "attack_ratio_train": 0.7001048922538757,
-    "attack_ratio_test": 0.7001214623451233,
-    "accuracy": 0.8723639174119465,
-    "precision": 0.8936977980258163,
-    "recall": 0.9280870525153762,
-    "f1_score": 0.9105678477487235,
-    "roc_auc": 0.9686361277879494,
-    "confusion_matrix": [
-      [
-        2016,
-        700
-      ],
-      [
-        456,
-        5885
+        58,
+        6283
       ]
     ]
   },
@@ -141,45 +81,25 @@
     "client": "pap",
     "model_type": "mlp",
     "n_train": 132608,
+    "n_val": 13261,
     "n_test": 33152,
-    "attack_ratio_train": 0.7802847623825073,
+    "pos_weight": 0.2815785234899329,
+    "best_threshold": 0.30000000000000004,
+    "attack_ratio_train": 0.7802877426147461,
     "attack_ratio_test": 0.7802847623825073,
-    "accuracy": 0.9563223938223938,
-    "precision": 0.9891826923076923,
-    "recall": 0.9544611102520488,
-    "f1_score": 0.9715117651688046,
-    "roc_auc": 0.9950743996025273,
+    "accuracy": 0.9576496138996139,
+    "precision": 0.9918771111468554,
+    "recall": 0.9535333230245864,
+    "f1_score": 0.9723273415326396,
+    "roc_auc": 0.9954521570118966,
     "confusion_matrix": [
       [
-        7014,
-        270
+        7082,
+        202
       ],
       [
-        1178,
-        24690
-      ]
-    ]
-  },
-  "pap/logreg": {
-    "client": "pap",
-    "model_type": "logreg",
-    "n_train": 132608,
-    "n_test": 33152,
-    "attack_ratio_train": 0.7802847623825073,
-    "attack_ratio_test": 0.7802847623825073,
-    "accuracy": 0.9494751447876448,
-    "precision": 0.977839225755481,
-    "recall": 0.9569352095252822,
-    "f1_score": 0.9672742902916984,
-    "roc_auc": 0.9713871928424349,
-    "confusion_matrix": [
-      [
-        6723,
-        561
-      ],
-      [
-        1114,
-        24754
+        1202,
+        24666
       ]
     ]
   },
@@ -187,45 +107,25 @@
     "client": "beneficiation",
     "model_type": "mlp",
     "n_train": 162873,
+    "n_val": 16288,
     "n_test": 40719,
-    "attack_ratio_train": 0.48517557978630066,
+    "pos_weight": 1.0611229066775405,
+    "best_threshold": 0.7000000000000002,
+    "attack_ratio_train": 0.48517242074012756,
     "attack_ratio_test": 0.4851789176464081,
-    "accuracy": 0.9358284830177558,
-    "precision": 0.9533985718064004,
-    "recall": 0.9123304312613889,
-    "f1_score": 0.9324125087297276,
-    "roc_auc": 0.9804976675948407,
+    "accuracy": 0.9371055281318303,
+    "precision": 0.9618090992103991,
+    "recall": 0.9063575622595668,
+    "f1_score": 0.9332603653610612,
+    "roc_auc": 0.9831248571696001,
     "confusion_matrix": [
       [
-        20082,
-        881
+        20252,
+        711
       ],
       [
-        1732,
-        18024
-      ]
-    ]
-  },
-  "beneficiation/logreg": {
-    "client": "beneficiation",
-    "model_type": "logreg",
-    "n_train": 162873,
-    "n_test": 40719,
-    "attack_ratio_train": 0.48517557978630066,
-    "attack_ratio_test": 0.4851789176464081,
-    "accuracy": 0.8878656155603035,
-    "precision": 0.8614601180277937,
-    "recall": 0.9162279813727475,
-    "f1_score": 0.8880003924646782,
-    "roc_auc": 0.9341466692677522,
-    "confusion_matrix": [
-      [
-        18052,
-        2911
-      ],
-      [
-        1655,
-        18101
+        1850,
+        17906
       ]
     ]
   },
@@ -233,45 +133,25 @@
     "client": "granulation",
     "model_type": "mlp",
     "n_train": 493793,
+    "n_val": 49380,
     "n_test": 123449,
-    "attack_ratio_train": 0.4870684742927551,
+    "pos_weight": 1.0530952600942438,
+    "best_threshold": 0.7000000000000002,
+    "attack_ratio_train": 0.4870694577693939,
     "attack_ratio_test": 0.4870675206184387,
-    "accuracy": 0.9756255619729605,
-    "precision": 0.9718784594286469,
-    "recall": 0.9782630388504524,
-    "f1_score": 0.9750602978839794,
-    "roc_auc": 0.9945847249939379,
+    "accuracy": 0.976540919732035,
+    "precision": 0.9719153006365645,
+    "recall": 0.9801589941458222,
+    "f1_score": 0.9760197406554825,
+    "roc_auc": 0.9950814951896727,
     "confusion_matrix": [
       [
-        61619,
-        1702
+        61618,
+        1703
       ],
       [
-        1307,
-        58821
-      ]
-    ]
-  },
-  "granulation/logreg": {
-    "client": "granulation",
-    "model_type": "logreg",
-    "n_train": 493793,
-    "n_test": 123449,
-    "attack_ratio_train": 0.4870684742927551,
-    "attack_ratio_test": 0.4870675206184387,
-    "accuracy": 0.8209057991559268,
-    "precision": 0.773553409794074,
-    "recall": 0.8940094465141033,
-    "f1_score": 0.829430870474236,
-    "roc_auc": 0.8995427515723442,
-    "confusion_matrix": [
-      [
-        47585,
-        15736
-      ],
-      [
-        6373,
-        53755
+        1193,
+        58935
       ]
     ]
   }
