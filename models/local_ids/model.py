@@ -13,30 +13,86 @@ import torch
 import torch.nn as nn
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+#  Architecture unique FL — NE PAS MODIFIER ces constantes sans regenerer
+#  tous les checkpoints clients et le modele global du serveur.
+# ─────────────────────────────────────────────────────────────────────────────
+FL_INPUT_DIM:   int   = 19
+FL_HIDDEN_DIMS: tuple = (64, 32, 16)
+FL_DROPOUT:     float = 0.2
+
+
 class IDSMLP(nn.Module):
     """
-    MLP pour classification binaire (label: normal=0 / attaque=1).
+    MLP pour classification binaire (normal=0 / attaque=1).
 
-    input_dim : nombre de features en entree (doit correspondre exactement a
-                len(get_model_feature_columns()) -- voir
-                preprocessing/feature_engineering.py::get_model_feature_columns,
-                ou simplement appeler models.local_ids.model.get_input_dim().
+    Architecture unique et figee pour le Federated Learning :
+        19 -> 64 -> 32 -> 16 -> 1
+
+    Pourquoi cette architecture ?
+      - Suffisamment profonde pour capturer des patterns d'attaque
+        complexes sur les grands clients (granulation, beneficiation).
+      - Suffisamment legere pour ne pas sur-apprendre sur les petits
+        clients (power: 22k flux, utilities: 11k flux).
+      - BatchNorm1d apres chaque couche : stabilise l'entrainement
+        distribue (les clients ont des distributions Non-IID differentes).
+      - Xavier init : convergence rapide des le round 1 du FL.
+
+    Contrainte FL (FedAvg) :
+      TOUS les clients et le serveur utilisent cette meme classe avec
+      les memes dimensions. FedAvg moyenne les poids layer par layer ;
+      si les shapes different, la moyenne est impossible.
     """
 
-    def __init__(self, input_dim: int, hidden_dims=(64, 32, 16), dropout: float = 0.2):
+    def __init__(self,
+                 input_dim:   int   = FL_INPUT_DIM,
+                 hidden_dims: tuple = FL_HIDDEN_DIMS,
+                 dropout:     float = FL_DROPOUT):
         super().__init__()
         layers = []
-        prev_dim = input_dim
+        prev = input_dim
         for h in hidden_dims:
-            layers.append(nn.Linear(prev_dim, h))
-            layers.append(nn.ReLU())
-            layers.append(nn.Dropout(dropout))
-            prev_dim = h
-        layers.append(nn.Linear(prev_dim, 1))  # sortie binaire (logit)
+            layers += [
+                nn.Linear(prev, h),
+                nn.BatchNorm1d(h),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+            ]
+            prev = h
+        layers.append(nn.Linear(prev, 1))   # logit binaire brut
         self.net = nn.Sequential(*layers)
 
+        # Initialisation Xavier pour une convergence rapide des le round 0
+        self._init_weights()
+
+    def _init_weights(self) -> None:
+        for m in self.modules():
+            if isinstance(m, nn.Linear):
+                nn.init.xavier_uniform_(m.weight)
+                nn.init.zeros_(m.bias)
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.net(x)  # logits bruts ; utiliser BCEWithLogitsLoss a l'entrainement
+        """Retourne un logit brut — utiliser BCEWithLogitsLoss a l'entrainement."""
+        return self.net(x)
+
+    # ── Methodes FL-ready ─────────────────────────────────────────────────────
+
+    def get_flat_params(self) -> torch.Tensor:
+        """Concatene tous les parametres entrainables en un vecteur 1D.
+        Utilise par le serveur FL pour collecter les deltas de chaque client."""
+        return torch.cat([p.data.view(-1) for p in self.parameters()])
+
+    def set_flat_params(self, flat: torch.Tensor) -> None:
+        """Injecte un vecteur 1D dans le modele (modele global -> client).
+        Utilise au debut de chaque round FL pour distribuer le modele global."""
+        offset = 0
+        for p in self.parameters():
+            n = p.numel()
+            p.data.copy_(flat[offset: offset + n].view_as(p))
+            offset += n
+
+    def count_parameters(self) -> int:
+        return sum(p.numel() for p in self.parameters() if p.requires_grad)
 
 
 class IDSLogisticRegression(nn.Module):

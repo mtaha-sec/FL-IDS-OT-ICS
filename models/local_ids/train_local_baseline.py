@@ -31,6 +31,7 @@ import pandas as pd
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score,
     confusion_matrix, roc_auc_score, classification_report,
@@ -65,30 +66,56 @@ def load_client_train_test(client_name: str, partitions_dir: str = "datasets/par
 
 
 def train_and_evaluate(client_name: str, model_type: str = "mlp",
-                        epochs: int = 10, batch_size: int = 64, lr: float = 1e-3) -> dict:
-    X_train, y_train, X_test, y_test, feature_cols = load_client_train_test(client_name)
+                        epochs: int = 10, batch_size: int = 64, lr: float = 1e-3,
+                        save_checkpoint: bool = False,
+                        checkpoints_dir: str = "checkpoints/mlp",
+                        patience: int = 5) -> dict:
+
+    X_train_full, y_train_full, X_test, y_test, feature_cols = load_client_train_test(client_name)
     input_dim = len(feature_cols)
 
-    logger.info("[%s] %d features, train=%d (attaque=%.1f%%), test=%d (attaque=%.1f%%), model_type=%s",
+    # ── Split validation interne (A4) ─────────────────────────────────────────
+    X_train, X_val, y_train, y_val = train_test_split(
+        X_train_full, y_train_full, test_size=0.1, random_state=42, stratify=y_train_full
+    )
+
+    # ── pos_weight auto-calcule par client (equilibre classes local) ──────────
+    n_normal  = int((y_train == 0).sum())
+    n_attack  = int((y_train == 1).sum())
+    pos_w     = n_normal / max(n_attack, 1)
+    pos_weight_tensor = torch.tensor([pos_w], dtype=torch.float32).to(DEVICE)
+
+    logger.info("[%s] %d features, train=%d (attaque=%.1f%%), test=%d (attaque=%.1f%%), model_type=%s  pos_weight=%.3f",
                 client_name, input_dim, len(X_train), 100 * y_train.mean(),
-                len(X_test), 100 * y_test.mean(), model_type)
+                len(X_test), 100 * y_test.mean(), model_type, pos_w)
 
     train_loader = DataLoader(
         TensorDataset(torch.tensor(X_train), torch.tensor(y_train)),
         batch_size=batch_size, shuffle=True,
+    )
+    val_loader = DataLoader(
+        TensorDataset(torch.tensor(X_val), torch.tensor(y_val)),
+        batch_size=batch_size, shuffle=False,
     )
     test_loader = DataLoader(
         TensorDataset(torch.tensor(X_test), torch.tensor(y_test)),
         batch_size=batch_size, shuffle=False,
     )
 
-    model = build_model(model_type, input_dim=input_dim).to(DEVICE)
-    criterion = nn.BCEWithLogitsLoss()
+    model_kwargs = {}
+    model = build_model(model_type, input_dim=input_dim, **model_kwargs).to(DEVICE)
+
+    criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight_tensor)
+    val_criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight_tensor)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
-    # --- Entrainement local (baseline, sans federation) ---
-    model.train()
+    # --- Entrainement local avec Early Stopping (A4) ---
+    best_val_loss = float("inf")
+    patience_counter = 0
+    best_model_state = None
+
     for epoch in range(epochs):
+        model.train()
         epoch_loss = 0.0
         for xb, yb in train_loader:
             xb, yb = xb.to(DEVICE), yb.to(DEVICE)
@@ -98,9 +125,58 @@ def train_and_evaluate(client_name: str, model_type: str = "mlp",
             loss.backward()
             optimizer.step()
             epoch_loss += loss.item() * xb.size(0)
-        avg_loss = epoch_loss / len(train_loader.dataset)
+        avg_train_loss = epoch_loss / len(train_loader.dataset)
+        
+        # --- Validation ---
+        model.eval()
+        val_loss = 0.0
+        with torch.no_grad():
+            for xb, yb in val_loader:
+                xb, yb = xb.to(DEVICE), yb.to(DEVICE)
+                logits = model(xb).squeeze(1)
+                loss = val_criterion(logits, yb)
+                val_loss += loss.item() * xb.size(0)
+        avg_val_loss = val_loss / len(val_loader.dataset)
+
         if (epoch + 1) % max(1, epochs // 5) == 0 or epoch == 0:
-            logger.info("[%s] epoch %d/%d - train_loss=%.4f", client_name, epoch + 1, epochs, avg_loss)
+            logger.info("[%s] epoch %d/%d - train_loss=%.4f - val_loss=%.4f", client_name, epoch + 1, epochs, avg_train_loss, avg_val_loss)
+
+        if avg_val_loss < best_val_loss:
+            best_val_loss = avg_val_loss
+            patience_counter = 0
+            best_model_state = model.state_dict()
+        else:
+            patience_counter += 1
+            if patience_counter >= patience:
+                logger.info("[%s] Early stopping a l'epoch %d (best_val_loss=%.4f)", client_name, epoch + 1, best_val_loss)
+                break
+                
+    if best_model_state is not None:
+        model.load_state_dict(best_model_state)
+
+    # --- Calibrer le seuil (A5) ---
+    model.eval()
+    val_probs, val_labels = [], []
+    with torch.no_grad():
+        for xb, yb in val_loader:
+            xb = xb.to(DEVICE)
+            logits = model(xb).squeeze(1)
+            probs = torch.sigmoid(logits).cpu().numpy()
+            val_probs.extend(probs)
+            val_labels.extend(yb.numpy().astype(int))
+            
+    val_probs = np.array(val_probs)
+    val_labels = np.array(val_labels)
+    best_thresh = 0.5
+    best_f1 = 0.0
+    for thresh in np.arange(0.1, 0.9, 0.05):
+        preds = (val_probs > thresh).astype(int)
+        f1 = f1_score(val_labels, preds, zero_division=0)
+        if f1 > best_f1:
+            best_f1 = f1
+            best_thresh = float(thresh)
+            
+    logger.info("[%s] Seuil optimal : %.2f (F1_val=%.4f)", client_name, best_thresh, best_f1)
 
     # --- Evaluation complete (pas seulement l'accuracy) ---
     model.eval()
@@ -110,7 +186,7 @@ def train_and_evaluate(client_name: str, model_type: str = "mlp",
             xb = xb.to(DEVICE)
             logits = model(xb).squeeze(1)
             probs = torch.sigmoid(logits).cpu().numpy()
-            preds = (probs > 0.5).astype(int)
+            preds = (probs > best_thresh).astype(int)
             all_preds.extend(preds)
             all_probs.extend(probs)
             all_labels.extend(yb.numpy().astype(int))
@@ -118,8 +194,11 @@ def train_and_evaluate(client_name: str, model_type: str = "mlp",
     metrics = {
         "client": client_name,
         "model_type": model_type,
-        "n_train": len(X_train),
+        "n_train": len(X_train_full),
+        "n_val": len(X_val),
         "n_test": len(X_test),
+        "pos_weight": pos_w,
+        "best_threshold": best_thresh,
         "attack_ratio_train": float(y_train.mean()),
         "attack_ratio_test": float(y_test.mean()),
         "accuracy": accuracy_score(all_labels, all_preds),
@@ -137,6 +216,23 @@ def train_and_evaluate(client_name: str, model_type: str = "mlp",
     logger.info("Matrice de confusion [[TN,FP],[FN,TP]] :\n%s", np.array(metrics["confusion_matrix"]))
     print(classification_report(all_labels, all_preds, target_names=["normal", "attaque"], zero_division=0))
 
+    # ── Sauvegarde checkpoint ─────────────────────────────────────────────────
+    if save_checkpoint:
+        os.makedirs(checkpoints_dir, exist_ok=True)
+        ckpt_path = os.path.join(checkpoints_dir, f"{model_type}_{client_name}.pt")
+        torch.save({
+            "model_state_dict": model.state_dict(),
+            "model_type":       model_type,
+            "input_dim":        input_dim,
+            "pos_weight":       pos_w,
+            "best_threshold":   best_thresh,
+            "metrics":          metrics,
+        }, ckpt_path)
+        logger.info("[%s] Checkpoint sauvegarde : %s", client_name, ckpt_path)
+        metrics["checkpoint_path"] = ckpt_path
+
+    # Retourne aussi le modele entraine (utile pour le detecteur hybride)
+    metrics["_model"] = model
     return metrics
 
 
@@ -163,7 +259,11 @@ def main():
     parser.add_argument("--all", action="store_true", help="Tester les 6 clients d'affilee")
     parser.add_argument("--model-type", choices=["mlp", "logreg", "both"], default="mlp",
                          help="'both' entraine et compare les deux modeles sur chaque client")
-    parser.add_argument("--epochs", type=int, default=10)
+    parser.add_argument("--epochs", type=int, default=None, help="Force le nombre d'epochs (sinon config optimale)")
+    parser.add_argument("--lr", type=float, default=None, help="Force le learning rate (sinon config optimale)")
+    parser.add_argument("--batch-size", type=int, default=None, help="Force la taille du batch (sinon config optimale)")
+    parser.add_argument("--save", action="store_true",
+                         help="Sauvegarder le checkpoint dans checkpoints/mlp/")
     parser.add_argument("--save-metrics", action="store_true",
                          help="Sauvegarder les metriques dans results/metrics/")
     args = parser.parse_args()
@@ -176,9 +276,30 @@ def main():
 
     all_results = {}  # cle = "client/model_type"
 
+    # ── Configs (A1 epochs, A2 LR, A4 patience, A6 batch) ─────────────────────
+    # Architecture unique FL figee dans models/local_ids/model.py (A3 supprime)
+    EPOCHS_CONFIG  = {"power": 25, "utilities": 25, "sap": 15, "pap": 20, "beneficiation": 30, "granulation": 20}
+    LR_CONFIG      = {"power": 1e-3, "utilities": 1e-3, "sap": 1e-3, "pap": 1e-3, "beneficiation": 5e-4, "granulation": 1e-3}
+    BATCH_CONFIG   = {"power": 64, "utilities": 64, "sap": 128, "pap": 256, "beneficiation": 512, "granulation": 1024}
+    PATIENCE_CONFIG = {"power": 8, "utilities": 8, "sap": 5, "pap": 5, "beneficiation": 10, "granulation": 5}
+
     for client_name in clients_to_test:
+        c_epochs   = args.epochs     if args.epochs     is not None else EPOCHS_CONFIG.get(client_name, 10)
+        c_lr       = args.lr         if args.lr         is not None else LR_CONFIG.get(client_name, 1e-3)
+        c_batch    = args.batch_size if args.batch_size is not None else BATCH_CONFIG.get(client_name, 64)
+        c_patience = PATIENCE_CONFIG.get(client_name, 5)
+
         for model_type in model_types:
-            metrics = train_and_evaluate(client_name, model_type=model_type, epochs=args.epochs)
+            metrics = train_and_evaluate(
+                client_name,
+                model_type       = model_type,
+                epochs           = c_epochs,
+                batch_size       = c_batch,
+                lr               = c_lr,
+                save_checkpoint  = args.save,
+                checkpoints_dir  = "checkpoints/mlp",
+                patience         = c_patience,
+            )
             interpret(metrics)
             all_results[f"{client_name}/{model_type}"] = metrics
             print("-" * 70)
@@ -198,9 +319,13 @@ def main():
     if args.save_metrics:
         os.makedirs("results/metrics", exist_ok=True)
         out_path = "results/metrics/local_baseline_metrics.json"
+        # Retirer la cle _model (objet PyTorch non-serialisable en JSON)
+        serializable = {k: {kk: vv for kk, vv in v.items() if kk != "_model"}
+                        for k, v in all_results.items()}
         with open(out_path, "w") as f:
-            json.dump(all_results, f, indent=2)
+            json.dump(serializable, f, indent=2)
         logger.info("Metriques sauvegardees : %s", out_path)
+
 
 
 if __name__ == "__main__":

@@ -1,0 +1,470 @@
+{
+  "power": {
+    "mlp": {
+      "client": "power",
+      "model_type": "mlp",
+      "n_train": 24759,
+      "n_test": 6190,
+      "pos_weight": 4.860118343195266,
+      "attack_ratio_train": 0.17064501345157623,
+      "attack_ratio_test": 0.17059773206710815,
+      "accuracy": 0.9378029079159935,
+      "precision": 0.818613485280152,
+      "recall": 0.8162878787878788,
+      "f1_score": 0.8174490279753438,
+      "roc_auc": 0.9532089250510558,
+      "confusion_matrix": [
+        [
+          4943,
+          191
+        ],
+        [
+          194,
+          862
+        ]
+      ],
+      "checkpoint_path": "checkpoints/mlp\\mlp_power.pt"
+    },
+    "ae": {
+      "client": "power",
+      "threshold": 1.0707811117172241,
+      "n_test": 6190,
+      "n_normal_test": 5134,
+      "n_attack_test": 1056,
+      "accuracy": 0.8969305331179321,
+      "precision": 0.995260663507109,
+      "recall": 0.3977272727272727,
+      "f1_score": 0.5683355886332883,
+      "roc_auc": 0.9250316886236735,
+      "confusion_matrix": [
+        [
+          5132,
+          2
+        ],
+        [
+          636,
+          420
+        ]
+      ],
+      "recon_error_normal_mean": 0.0022319185081869364,
+      "recon_error_attack_mean": 13.001714706420898
+    },
+    "hybrid": {
+      "client": "power",
+      "n_test": 6190,
+      "n_normal": 5134,
+      "n_attack": 1056,
+      "n_pred_normal": 5768,
+      "n_pred_known_atk": 422,
+      "n_pred_zero_day": 0,
+      "zero_day_real_atk": 0,
+      "accuracy": 0.8969305331179321,
+      "precision": 0.995260663507109,
+      "recall": 0.3977272727272727,
+      "f1_score": 0.5683355886332883,
+      "roc_auc": 0.9532089250510558,
+      "confusion_matrix": [
+        [
+          5132,
+          2
+        ],
+        [
+          636,
+          420
+        ]
+      ],
+      "ae_threshold": 1.0707811117172241,
+      "mlp_threshold": 0.5
+    }
+  },
+  "utilities": {
+    "mlp": {
+      "client": "utilities",
+      "model_type": "mlp",
+      "n_train": 11815,
+      "n_test": 2954,
+      "pos_weight": 2.9581239530988275,
+      "attack_ratio_train": 0.25264495611190796,
+      "attack_ratio_test": 0.25253891944885254,
+      "accuracy": 0.9248476641841571,
+      "precision": 0.909375,
+      "recall": 0.7801608579088471,
+      "f1_score": 0.8398268398268398,
+      "roc_auc": 0.9577732811710766,
+      "confusion_matrix": [
+        [
+          2150,
+          58
+        ],
+        [
+          164,
+          582
+        ]
+      ],
+      "checkpoint_path": "checkpoints/mlp\\mlp_utilities.pt"
+    },
+    "ae": {
+      "client": "utilities",
+      "threshold": 0.10051355510950089,
+      "n_test": 2954,
+      "n_normal_test": 2208,
+      "n_attack_test": 746,
+      "accuracy": 0.9041976980365606,
+      "precision": 0.9873684210526316,
+      "recall": 0.628686327077748,
+      "f1_score": 0.7682227682227682,
+      "roc_auc": 0.9246054440105684,
+      "confusion_matrix": [
+        [
+          2202,
+          6
+        ],
+        [
+          277,
+          469
+        ]
+      ],
+      "recon_error_normal_mean": 0.005225101951509714,
+      "recon_error_attack_mean": 44.449867248535156
+    },
+    "hybrid": {
+      "client": "utilities",
+      "n_test": 2954,
+      "n_normal": 2208,
+      "n_attack": 746,
+      "n_pred_normal": 2479,
+      "n_pred_known_atk": 473,
+      "n_pred_zero_day": 2,
+      "zero_day_real_atk": 0,
+      "accuracy": 0.9041976980365606,
+      "precision": 0.9873684210526316,
+      "recall": 0.628686327077748,
+      "f1_score": 0.7682227682227682,
+      "roc_auc": 0.9577732811710766,
+      "confusion_matrix": [
+        [
+          2202,
+          6
+        ],
+        [
+          277,
+          469
+        ]
+      ],
+      "ae_threshold": 0.10051355510950089,
+      "mlp_threshold": 0.5
+    }
+  },
+  "sap": {
+    "mlp": {
+      "client": "sap",
+      "model_type": "mlp",
+      "n_train": 36226,
+      "n_test": 9057,
+      "pos_weight": 0.4283573850642694,
+      "attack_ratio_train": 0.7001048922538757,
+      "attack_ratio_test": 0.7001214623451233,
+      "accuracy": 0.9726178646350889,
+      "precision": 0.9895548770689379,
+      "recall": 0.9711401987068286,
+      "f1_score": 0.9802610633556192,
+      "roc_auc": 0.9946722408042292,
+      "confusion_matrix": [
+        [
+          2651,
+          65
+        ],
+        [
+          183,
+          6158
+        ]
+      ],
+      "checkpoint_path": "checkpoints/mlp\\mlp_sap.pt"
+    },
+    "ae": {
+      "client": "sap",
+      "threshold": 0.022034408524632454,
+      "n_test": 9057,
+      "n_normal_test": 2716,
+      "n_attack_test": 6341,
+      "accuracy": 0.8659600309153141,
+      "precision": 0.995937318630296,
+      "recall": 0.8118593281816748,
+      "f1_score": 0.8945264986967854,
+      "roc_auc": 0.9647556612540265,
+      "confusion_matrix": [
+        [
+          2695,
+          21
+        ],
+        [
+          1193,
+          5148
+        ]
+      ],
+      "recon_error_normal_mean": 0.004427056293934584,
+      "recon_error_attack_mean": 1.6241390705108643
+    },
+    "hybrid": {
+      "client": "sap",
+      "n_test": 9057,
+      "n_normal": 2716,
+      "n_attack": 6341,
+      "n_pred_normal": 3888,
+      "n_pred_known_atk": 5150,
+      "n_pred_zero_day": 19,
+      "zero_day_real_atk": 6,
+      "accuracy": 0.8659600309153141,
+      "precision": 0.995937318630296,
+      "recall": 0.8118593281816748,
+      "f1_score": 0.8945264986967854,
+      "roc_auc": 0.9946722408042292,
+      "confusion_matrix": [
+        [
+          2695,
+          21
+        ],
+        [
+          1193,
+          5148
+        ]
+      ],
+      "ae_threshold": 0.022034408524632454,
+      "mlp_threshold": 0.5
+    }
+  },
+  "pap": {
+    "mlp": {
+      "client": "pap",
+      "model_type": "mlp",
+      "n_train": 132608,
+      "n_test": 33152,
+      "pos_weight": 0.2815834235348693,
+      "attack_ratio_train": 0.7802847623825073,
+      "attack_ratio_test": 0.7802847623825073,
+      "accuracy": 0.9545125482625483,
+      "precision": 0.992758313779432,
+      "recall": 0.9486237822792639,
+      "f1_score": 0.9701893804609971,
+      "roc_auc": 0.9949310887013333,
+      "confusion_matrix": [
+        [
+          7105,
+          179
+        ],
+        [
+          1329,
+          24539
+        ]
+      ],
+      "checkpoint_path": "checkpoints/mlp\\mlp_pap.pt"
+    },
+    "ae": {
+      "client": "pap",
+      "threshold": 60.12394332885742,
+      "n_test": 33152,
+      "n_normal_test": 7284,
+      "n_attack_test": 25868,
+      "accuracy": 0.21980574324324326,
+      "precision": 1.0,
+      "recall": 0.00011597340343281275,
+      "f1_score": 0.00023191991032430135,
+      "roc_auc": 0.9449217511758893,
+      "confusion_matrix": [
+        [
+          7284,
+          0
+        ],
+        [
+          25865,
+          3
+        ]
+      ],
+      "recon_error_normal_mean": 0.007854207418859005,
+      "recon_error_attack_mean": 0.9867207407951355
+    },
+    "hybrid": {
+      "client": "pap",
+      "n_test": 33152,
+      "n_normal": 7284,
+      "n_attack": 25868,
+      "n_pred_normal": 33149,
+      "n_pred_known_atk": 3,
+      "n_pred_zero_day": 0,
+      "zero_day_real_atk": 0,
+      "accuracy": 0.21980574324324326,
+      "precision": 1.0,
+      "recall": 0.00011597340343281275,
+      "f1_score": 0.00023191991032430135,
+      "roc_auc": 0.9949310887013333,
+      "confusion_matrix": [
+        [
+          7284,
+          0
+        ],
+        [
+          25865,
+          3
+        ]
+      ],
+      "ae_threshold": 60.12394332885742,
+      "mlp_threshold": 0.5
+    }
+  },
+  "beneficiation": {
+    "mlp": {
+      "client": "beneficiation",
+      "model_type": "mlp",
+      "n_train": 162873,
+      "n_test": 40719,
+      "pos_weight": 1.0611095644250967,
+      "attack_ratio_train": 0.48517557978630066,
+      "attack_ratio_test": 0.4851789176464081,
+      "accuracy": 0.9329305729512022,
+      "precision": 0.9476728898238233,
+      "recall": 0.9121279611257339,
+      "f1_score": 0.9295607541719326,
+      "roc_auc": 0.9792763949347716,
+      "confusion_matrix": [
+        [
+          19968,
+          995
+        ],
+        [
+          1736,
+          18020
+        ]
+      ],
+      "checkpoint_path": "checkpoints/mlp\\mlp_beneficiation.pt"
+    },
+    "ae": {
+      "client": "beneficiation",
+      "threshold": 0.049606189131736755,
+      "n_test": 40719,
+      "n_normal_test": 20963,
+      "n_attack_test": 19756,
+      "accuracy": 0.5500626243277095,
+      "precision": 0.9470404984423676,
+      "recall": 0.07693865154889654,
+      "f1_score": 0.1423154346706615,
+      "roc_auc": 0.7040482386281359,
+      "confusion_matrix": [
+        [
+          20878,
+          85
+        ],
+        [
+          18236,
+          1520
+        ]
+      ],
+      "recon_error_normal_mean": 0.002023945329710841,
+      "recon_error_attack_mean": 0.008468477055430412
+    },
+    "hybrid": {
+      "client": "beneficiation",
+      "n_test": 40719,
+      "n_normal": 20963,
+      "n_attack": 19756,
+      "n_pred_normal": 39114,
+      "n_pred_known_atk": 1518,
+      "n_pred_zero_day": 87,
+      "zero_day_real_atk": 2,
+      "accuracy": 0.5500626243277095,
+      "precision": 0.9470404984423676,
+      "recall": 0.07693865154889654,
+      "f1_score": 0.1423154346706615,
+      "roc_auc": 0.9792763949347716,
+      "confusion_matrix": [
+        [
+          20878,
+          85
+        ],
+        [
+          18236,
+          1520
+        ]
+      ],
+      "ae_threshold": 0.049606189131736755,
+      "mlp_threshold": 0.5
+    }
+  },
+  "granulation": {
+    "mlp": {
+      "client": "granulation",
+      "model_type": "mlp",
+      "n_train": 493793,
+      "n_test": 123449,
+      "pos_weight": 1.0530994424371443,
+      "attack_ratio_train": 0.4870684742927551,
+      "attack_ratio_test": 0.4870675206184387,
+      "accuracy": 0.974872214436731,
+      "precision": 0.9671046164935618,
+      "recall": 0.9818054816391698,
+      "f1_score": 0.9743996038623421,
+      "roc_auc": 0.9943790932822675,
+      "confusion_matrix": [
+        [
+          61313,
+          2008
+        ],
+        [
+          1094,
+          59034
+        ]
+      ],
+      "checkpoint_path": "checkpoints/mlp\\mlp_granulation.pt"
+    },
+    "ae": {
+      "client": "granulation",
+      "threshold": 0.18482211232185364,
+      "n_test": 123449,
+      "n_normal_test": 63321,
+      "n_attack_test": 60128,
+      "accuracy": 0.5259661884664922,
+      "precision": 0.9098318899643403,
+      "recall": 0.029703299627461415,
+      "f1_score": 0.057528466283358295,
+      "roc_auc": 0.8277278756200015,
+      "confusion_matrix": [
+        [
+          63144,
+          177
+        ],
+        [
+          58342,
+          1786
+        ]
+      ],
+      "recon_error_normal_mean": 0.004754130728542805,
+      "recon_error_attack_mean": 0.03404810279607773
+    },
+    "hybrid": {
+      "client": "granulation",
+      "n_test": 123449,
+      "n_normal": 63321,
+      "n_attack": 60128,
+      "n_pred_normal": 121486,
+      "n_pred_known_atk": 1758,
+      "n_pred_zero_day": 205,
+      "zero_day_real_atk": 28,
+      "accuracy": 0.5259661884664922,
+      "precision": 0.9098318899643403,
+      "recall": 0.029703299627461415,
+      "f1_score": 0.057528466283358295,
+      "roc_auc": 0.9943790932822675,
+      "confusion_matrix": [
+        [
+          63144,
+          177
+        ],
+        [
+          58342,
+          1786
+        ]
+      ],
+      "ae_threshold": 0.18482211232185364,
+      "mlp_threshold": 0.5
+    }
+  }
+}
