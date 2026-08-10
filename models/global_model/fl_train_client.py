@@ -3,21 +3,27 @@ models/global_model/fl_train_client.py
 ========================================
 Script d'entrainement local pour UN ROUND de Federated Learning.
 
+Nouveaute : support FedProx
+----------------------------
+Chaque client minimise desormais :
+
+    L(w) = F_k(w ; D_k) + (μ/2) · ‖w − w_global‖²
+
+  - F_k      : loss de tache (BCEWithLogitsLoss pondere)
+  - μ        : coefficient proximal (0 = FedAvg standard)
+  - w_global : poids du modele global recu du serveur (fige pendant le round)
+
+Le terme proximal empeche la derive excessive des clients sur des donnees
+Non-IID (chaque site industriel a un profil de trafic tres different).
+
 Workflow d'un round FL :
   1. Le serveur envoie le modele global (fl_model.pt) a chaque client.
   2. Chaque client charge ses donnees locales et fait N epochs
-     d'entrainement sur ce modele.
-  3. Chaque client renvoie ses poids mis a jour au serveur.
-  4. Le serveur effectue FedAvg et produit le nouveau modele global.
-
-Ce script implemente l'etape 2 pour un client donne.
-
-Differences avec train_local_baseline.py :
-  - Architecture FIGEE (FLIDSModel), independamment du client (pas d'A3).
-  - Peut recevoir un modele global en entree (--global-model).
-  - Retourne les poids mis a jour dans un checkpoint (--save-delta).
-  - Conserve A1 (epochs), A2 (lr), A4 (early stopping), A5 (threshold),
-    A6 (batch size) qui sont tous compatibles avec la federation.
+     d'entrainement avec le terme proximal FedProx.
+  3. Chaque client chiffre ses poids avec la cle HE et les renvoie au serveur.
+  4. Le serveur effectue l'agregation DANS LE DOMAINE CHIFFRE (HE) et
+     produit le nouveau modele global chiffre.
+  5. Les clients dechiffrent le modele global avec leur cle secrete.
 
 Usage :
     # Round 0 (initialisation) : sans modele global
@@ -27,16 +33,18 @@ Usage :
     python -m models.global_model.fl_train_client \\
         --client power \\
         --global-model checkpoints/fl/global_round_3.pt \\
+        --mu 0.01 \\
         --save
-        
+
     # Tous les clients en un seul appel (simulation locale)
-    python -m models.global_model.fl_train_client --all --save
+    python -m models.global_model.fl_train_client --all --mu 0.01 --save
 """
 
 import argparse
 import json
 import logging
 import os
+from typing import Dict, List, Optional
 
 import numpy as np
 import pandas as pd
@@ -61,18 +69,21 @@ logger = logging.getLogger(__name__)
 DEVICE      = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 ALL_CLIENTS = ["power", "utilities", "sap", "pap", "beneficiation", "granulation"]
 
-# ─── Configs par client (A1, A2, A6 conserves, A3 supprime) ──────────────────
-EPOCHS_CONFIG  = {"power": 25, "utilities": 25, "sap": 15,
-                  "pap":   20, "beneficiation": 30, "granulation": 20}
-LR_CONFIG      = {"power": 1e-3, "utilities": 1e-3, "sap": 1e-3,
-                  "pap":   1e-3, "beneficiation": 5e-4, "granulation": 1e-3}
-BATCH_CONFIG   = {"power": 64, "utilities": 64,  "sap": 128,
-                  "pap":   256, "beneficiation": 512, "granulation": 1024}
+# ─── Configs par client ──────────────────────────────────────────────────────
+EPOCHS_CONFIG   = {"power": 25, "utilities": 25, "sap": 15,
+                   "pap":   20, "beneficiation": 30, "granulation": 20}
+LR_CONFIG       = {"power": 1e-3, "utilities": 1e-3, "sap": 1e-3,
+                   "pap":   1e-3, "beneficiation": 5e-4, "granulation": 1e-3}
+BATCH_CONFIG    = {"power": 64, "utilities": 64,  "sap": 128,
+                   "pap":   256, "beneficiation": 512, "granulation": 1024}
 PATIENCE_CONFIG = {"power": 8, "utilities": 8, "sap": 5,
                    "pap":   5, "beneficiation": 10, "granulation": 5}
 
 
-def load_client_data(client_name: str, partitions_dir: str = "datasets/partitions"):
+def load_client_data(
+    client_name: str,
+    partitions_dir: str = "datasets/partitions",
+):
     client_dir   = os.path.join(partitions_dir, client_name)
     train_df     = pd.read_csv(os.path.join(client_dir, "train.csv"))
     test_df      = pd.read_csv(os.path.join(client_dir, "test.csv"))
@@ -89,15 +100,18 @@ def load_client_data(client_name: str, partitions_dir: str = "datasets/partition
     return X_train, y_train, X_test, y_test
 
 
-def train_fl_client(client_name:   str,
-                    global_model_path: str = None,
-                    partitions_dir: str = "datasets/partitions",
-                    save_dir:       str = "checkpoints/fl",
-                    save:           bool = False,
-                    epochs:         int  = None,
-                    lr:             float = None,
-                    batch_size:     int  = None,
-                    patience:       int  = None) -> dict:
+def train_fl_client(
+    client_name:        str,
+    global_model_path:  Optional[str] = None,
+    partitions_dir:     str   = "datasets/partitions",
+    save_dir:           str   = "checkpoints/fl",
+    save:               bool  = False,
+    epochs:             Optional[int]   = None,
+    lr:                 Optional[float] = None,
+    batch_size:         Optional[int]   = None,
+    patience:           Optional[int]   = None,
+    mu:                 float = 0.0,
+) -> Dict:
     """
     Entraine le FLIDSModel (architecture unique) sur les donnees d'un client.
 
@@ -110,6 +124,8 @@ def train_fl_client(client_name:   str,
     save_dir          : ou sauvegarder le checkpoint local post-entrainement
     save              : si True, sauvegarde le checkpoint
     epochs/lr/batch_size/patience : surcharge les configs par defaut
+    mu                : coefficient proximal FedProx (0 = FedAvg standard)
+                        Ajoute (μ/2)‖w − w_global‖² a la loss de tache.
     """
 
     # ── Configs par defaut par client ────────────────────────────────────────
@@ -132,10 +148,10 @@ def train_fl_client(client_name:   str,
 
     logger.info(
         "[%s] train=%d | val=%d | test=%d | attaque=%.1f%% | pos_w=%.3f | "
-        "epochs=%d | lr=%s | batch=%d | patience=%d | arch=%s",
+        "epochs=%d | lr=%s | batch=%d | patience=%d | arch=%s | μ=%.4f",
         client_name, len(X_train), len(X_val), len(X_test),
         100 * y_all.mean(), pos_w,
-        c_epochs, c_lr, c_batch, c_patience, "(64→32→16)",
+        c_epochs, c_lr, c_batch, c_patience, "(64→32→16)", mu,
     )
 
     # ── Modele : charge depuis le serveur ou initialise alea ─────────────────
@@ -146,6 +162,12 @@ def train_fl_client(client_name:   str,
         logger.info("[%s] Modele global charge : %s", client_name, global_model_path)
     else:
         logger.info("[%s] Initialisation aleatoire (round 0)", client_name)
+
+    # ── Frozen copy of global weights for FedProx proximal term ──────────────
+    global_weights: Optional[List[torch.Tensor]] = None
+    if mu > 0.0 and global_model_path and os.path.exists(global_model_path):
+        global_weights = [p.data.clone().to(DEVICE) for p in model.parameters()]
+        logger.info("[%s] FedProx — poids globaux figes, μ=%.4f", client_name, mu)
 
     # ── DataLoaders ───────────────────────────────────────────────────────────
     train_loader = DataLoader(
@@ -165,10 +187,10 @@ def train_fl_client(client_name:   str,
     criterion         = nn.BCEWithLogitsLoss(pos_weight=pos_weight_tensor)
     optimizer         = torch.optim.Adam(model.parameters(), lr=c_lr)
 
-    # ── Entrainement avec Early Stopping (A4) ─────────────────────────────────
-    best_val_loss   = float("inf")
-    patience_ctr    = 0
-    best_state      = None
+    # ── Entrainement avec Early Stopping (A4) + FedProx ──────────────────────
+    best_val_loss = float("inf")
+    patience_ctr  = 0
+    best_state    = None
 
     for epoch in range(c_epochs):
         model.train()
@@ -176,10 +198,22 @@ def train_fl_client(client_name:   str,
         for xb, yb in train_loader:
             xb, yb = xb.to(DEVICE), yb.to(DEVICE)
             optimizer.zero_grad()
-            loss = criterion(model(xb).squeeze(1), yb)
+
+            task_loss = criterion(model(xb).squeeze(1), yb)
+
+            # FedProx: proximal term  (μ/2)‖w − w_global‖²
+            if global_weights is not None:
+                prox_loss = (mu / 2.0) * sum(
+                    ((p - g) ** 2).sum()
+                    for p, g in zip(model.parameters(), global_weights)
+                )
+                loss = task_loss + prox_loss
+            else:
+                loss = task_loss
+
             loss.backward()
             optimizer.step()
-            train_loss += loss.item() * xb.size(0)
+            train_loss += task_loss.item() * xb.size(0)   # log task loss only
         train_loss /= len(train_loader.dataset)
 
         model.eval()
@@ -192,8 +226,10 @@ def train_fl_client(client_name:   str,
 
         log_every = max(1, c_epochs // 5)
         if (epoch + 1) % log_every == 0 or epoch == 0:
-            logger.info("[%s] epoch %02d/%d  train=%.4f  val=%.4f",
-                        client_name, epoch + 1, c_epochs, train_loss, val_loss)
+            logger.info(
+                "[%s] epoch %02d/%d  train=%.4f  val=%.4f  μ=%.4f",
+                client_name, epoch + 1, c_epochs, train_loss, val_loss, mu,
+            )
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss
@@ -202,8 +238,10 @@ def train_fl_client(client_name:   str,
         else:
             patience_ctr += 1
             if patience_ctr >= c_patience:
-                logger.info("[%s] Early stopping @ epoch %d (best_val=%.4f)",
-                            client_name, epoch + 1, best_val_loss)
+                logger.info(
+                    "[%s] Early stopping @ epoch %d (best_val=%.4f)",
+                    client_name, epoch + 1, best_val_loss,
+                )
                 break
 
     if best_state:
@@ -237,25 +275,31 @@ def train_fl_client(client_name:   str,
             all_true.extend(yb.numpy().astype(int))
 
     metrics = {
-        "client":        client_name,
-        "n_train":       len(X_all),
-        "n_test":        len(X_test),
-        "pos_weight":    pos_w,
-        "best_threshold":best_thr,
-        "accuracy":      float(accuracy_score(all_true, all_preds)),
-        "precision":     float(precision_score(all_true, all_preds, zero_division=0)),
-        "recall":        float(recall_score(all_true, all_preds, zero_division=0)),
-        "f1_score":      float(f1_score(all_true, all_preds, zero_division=0)),
-        "roc_auc":       float(roc_auc_score(all_true, all_probs))
-                         if len(set(all_true)) > 1 else None,
+        "client":          client_name,
+        "fedprox_mu":      mu,
+        "n_train":         len(X_all),
+        "n_test":          len(X_test),
+        "pos_weight":      pos_w,
+        "best_threshold":  best_thr,
+        "accuracy":        float(accuracy_score(all_true, all_preds)),
+        "precision":       float(precision_score(all_true, all_preds, zero_division=0)),
+        "recall":          float(recall_score(all_true, all_preds, zero_division=0)),
+        "f1_score":        float(f1_score(all_true, all_preds, zero_division=0)),
+        "roc_auc":         (float(roc_auc_score(all_true, all_probs))
+                            if len(set(all_true)) > 1 else None),
         "confusion_matrix": confusion_matrix(all_true, all_preds).tolist(),
-        "architecture":  {"input": FL_INPUT_DIM, "hidden": list(FL_HIDDEN_DIMS := (64, 32, 16)), "dropout": 0.2},
+        "architecture":    {"input": FL_INPUT_DIM, "hidden": [64, 32, 16], "dropout": 0.2},
     }
 
-    logger.info("=== [%s] FL-Client Results === Acc=%.4f | Prec=%.4f | Rec=%.4f | F1=%.4f | AUC=%s",
-                client_name, metrics["accuracy"], metrics["precision"],
-                metrics["recall"], metrics["f1_score"],
-                f"{metrics['roc_auc']:.4f}" if metrics["roc_auc"] else "N/A")
+    logger.info(
+        "=== [%s] FL-Client Results === "
+        "Acc=%.4f | Prec=%.4f | Rec=%.4f | F1=%.4f | AUC=%s | μ=%.4f",
+        client_name,
+        metrics["accuracy"], metrics["precision"],
+        metrics["recall"],   metrics["f1_score"],
+        f"{metrics['roc_auc']:.4f}" if metrics["roc_auc"] else "N/A",
+        mu,
+    )
     logger.info("Conf [[TN,FP],[FN,TP]]:\n%s", np.array(metrics["confusion_matrix"]))
     print(classification_report(all_true, all_preds,
                                 target_names=["normal", "attaque"], zero_division=0))
@@ -269,6 +313,7 @@ def train_fl_client(client_name:   str,
             "client_name":      client_name,
             "n_train":          len(X_all),
             "best_threshold":   best_thr,
+            "fedprox_mu":       mu,
             "metrics":          metrics,
             "fl_arch": {
                 "input_dim":   FL_INPUT_DIM,
@@ -285,7 +330,7 @@ def train_fl_client(client_name:   str,
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Entrainement FL local (architecture unique figee)"
+        description="Entrainement FL local (architecture unique figee) avec FedProx"
     )
     parser.add_argument("--client",       choices=ALL_CLIENTS)
     parser.add_argument("--all",          action="store_true")
@@ -298,24 +343,37 @@ def main():
     parser.add_argument("--epochs",       type=int,   default=None)
     parser.add_argument("--lr",           type=float, default=None)
     parser.add_argument("--batch-size",   type=int,   default=None)
+    parser.add_argument(
+        "--mu", type=float, default=0.0,
+        help="FedProx proximal coefficient μ (0 = FedAvg standard). "
+             "Recommended range: 0.001 – 0.1 for Non-IID FL.",
+    )
     args = parser.parse_args()
 
     if not args.client and not args.all:
         parser.error("Preciser --client <nom> ou --all")
+
+    if args.mu > 0.0 and (not args.global_model or not os.path.exists(args.global_model)):
+        logger.warning(
+            "FedProx μ=%.4f specified but no global model found at '%s'. "
+            "Proximal term will be DISABLED for this round (round 0 init).",
+            args.mu, args.global_model,
+        )
 
     clients     = ALL_CLIENTS if args.all else [args.client]
     all_results = {}
 
     for client in clients:
         m = train_fl_client(
-            client_name        = client,
-            global_model_path  = args.global_model,
-            partitions_dir     = args.partitions,
-            save_dir           = args.save_dir,
-            save               = args.save,
-            epochs             = args.epochs,
-            lr                 = args.lr,
-            batch_size         = args.batch_size,
+            client_name       = client,
+            global_model_path = args.global_model,
+            partitions_dir    = args.partitions,
+            save_dir          = args.save_dir,
+            save              = args.save,
+            epochs            = args.epochs,
+            lr                = args.lr,
+            batch_size        = args.batch_size,
+            mu                = args.mu,
         )
         all_results[client] = {k: v for k, v in m.items() if k != "_model"}
         print("-" * 70)
@@ -323,14 +381,16 @@ def main():
     # ── Tableau recap ────────────────────────────────────────────────────────
     if len(clients) > 1:
         logger.info("=" * 70)
-        logger.info("RECAP FL LOCAL — Architecture unique 19→64→32→16→1")
+        logger.info("RECAP FL LOCAL — Architecture unique 19→64→32→16→1  (μ=%.4f)", args.mu)
         logger.info("=" * 70)
         logger.info("%-15s %8s %8s %8s %8s %6s", "Client", "Acc", "Prec", "Recall", "F1", "Seuil")
         logger.info("-" * 70)
         for c, m in all_results.items():
-            logger.info("%-15s %8.4f %8.4f %8.4f %8.4f %6.2f",
-                        c, m["accuracy"], m["precision"],
-                        m["recall"], m["f1_score"], m["best_threshold"])
+            logger.info(
+                "%-15s %8.4f %8.4f %8.4f %8.4f %6.2f",
+                c, m["accuracy"], m["precision"],
+                m["recall"], m["f1_score"], m["best_threshold"],
+            )
 
     if args.save_metrics:
         os.makedirs("results/metrics", exist_ok=True)

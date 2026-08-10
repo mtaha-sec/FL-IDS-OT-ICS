@@ -13,7 +13,7 @@ Contrainte fondamentale de FedAvg :
   Si client_1 a une couche Linear(64, 32) et client_2 a Linear(128, 64),
   la moyenne est impossible (les tenseurs n'ont pas la meme forme).
 
-Architecture retenue : 19 -> 64 -> 32 -> 16 -> 1
+Architecture retenue : 19 -> 80 -> 40 -> 20 -> 1
   - 19  : features d'entree (19 colonnes standardisees post-preprocessing)
   - 64  : premiere couche cachee (representation intermediaire)
   - 32  : deuxieme couche cachee (compression)
@@ -42,7 +42,7 @@ import torch.nn as nn
 #  checkpoints existants et le serveur d'agregation.
 # ─────────────────────────────────────────────────────────────────────────────
 FL_INPUT_DIM   : int   = 19
-FL_HIDDEN_DIMS : tuple = (64, 32, 16)
+FL_HIDDEN_DIMS : tuple = (80, 40, 20)
 FL_DROPOUT     : float = 0.2
 
 
