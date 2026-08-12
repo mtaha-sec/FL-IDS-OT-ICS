@@ -10,10 +10,8 @@ datasets/partitions/*
 # TLS private keys
 security/certificates/*.key
 
-# HE secret context
-security/keys/he_context_full.seal
-
 # Generated certificates
 security/certificates/*.crt
 security/certificates/*.csr
 security/certificates/*.srl
+>>>>>>> 91388ed (Update .gitignore to exclude security files)
