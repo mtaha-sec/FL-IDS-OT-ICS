@@ -5,3 +5,15 @@
 datasets/raw/*
 datasets/processed/*
 datasets/partitions/*
+
+
+# TLS private keys
+security/certificates/*.key
+
+# HE secret context
+security/keys/he_context_full.seal
+
+# Generated certificates
+security/certificates/*.crt
+security/certificates/*.csr
+security/certificates/*.srl
