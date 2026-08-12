@@ -39,6 +39,7 @@ import argparse
 import logging
 import os
 from typing import Dict, List, Optional, Tuple
+from pathlib import Path
 
 import flwr as fl
 import numpy as np
@@ -417,6 +418,9 @@ def main() -> None:
     fl.client.start_numpy_client(
         server_address = args.server_address,
         client         = client,
+        root_certificates=Path(
+        "security/certificates/ca.crt"
+    ).read_bytes(),
     )
 
 
