@@ -36,6 +36,7 @@ Then in 6 separate terminals (or via docker-compose):
 import argparse
 import logging
 import os
+from pathlib import Path
 
 import torch
 import flwr as fl
@@ -114,6 +115,23 @@ def main() -> fl.server.history.History:
         help="gRPC server address.",
     )
     parser.add_argument(
+    "--tls-ca",
+    default=os.path.join("security", "certificates", "ca.crt"),
+    help="TLS CA certificate.",
+    )
+
+    parser.add_argument(
+    "--tls-cert",
+    default=os.path.join("security", "certificates", "server.crt"),
+    help="TLS server certificate.",
+    )
+
+    parser.add_argument(
+    "--tls-key",
+    default=os.path.join("security", "certificates", "server.key"),
+    help="TLS server private key.",
+    )
+    parser.add_argument(
         "--he-context",
         default=os.path.join("security", "keys", "he_context_public.seal"),
         help="Path to the server's PUBLIC HE context (no secret key).",
@@ -123,6 +141,11 @@ def main() -> fl.server.history.History:
         help="Directory to save global model checkpoints each round.",
     )
     args = parser.parse_args()
+    # ── Validate TLS certificates ─────────────────────────────────────────────
+    for tls_file in [args.tls_ca, args.tls_cert, args.tls_key]:
+          if not os.path.exists(tls_file):
+            logger.error("TLS file not found: %s", tls_file)
+            raise FileNotFoundError(f"TLS file missing: {tls_file}")
 
     # ── Validate the HE context file ──────────────────────────────────────────
     if not os.path.exists(args.he_context):
@@ -141,6 +164,9 @@ def main() -> fl.server.history.History:
                 args.mu, "FedAvg" if args.mu == 0 else "FedProx")
     logger.info("  Min clients / round: %d", args.min_clients)
     logger.info("  Server address     : %s", args.server_address)
+    logger.info("  TLS                : ENABLED")
+    logger.info("  TLS CA             : %s", args.tls_ca)
+    logger.info("  TLS certificate    : %s", args.tls_cert)
     logger.info("  HE context (public): %s", args.he_context)
     logger.info("  Checkpoint dir     : %s", args.save_dir)
     logger.info("  Privacy guarantee  : server aggregates IN ENCRYPTED DOMAIN,")
@@ -172,6 +198,11 @@ def main() -> fl.server.history.History:
         server_address = args.server_address,
         strategy       = strategy,
         config         = fl.server.ServerConfig(num_rounds=args.rounds),
+        certificates   = (
+        Path(args.tls_ca).read_bytes(),
+        Path(args.tls_cert).read_bytes(),
+        Path(args.tls_key).read_bytes(),
+    ),
     )
 
     # ── Summary ───────────────────────────────────────────────────────────────
