@@ -38,6 +38,9 @@ Usage (one terminal per industrial site)
 import argparse
 import logging
 import os
+import csv
+import time
+from datetime import datetime
 from typing import Dict, List, Optional, Tuple
 from pathlib import Path
 
@@ -57,14 +60,105 @@ from security.he_crypto import (
     load_context,
 )
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-)
+
 logger = logging.getLogger(__name__)
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Monitoring configuration
+# ─────────────────────────────────────────────────────────────────────────────
+
+MONITORING_LOG_DIR = Path("monitoring/logs")
+MONITORING_METRICS_DIR = Path("monitoring/metrics")
+
+MONITORING_LOG_DIR.mkdir(parents=True, exist_ok=True)
+MONITORING_METRICS_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def setup_client_logger(client_name: str) -> logging.Logger:
+    """
+    Create a dedicated logger for each FL client.
+
+    Logs are written to:
+        monitoring/logs/<client_name>.log
+    """
+
+    logger_name = f"fl_client.{client_name}"
+    client_logger = logging.getLogger(logger_name)
+
+    if client_logger.handlers:
+        return client_logger
+
+    client_logger.setLevel(logging.INFO)
+    client_logger.propagate = False
+
+    formatter = logging.Formatter(
+        "%(asctime)s [%(levelname)s] %(message)s"
+    )
+
+    # Console handler
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(formatter)
+
+    # File handler
+    log_file = MONITORING_LOG_DIR / f"{client_name}.log"
+    file_handler = logging.FileHandler(
+        log_file,
+        encoding="utf-8"
+    )
+    file_handler.setFormatter(formatter)
+
+    client_logger.addHandler(console_handler)
+    client_logger.addHandler(file_handler)
+
+    return client_logger
+
+
+def record_metric(
+    client_name: str,
+    round_number: int,
+    phase: str,
+    metric: str,
+    value: float,
+) -> None:
+    """
+    Append one monitoring metric to:
+
+        monitoring/metrics/<client_name>.csv
+    """
+
+    metrics_file = MONITORING_METRICS_DIR / f"{client_name}.csv"
+
+    file_exists = metrics_file.exists()
+
+    with open(
+        metrics_file,
+        mode="a",
+        newline="",
+        encoding="utf-8",
+    ) as f:
+
+        writer = csv.writer(f)
+
+        if not file_exists:
+            writer.writerow([
+                "timestamp",
+                "client",
+                "round",
+                "phase",
+                "metric",
+                "value",
+            ])
+
+        writer.writerow([
+            datetime.now().isoformat(timespec="seconds"),
+            client_name,
+            round_number,
+            phase,
+            metric,
+            value,
+        ])
 # Default HE context path (full context with secret key — for clients only)
 DEFAULT_HE_CONTEXT = os.path.join("security", "keys", "he_context_full.seal")
 
@@ -137,6 +231,8 @@ class IDSFlowerClient(fl.client.NumPyClient):
         self.local_epochs = local_epochs
         self.batch_size   = batch_size
 
+        self.logger = setup_client_logger(client_name)
+
         # ── Load HE context (full, with secret key) ───────────────────────────
         if not os.path.exists(he_context_path):
             raise FileNotFoundError(
@@ -149,8 +245,10 @@ class IDSFlowerClient(fl.client.NumPyClient):
                 "Client must use the FULL HE context (he_context_full.seal), "
                 "not the public-only context.  The public context is for the server."
             )
-        logger.info("[%s] HE context loaded (secret key present ✓)", client_name)
-
+        
+        self.logger.info(
+        "HE context loaded (secret key present ✓)"
+            )
         # Cache parameter / buffer shapes for fast reconstruction
         self.param_shapes  = get_param_shapes()
         self.buffer_shapes = get_buffer_shapes()
@@ -174,11 +272,12 @@ class IDSFlowerClient(fl.client.NumPyClient):
         self.criterion = nn.BCEWithLogitsLoss()
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=lr)
 
-        logger.info(
-            "[%s] Client ready — model=%s  params=%d  train=%d  device=%s",
-            client_name, model_type,
-            sum(p.numel() for p in self.model.parameters()),
-            self.n_train, DEVICE,
+        self.logger.info(
+     "Client ready — model=%s params=%d train=%d device=%s",
+    model_type,
+    sum(p.numel() for p in self.model.parameters()),
+    self.n_train,
+    DEVICE,
         )
 
     # ── Parameter Encoding / Decoding ────────────────────────────────────────
