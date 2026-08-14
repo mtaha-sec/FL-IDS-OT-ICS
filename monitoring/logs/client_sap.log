@@ -1,0 +1,398 @@
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - ======================================================================
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - FL client starting
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - Client        : sap
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - Server        : 127.0.0.1:8080
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - Model         : mlp
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - Local epochs  : 3
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - Batch size    : 64
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - Learning rate : 0.001000
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - Device        : cpu
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - HE context    : security\keys\he_context_full.seal
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - CA certificate: security\certificates\ca.crt
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - TLS CA certificate found
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - ======================================================================
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - Initializing FL client
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - Client name : sap
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - Model       : mlp
+2026-08-14 21:48:58 [INFO] FL-CLIENT-sap - Device      : cpu
+2026-08-14 21:49:00 [INFO] FL-CLIENT-sap - HE context loaded successfully (secret key present)
+2026-08-14 21:49:00 [INFO] FL-CLIENT-sap - Parameter shapes loaded: 14
+2026-08-14 21:49:00 [INFO] FL-CLIENT-sap - Buffer shapes loaded: 9
+2026-08-14 21:49:00 [INFO] FL-CLIENT-sap - Dataset loaded
+2026-08-14 21:49:00 [INFO] FL-CLIENT-sap - Features     : 19
+2026-08-14 21:49:00 [INFO] FL-CLIENT-sap - Train samples: 36226
+2026-08-14 21:49:00 [INFO] FL-CLIENT-sap - Test samples : 9057
+2026-08-14 21:49:03 [INFO] FL-CLIENT-sap - Model initialized
+2026-08-14 21:49:03 [INFO] FL-CLIENT-sap - Trainable parameters: 5961
+2026-08-14 21:49:03 [INFO] FL-CLIENT-sap - Batch size          : 64
+2026-08-14 21:49:03 [INFO] FL-CLIENT-sap - Local epochs        : 3
+2026-08-14 21:49:03 [INFO] FL-CLIENT-sap - Learning rate       : 0.001000
+2026-08-14 21:49:03 [INFO] FL-CLIENT-sap - ======================================================================
+2026-08-14 21:49:03 [INFO] FL-CLIENT-sap - Connecting to Flower server using TLS...
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - ======================================================================
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - FL client starting
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - Client        : sap
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - Server        : 127.0.0.1:8080
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - Model         : mlp
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - Local epochs  : 3
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - Batch size    : 64
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - Learning rate : 0.001000
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - Device        : cpu
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - HE context    : security\keys\he_context_full.seal
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - CA certificate: security\certificates\ca.crt
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - TLS CA certificate found
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - ======================================================================
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - Initializing FL client
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - Client name : sap
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - Model       : mlp
+2026-08-14 21:49:11 [INFO] FL-CLIENT-sap - Device      : cpu
+2026-08-14 21:49:13 [INFO] FL-CLIENT-sap - HE context loaded successfully (secret key present)
+2026-08-14 21:49:13 [INFO] FL-CLIENT-sap - Parameter shapes loaded: 14
+2026-08-14 21:49:13 [INFO] FL-CLIENT-sap - Buffer shapes loaded: 9
+2026-08-14 21:49:13 [INFO] FL-CLIENT-sap - Dataset loaded
+2026-08-14 21:49:13 [INFO] FL-CLIENT-sap - Features     : 19
+2026-08-14 21:49:13 [INFO] FL-CLIENT-sap - Train samples: 36226
+2026-08-14 21:49:13 [INFO] FL-CLIENT-sap - Test samples : 9057
+2026-08-14 21:49:17 [INFO] FL-CLIENT-sap - Model initialized
+2026-08-14 21:49:17 [INFO] FL-CLIENT-sap - Trainable parameters: 5961
+2026-08-14 21:49:17 [INFO] FL-CLIENT-sap - Batch size          : 64
+2026-08-14 21:49:17 [INFO] FL-CLIENT-sap - Local epochs        : 3
+2026-08-14 21:49:17 [INFO] FL-CLIENT-sap - Learning rate       : 0.001000
+2026-08-14 21:49:17 [INFO] FL-CLIENT-sap - ======================================================================
+2026-08-14 21:49:17 [INFO] FL-CLIENT-sap - Connecting to Flower server using TLS...
+2026-08-14 21:50:52 [INFO] FL-CLIENT-sap - Plaintext global model initialization received
+2026-08-14 21:50:52 [INFO] FL-CLIENT-sap - Plaintext global model initialization received
+2026-08-14 21:50:52 [INFO] FL-CLIENT-sap - Round 1 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 21:50:52 [INFO] FL-CLIENT-sap - Round 1 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 21:51:18 [INFO] FL-CLIENT-sap - Round 1 | epoch 1/3 | task_loss=0.197845 | FedProx mu=0.010000
+2026-08-14 21:51:18 [INFO] FL-CLIENT-sap - Round 1 | epoch 1/3 | task_loss=0.200978 | FedProx mu=0.010000
+2026-08-14 21:51:31 [INFO] FL-CLIENT-sap - Round 1 | epoch 2/3 | task_loss=0.145570 | FedProx mu=0.010000
+2026-08-14 21:51:32 [INFO] FL-CLIENT-sap - Round 1 | epoch 2/3 | task_loss=0.143870 | FedProx mu=0.010000
+2026-08-14 21:51:40 [INFO] FL-CLIENT-sap - Round 1 | epoch 3/3 | task_loss=0.139309 | FedProx mu=0.010000
+2026-08-14 21:51:40 [INFO] FL-CLIENT-sap - Round 1 | training completed | final_loss=0.139309 | duration=48.381 s | samples=36226
+2026-08-14 21:51:40 [INFO] FL-CLIENT-sap - Round 1 | encrypting local model...
+2026-08-14 21:51:40 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 21:51:40 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 21:51:40 [INFO] FL-CLIENT-sap - Ciphertext size: 658094 bytes
+2026-08-14 21:51:40 [INFO] FL-CLIENT-sap - Round 1 | encrypted model ready for transmission
+2026-08-14 21:51:42 [INFO] FL-CLIENT-sap - Round 1 | epoch 3/3 | task_loss=0.141192 | FedProx mu=0.010000
+2026-08-14 21:51:42 [INFO] FL-CLIENT-sap - Round 1 | training completed | final_loss=0.141192 | duration=50.363 s | samples=36226
+2026-08-14 21:51:42 [INFO] FL-CLIENT-sap - Round 1 | encrypting local model...
+2026-08-14 21:51:42 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 21:51:42 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 21:51:42 [INFO] FL-CLIENT-sap - Ciphertext size: 657392 bytes
+2026-08-14 21:51:42 [INFO] FL-CLIENT-sap - Round 1 | encrypted model ready for transmission
+2026-08-14 21:52:46 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 21:52:46 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 21:52:46 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 21:52:46 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 21:52:46 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 21:52:46 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 21:52:46 [INFO] FL-CLIENT-sap - Round 1 | evaluation completed | loss=0.433271 | accuracy=0.754775 | duration=0.713 s | samples=9057
+2026-08-14 21:52:46 [INFO] FL-CLIENT-sap - Round 1 | evaluation completed | loss=0.433271 | accuracy=0.754775 | duration=0.739 s | samples=9057
+2026-08-14 21:52:50 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 21:52:50 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 21:52:50 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 21:52:50 [INFO] FL-CLIENT-sap - Round 2 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 21:52:50 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 21:52:50 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 21:52:50 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 21:52:50 [INFO] FL-CLIENT-sap - Round 2 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 21:52:59 [INFO] FL-CLIENT-sap - Round 2 | epoch 1/3 | task_loss=0.155033 | FedProx mu=0.010000
+2026-08-14 21:53:03 [INFO] FL-CLIENT-sap - Round 2 | epoch 1/3 | task_loss=0.154747 | FedProx mu=0.010000
+2026-08-14 21:53:12 [INFO] FL-CLIENT-sap - Round 2 | epoch 2/3 | task_loss=0.134435 | FedProx mu=0.010000
+2026-08-14 21:53:15 [INFO] FL-CLIENT-sap - Round 2 | epoch 2/3 | task_loss=0.134379 | FedProx mu=0.010000
+2026-08-14 21:53:28 [INFO] FL-CLIENT-sap - Round 2 | epoch 3/3 | task_loss=0.132304 | FedProx mu=0.010000
+2026-08-14 21:53:28 [INFO] FL-CLIENT-sap - Round 2 | training completed | final_loss=0.132304 | duration=37.453 s | samples=36226
+2026-08-14 21:53:28 [INFO] FL-CLIENT-sap - Round 2 | encrypting local model...
+2026-08-14 21:53:28 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 21:53:28 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 21:53:28 [INFO] FL-CLIENT-sap - Ciphertext size: 657279 bytes
+2026-08-14 21:53:28 [INFO] FL-CLIENT-sap - Round 2 | encrypted model ready for transmission
+2026-08-14 21:53:33 [INFO] FL-CLIENT-sap - Round 2 | epoch 3/3 | task_loss=0.131918 | FedProx mu=0.010000
+2026-08-14 21:53:33 [INFO] FL-CLIENT-sap - Round 2 | training completed | final_loss=0.131918 | duration=42.399 s | samples=36226
+2026-08-14 21:53:33 [INFO] FL-CLIENT-sap - Round 2 | encrypting local model...
+2026-08-14 21:53:33 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 21:53:33 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 21:53:33 [INFO] FL-CLIENT-sap - Ciphertext size: 657428 bytes
+2026-08-14 21:53:33 [INFO] FL-CLIENT-sap - Round 2 | encrypted model ready for transmission
+2026-08-14 21:57:47 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 21:57:47 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 21:57:47 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 21:57:47 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 21:57:47 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 21:57:47 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 21:57:48 [INFO] FL-CLIENT-sap - Round 2 | evaluation completed | loss=0.494170 | accuracy=0.797173 | duration=1.137 s | samples=9057
+2026-08-14 21:57:48 [INFO] FL-CLIENT-sap - Round 2 | evaluation completed | loss=0.494170 | accuracy=0.797173 | duration=1.157 s | samples=9057
+2026-08-14 21:57:53 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 21:57:53 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 21:57:53 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 21:57:53 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 21:57:53 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 21:57:53 [INFO] FL-CLIENT-sap - Round 3 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 21:57:53 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 21:57:53 [INFO] FL-CLIENT-sap - Round 3 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 21:58:18 [INFO] FL-CLIENT-sap - Round 3 | epoch 1/3 | task_loss=0.154277 | FedProx mu=0.010000
+2026-08-14 21:58:19 [INFO] FL-CLIENT-sap - Round 3 | epoch 1/3 | task_loss=0.156498 | FedProx mu=0.010000
+2026-08-14 21:58:43 [INFO] FL-CLIENT-sap - Round 3 | epoch 2/3 | task_loss=0.131001 | FedProx mu=0.010000
+2026-08-14 21:58:43 [INFO] FL-CLIENT-sap - Round 3 | epoch 2/3 | task_loss=0.133727 | FedProx mu=0.010000
+2026-08-14 21:59:02 [INFO] FL-CLIENT-sap - Round 3 | epoch 3/3 | task_loss=0.129015 | FedProx mu=0.010000
+2026-08-14 21:59:02 [INFO] FL-CLIENT-sap - Round 3 | training completed | final_loss=0.129015 | duration=69.202 s | samples=36226
+2026-08-14 21:59:02 [INFO] FL-CLIENT-sap - Round 3 | encrypting local model...
+2026-08-14 21:59:02 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 21:59:02 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 21:59:02 [INFO] FL-CLIENT-sap - Ciphertext size: 658275 bytes
+2026-08-14 21:59:02 [INFO] FL-CLIENT-sap - Round 3 | encrypted model ready for transmission
+2026-08-14 21:59:03 [INFO] FL-CLIENT-sap - Round 3 | epoch 3/3 | task_loss=0.129165 | FedProx mu=0.010000
+2026-08-14 21:59:03 [INFO] FL-CLIENT-sap - Round 3 | training completed | final_loss=0.129165 | duration=70.141 s | samples=36226
+2026-08-14 21:59:03 [INFO] FL-CLIENT-sap - Round 3 | encrypting local model...
+2026-08-14 21:59:03 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 21:59:03 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 21:59:03 [INFO] FL-CLIENT-sap - Ciphertext size: 657330 bytes
+2026-08-14 21:59:03 [INFO] FL-CLIENT-sap - Round 3 | encrypted model ready for transmission
+2026-08-14 22:02:44 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:02:44 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:02:44 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:02:44 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:02:44 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:02:44 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:02:45 [INFO] FL-CLIENT-sap - Round 3 | evaluation completed | loss=0.704239 | accuracy=0.450480 | duration=0.509 s | samples=9057
+2026-08-14 22:02:45 [INFO] FL-CLIENT-sap - Round 3 | evaluation completed | loss=0.704239 | accuracy=0.450480 | duration=0.646 s | samples=9057
+2026-08-14 22:02:50 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:02:50 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:02:50 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:02:50 [INFO] FL-CLIENT-sap - Round 4 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:02:50 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:02:50 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:02:50 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:02:50 [INFO] FL-CLIENT-sap - Round 4 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:02:58 [INFO] FL-CLIENT-sap - Round 4 | epoch 1/3 | task_loss=0.157031 | FedProx mu=0.010000
+2026-08-14 22:03:03 [INFO] FL-CLIENT-sap - Round 4 | epoch 1/3 | task_loss=0.157725 | FedProx mu=0.010000
+2026-08-14 22:03:05 [INFO] FL-CLIENT-sap - Round 4 | epoch 2/3 | task_loss=0.136261 | FedProx mu=0.010000
+2026-08-14 22:03:13 [INFO] FL-CLIENT-sap - Round 4 | epoch 3/3 | task_loss=0.131290 | FedProx mu=0.010000
+2026-08-14 22:03:13 [INFO] FL-CLIENT-sap - Round 4 | training completed | final_loss=0.131290 | duration=23.620 s | samples=36226
+2026-08-14 22:03:13 [INFO] FL-CLIENT-sap - Round 4 | encrypting local model...
+2026-08-14 22:03:13 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:03:13 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:03:13 [INFO] FL-CLIENT-sap - Ciphertext size: 658219 bytes
+2026-08-14 22:03:13 [INFO] FL-CLIENT-sap - Round 4 | encrypted model ready for transmission
+2026-08-14 22:03:14 [INFO] FL-CLIENT-sap - Round 4 | epoch 2/3 | task_loss=0.127655 | FedProx mu=0.010000
+2026-08-14 22:03:27 [INFO] FL-CLIENT-sap - Round 4 | epoch 3/3 | task_loss=0.128930 | FedProx mu=0.010000
+2026-08-14 22:03:27 [INFO] FL-CLIENT-sap - Round 4 | training completed | final_loss=0.128930 | duration=37.116 s | samples=36226
+2026-08-14 22:03:27 [INFO] FL-CLIENT-sap - Round 4 | encrypting local model...
+2026-08-14 22:03:27 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:03:27 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:03:27 [INFO] FL-CLIENT-sap - Ciphertext size: 657679 bytes
+2026-08-14 22:03:27 [INFO] FL-CLIENT-sap - Round 4 | encrypted model ready for transmission
+2026-08-14 22:07:10 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:07:10 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:07:10 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:07:10 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:07:10 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:07:10 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:07:11 [INFO] FL-CLIENT-sap - Round 4 | evaluation completed | loss=0.890553 | accuracy=0.434802 | duration=0.636 s | samples=9057
+2026-08-14 22:07:11 [INFO] FL-CLIENT-sap - Round 4 | evaluation completed | loss=0.890553 | accuracy=0.434802 | duration=0.645 s | samples=9057
+2026-08-14 22:07:15 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:07:15 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:07:15 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:07:15 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:07:15 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:07:15 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:07:15 [INFO] FL-CLIENT-sap - Round 5 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:07:15 [INFO] FL-CLIENT-sap - Round 5 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:07:28 [INFO] FL-CLIENT-sap - Round 5 | epoch 1/3 | task_loss=0.157765 | FedProx mu=0.010000
+2026-08-14 22:07:33 [INFO] FL-CLIENT-sap - Round 5 | epoch 1/3 | task_loss=0.155125 | FedProx mu=0.010000
+2026-08-14 22:07:40 [INFO] FL-CLIENT-sap - Round 5 | epoch 2/3 | task_loss=0.132247 | FedProx mu=0.010000
+2026-08-14 22:07:48 [INFO] FL-CLIENT-sap - Round 5 | epoch 2/3 | task_loss=0.131042 | FedProx mu=0.010000
+2026-08-14 22:07:49 [INFO] FL-CLIENT-sap - Round 5 | epoch 3/3 | task_loss=0.128492 | FedProx mu=0.010000
+2026-08-14 22:07:49 [INFO] FL-CLIENT-sap - Round 5 | training completed | final_loss=0.128492 | duration=34.587 s | samples=36226
+2026-08-14 22:07:49 [INFO] FL-CLIENT-sap - Round 5 | encrypting local model...
+2026-08-14 22:07:49 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:07:50 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:07:50 [INFO] FL-CLIENT-sap - Ciphertext size: 658069 bytes
+2026-08-14 22:07:50 [INFO] FL-CLIENT-sap - Round 5 | encrypted model ready for transmission
+2026-08-14 22:08:00 [INFO] FL-CLIENT-sap - Round 5 | epoch 3/3 | task_loss=0.130659 | FedProx mu=0.010000
+2026-08-14 22:08:00 [INFO] FL-CLIENT-sap - Round 5 | training completed | final_loss=0.130659 | duration=44.687 s | samples=36226
+2026-08-14 22:08:00 [INFO] FL-CLIENT-sap - Round 5 | encrypting local model...
+2026-08-14 22:08:00 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:08:00 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:08:00 [INFO] FL-CLIENT-sap - Ciphertext size: 657291 bytes
+2026-08-14 22:08:00 [INFO] FL-CLIENT-sap - Round 5 | encrypted model ready for transmission
+2026-08-14 22:11:39 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:11:39 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:11:39 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:11:39 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:11:39 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:11:39 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:11:40 [INFO] FL-CLIENT-sap - Round 5 | evaluation completed | loss=0.764071 | accuracy=0.436237 | duration=0.613 s | samples=9057
+2026-08-14 22:11:40 [INFO] FL-CLIENT-sap - Round 5 | evaluation completed | loss=0.764071 | accuracy=0.436237 | duration=0.699 s | samples=9057
+2026-08-14 22:11:44 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:11:44 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:11:44 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:11:44 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:11:44 [INFO] FL-CLIENT-sap - Round 6 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:11:44 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:11:44 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:11:44 [INFO] FL-CLIENT-sap - Round 6 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:11:57 [INFO] FL-CLIENT-sap - Round 6 | epoch 1/3 | task_loss=0.158895 | FedProx mu=0.010000
+2026-08-14 22:12:02 [INFO] FL-CLIENT-sap - Round 6 | epoch 1/3 | task_loss=0.157098 | FedProx mu=0.010000
+2026-08-14 22:12:08 [INFO] FL-CLIENT-sap - Round 6 | epoch 2/3 | task_loss=0.129680 | FedProx mu=0.010000
+2026-08-14 22:12:19 [INFO] FL-CLIENT-sap - Round 6 | epoch 3/3 | task_loss=0.128570 | FedProx mu=0.010000
+2026-08-14 22:12:19 [INFO] FL-CLIENT-sap - Round 6 | training completed | final_loss=0.128570 | duration=35.114 s | samples=36226
+2026-08-14 22:12:19 [INFO] FL-CLIENT-sap - Round 6 | encrypting local model...
+2026-08-14 22:12:19 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:12:19 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:12:19 [INFO] FL-CLIENT-sap - Ciphertext size: 656076 bytes
+2026-08-14 22:12:19 [INFO] FL-CLIENT-sap - Round 6 | encrypted model ready for transmission
+2026-08-14 22:12:20 [INFO] FL-CLIENT-sap - Round 6 | epoch 2/3 | task_loss=0.126313 | FedProx mu=0.010000
+2026-08-14 22:12:30 [INFO] FL-CLIENT-sap - Round 6 | epoch 3/3 | task_loss=0.123673 | FedProx mu=0.010000
+2026-08-14 22:12:30 [INFO] FL-CLIENT-sap - Round 6 | training completed | final_loss=0.123673 | duration=46.208 s | samples=36226
+2026-08-14 22:12:30 [INFO] FL-CLIENT-sap - Round 6 | encrypting local model...
+2026-08-14 22:12:30 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:12:30 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:12:30 [INFO] FL-CLIENT-sap - Ciphertext size: 658142 bytes
+2026-08-14 22:12:30 [INFO] FL-CLIENT-sap - Round 6 | encrypted model ready for transmission
+2026-08-14 22:15:04 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:15:04 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:15:04 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:15:04 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:15:04 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:15:04 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:15:05 [INFO] FL-CLIENT-sap - Round 6 | evaluation completed | loss=0.769131 | accuracy=0.434471 | duration=1.132 s | samples=9057
+2026-08-14 22:15:05 [INFO] FL-CLIENT-sap - Round 6 | evaluation completed | loss=0.769131 | accuracy=0.434471 | duration=1.146 s | samples=9057
+2026-08-14 22:15:10 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:15:10 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:15:10 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:15:10 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:15:10 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:15:10 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:15:10 [INFO] FL-CLIENT-sap - Round 7 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:15:10 [INFO] FL-CLIENT-sap - Round 7 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:15:31 [INFO] FL-CLIENT-sap - Round 7 | epoch 1/3 | task_loss=0.159110 | FedProx mu=0.010000
+2026-08-14 22:15:31 [INFO] FL-CLIENT-sap - Round 7 | epoch 1/3 | task_loss=0.153604 | FedProx mu=0.010000
+2026-08-14 22:15:45 [INFO] FL-CLIENT-sap - Round 7 | epoch 2/3 | task_loss=0.127878 | FedProx mu=0.010000
+2026-08-14 22:15:47 [INFO] FL-CLIENT-sap - Round 7 | epoch 2/3 | task_loss=0.128406 | FedProx mu=0.010000
+2026-08-14 22:16:03 [INFO] FL-CLIENT-sap - Round 7 | epoch 3/3 | task_loss=0.126606 | FedProx mu=0.010000
+2026-08-14 22:16:03 [INFO] FL-CLIENT-sap - Round 7 | training completed | final_loss=0.126606 | duration=53.603 s | samples=36226
+2026-08-14 22:16:03 [INFO] FL-CLIENT-sap - Round 7 | encrypting local model...
+2026-08-14 22:16:03 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:16:03 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:16:03 [INFO] FL-CLIENT-sap - Ciphertext size: 658064 bytes
+2026-08-14 22:16:03 [INFO] FL-CLIENT-sap - Round 7 | encrypted model ready for transmission
+2026-08-14 22:16:05 [INFO] FL-CLIENT-sap - Round 7 | epoch 3/3 | task_loss=0.123195 | FedProx mu=0.010000
+2026-08-14 22:16:05 [INFO] FL-CLIENT-sap - Round 7 | training completed | final_loss=0.123195 | duration=55.287 s | samples=36226
+2026-08-14 22:16:05 [INFO] FL-CLIENT-sap - Round 7 | encrypting local model...
+2026-08-14 22:16:05 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:16:05 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:16:05 [INFO] FL-CLIENT-sap - Ciphertext size: 657997 bytes
+2026-08-14 22:16:05 [INFO] FL-CLIENT-sap - Round 7 | encrypted model ready for transmission
+2026-08-14 22:20:06 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:20:06 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:20:06 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:20:06 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:20:06 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:20:06 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:20:07 [INFO] FL-CLIENT-sap - Round 7 | evaluation completed | loss=0.790785 | accuracy=0.428950 | duration=1.138 s | samples=9057
+2026-08-14 22:20:07 [INFO] FL-CLIENT-sap - Round 7 | evaluation completed | loss=0.790785 | accuracy=0.428950 | duration=1.156 s | samples=9057
+2026-08-14 22:20:12 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:20:12 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:20:12 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:20:12 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:20:12 [INFO] FL-CLIENT-sap - Round 8 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:20:12 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:20:12 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:20:12 [INFO] FL-CLIENT-sap - Round 8 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:20:25 [INFO] FL-CLIENT-sap - Round 8 | epoch 1/3 | task_loss=0.158719 | FedProx mu=0.010000
+2026-08-14 22:20:25 [INFO] FL-CLIENT-sap - Round 8 | epoch 1/3 | task_loss=0.159508 | FedProx mu=0.010000
+2026-08-14 22:20:34 [INFO] FL-CLIENT-sap - Round 8 | epoch 2/3 | task_loss=0.129958 | FedProx mu=0.010000
+2026-08-14 22:20:35 [INFO] FL-CLIENT-sap - Round 8 | epoch 2/3 | task_loss=0.127683 | FedProx mu=0.010000
+2026-08-14 22:20:42 [INFO] FL-CLIENT-sap - Round 8 | epoch 3/3 | task_loss=0.124818 | FedProx mu=0.010000
+2026-08-14 22:20:42 [INFO] FL-CLIENT-sap - Round 8 | training completed | final_loss=0.124818 | duration=30.406 s | samples=36226
+2026-08-14 22:20:42 [INFO] FL-CLIENT-sap - Round 8 | encrypting local model...
+2026-08-14 22:20:42 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:20:42 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:20:42 [INFO] FL-CLIENT-sap - Ciphertext size: 657333 bytes
+2026-08-14 22:20:42 [INFO] FL-CLIENT-sap - Round 8 | encrypted model ready for transmission
+2026-08-14 22:20:43 [INFO] FL-CLIENT-sap - Round 8 | epoch 3/3 | task_loss=0.124643 | FedProx mu=0.010000
+2026-08-14 22:20:43 [INFO] FL-CLIENT-sap - Round 8 | training completed | final_loss=0.124643 | duration=30.922 s | samples=36226
+2026-08-14 22:20:43 [INFO] FL-CLIENT-sap - Round 8 | encrypting local model...
+2026-08-14 22:20:43 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:20:43 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:20:43 [INFO] FL-CLIENT-sap - Ciphertext size: 658402 bytes
+2026-08-14 22:20:43 [INFO] FL-CLIENT-sap - Round 8 | encrypted model ready for transmission
+2026-08-14 22:22:50 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:22:50 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:22:50 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:22:50 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:22:50 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:22:50 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:22:50 [INFO] FL-CLIENT-sap - Round 8 | evaluation completed | loss=1.043361 | accuracy=0.404991 | duration=0.498 s | samples=9057
+2026-08-14 22:22:50 [INFO] FL-CLIENT-sap - Round 8 | evaluation completed | loss=1.043361 | accuracy=0.404991 | duration=0.514 s | samples=9057
+2026-08-14 22:22:53 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:22:53 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:22:53 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:22:53 [INFO] FL-CLIENT-sap - Round 9 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:22:53 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:22:53 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:22:53 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:22:53 [INFO] FL-CLIENT-sap - Round 9 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:23:05 [INFO] FL-CLIENT-sap - Round 9 | epoch 1/3 | task_loss=0.156154 | FedProx mu=0.010000
+2026-08-14 22:23:05 [INFO] FL-CLIENT-sap - Round 9 | epoch 1/3 | task_loss=0.155387 | FedProx mu=0.010000
+2026-08-14 22:23:14 [INFO] FL-CLIENT-sap - Round 9 | epoch 2/3 | task_loss=0.130582 | FedProx mu=0.010000
+2026-08-14 22:23:14 [INFO] FL-CLIENT-sap - Round 9 | epoch 2/3 | task_loss=0.126421 | FedProx mu=0.010000
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Round 9 | epoch 3/3 | task_loss=0.124268 | FedProx mu=0.010000
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Round 9 | training completed | final_loss=0.124268 | duration=29.032 s | samples=36226
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Round 9 | encrypting local model...
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Ciphertext size: 657424 bytes
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Round 9 | encrypted model ready for transmission
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Round 9 | epoch 3/3 | task_loss=0.122550 | FedProx mu=0.010000
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Round 9 | training completed | final_loss=0.122550 | duration=29.386 s | samples=36226
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Round 9 | encrypting local model...
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Ciphertext size: 657871 bytes
+2026-08-14 22:23:22 [INFO] FL-CLIENT-sap - Round 9 | encrypted model ready for transmission
+2026-08-14 22:26:16 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:26:16 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:26:16 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:26:16 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:26:16 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:26:16 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:26:16 [INFO] FL-CLIENT-sap - Round 9 | evaluation completed | loss=0.712672 | accuracy=0.486475 | duration=0.556 s | samples=9057
+2026-08-14 22:26:16 [INFO] FL-CLIENT-sap - Round 9 | evaluation completed | loss=0.712672 | accuracy=0.486475 | duration=0.584 s | samples=9057
+2026-08-14 22:26:21 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:26:21 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:26:21 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:26:21 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:26:21 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:26:21 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:26:21 [INFO] FL-CLIENT-sap - Round 10 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:26:21 [INFO] FL-CLIENT-sap - Round 10 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:26:33 [INFO] FL-CLIENT-sap - Round 10 | epoch 1/3 | task_loss=0.158640 | FedProx mu=0.010000
+2026-08-14 22:26:33 [INFO] FL-CLIENT-sap - Round 10 | epoch 1/3 | task_loss=0.155031 | FedProx mu=0.010000
+2026-08-14 22:26:47 [INFO] FL-CLIENT-sap - Round 10 | epoch 2/3 | task_loss=0.125997 | FedProx mu=0.010000
+2026-08-14 22:26:48 [INFO] FL-CLIENT-sap - Round 10 | epoch 2/3 | task_loss=0.126971 | FedProx mu=0.010000
+2026-08-14 22:27:02 [INFO] FL-CLIENT-sap - Round 10 | epoch 3/3 | task_loss=0.121170 | FedProx mu=0.010000
+2026-08-14 22:27:02 [INFO] FL-CLIENT-sap - Round 10 | training completed | final_loss=0.121170 | duration=41.047 s | samples=36226
+2026-08-14 22:27:02 [INFO] FL-CLIENT-sap - Round 10 | encrypting local model...
+2026-08-14 22:27:02 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:27:02 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:27:02 [INFO] FL-CLIENT-sap - Ciphertext size: 657875 bytes
+2026-08-14 22:27:02 [INFO] FL-CLIENT-sap - Round 10 | encrypted model ready for transmission
+2026-08-14 22:27:03 [INFO] FL-CLIENT-sap - Round 10 | epoch 3/3 | task_loss=0.121120 | FedProx mu=0.010000
+2026-08-14 22:27:03 [INFO] FL-CLIENT-sap - Round 10 | training completed | final_loss=0.121120 | duration=42.314 s | samples=36226
+2026-08-14 22:27:03 [INFO] FL-CLIENT-sap - Round 10 | encrypting local model...
+2026-08-14 22:27:03 [INFO] FL-CLIENT-sap - Encrypting local model parameters...
+2026-08-14 22:27:03 [INFO] FL-CLIENT-sap - Model parameters encrypted
+2026-08-14 22:27:03 [INFO] FL-CLIENT-sap - Ciphertext size: 657387 bytes
+2026-08-14 22:27:03 [INFO] FL-CLIENT-sap - Round 10 | encrypted model ready for transmission
+2026-08-14 22:30:44 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:30:44 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:30:44 [INFO] FL-CLIENT-sap - Encrypted global model received
+2026-08-14 22:30:44 [INFO] FL-CLIENT-sap - Decrypting global model...
+2026-08-14 22:30:44 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:30:44 [INFO] FL-CLIENT-sap - Global model decrypted successfully
+2026-08-14 22:30:45 [INFO] FL-CLIENT-sap - Round 10 | evaluation completed | loss=0.803642 | accuracy=0.431600 | duration=0.737 s | samples=9057
+2026-08-14 22:30:45 [INFO] FL-CLIENT-sap - Round 10 | evaluation completed | loss=0.803642 | accuracy=0.431600 | duration=0.768 s | samples=9057
