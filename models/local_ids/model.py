@@ -18,7 +18,7 @@ import torch.nn as nn
 #  tous les checkpoints clients et le modele global du serveur.
 # ─────────────────────────────────────────────────────────────────────────────
 FL_INPUT_DIM:   int   = 19
-FL_HIDDEN_DIMS: tuple = (64, 32, 16)
+FL_HIDDEN_DIMS: tuple = (80, 40, 20)
 FL_DROPOUT:     float = 0.2
 
 
@@ -27,7 +27,7 @@ class IDSMLP(nn.Module):
     MLP pour classification binaire (normal=0 / attaque=1).
 
     Architecture unique et figee pour le Federated Learning :
-        19 -> 64 -> 32 -> 16 -> 1
+        19 -> 80 -> 40 -> 20 -> 1
 
     Pourquoi cette architecture ?
       - Suffisamment profonde pour capturer des patterns d'attaque
