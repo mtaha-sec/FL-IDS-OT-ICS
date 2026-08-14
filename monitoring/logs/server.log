@@ -1,0 +1,29 @@
+2026-08-14 21:35:52 [INFO] FL-SERVER - Monitoring module test: server logger OK
+2026-08-14 21:45:56 [INFO] FL-SERVER - ======================================================================
+2026-08-14 21:45:56 [INFO] FL-SERVER - FL-IDS-OT-ICS — Global Federated Learning Server
+2026-08-14 21:45:56 [INFO] FL-SERVER - ----------------------------------------------------------------------
+2026-08-14 21:45:56 [INFO] FL-SERVER - Rounds              : 10
+2026-08-14 21:45:56 [INFO] FL-SERVER - FedProx μ           : 0.0100 (FedProx)
+2026-08-14 21:45:56 [INFO] FL-SERVER - Minimum clients     : 6
+2026-08-14 21:45:56 [INFO] FL-SERVER - Expected clients    : power, utilities, sap, pap, beneficiation, granulation
+2026-08-14 21:45:56 [INFO] FL-SERVER - Server address      : 0.0.0.0:8080
+2026-08-14 21:45:56 [INFO] FL-SERVER - TLS                 : ENABLED
+2026-08-14 21:45:56 [INFO] FL-SERVER - TLS CA              : security\certificates\ca.crt
+2026-08-14 21:45:56 [INFO] FL-SERVER - TLS certificate     : security\certificates\server.crt
+2026-08-14 21:45:56 [INFO] FL-SERVER - HE public context   : security\keys\he_context_public.seal
+2026-08-14 21:45:56 [INFO] FL-SERVER - Checkpoint directory: checkpoints\fl
+2026-08-14 21:45:56 [INFO] FL-SERVER - Monitoring logs     : monitoring/logs/server.log
+2026-08-14 21:45:56 [INFO] FL-SERVER - Monitoring metrics  : monitoring/metrics/rounds.csv
+2026-08-14 21:45:56 [INFO] FL-SERVER - Privacy guarantee   : encrypted-domain aggregation
+2026-08-14 21:45:56 [INFO] FL-SERVER - Server secret key   : NOT PRESENT
+2026-08-14 21:45:56 [INFO] FL-SERVER - ======================================================================
+2026-08-14 21:45:56 [INFO] FL-SERVER - Building initial global model...
+2026-08-14 21:45:56 [INFO] FL-SERVER - Initial global model built | trainable_params=5961 | BN_buffers=9
+2026-08-14 21:45:56 [INFO] FL-SERVER - Initial global model ready.
+2026-08-14 21:45:56 [INFO] FL-SERVER - Initializing HEFedProxStrategy...
+2026-08-14 21:45:57 [INFO] FL-SERVER - HEFedProxStrategy initialized successfully.
+2026-08-14 21:45:57 [INFO] FL-SERVER - TLS certificates loaded successfully.
+2026-08-14 21:45:57 [INFO] FL-SERVER - Waiting for at least 6 client(s)...
+2026-08-14 21:45:57 [INFO] FL-SERVER - Flower server listening on 0.0.0.0:8080
+2026-08-14 21:45:57 [INFO] FL-SERVER - Expected clients: power, utilities, sap, pap, beneficiation, granulation
+2026-08-14 21:45:57 [INFO] FL-SERVER - Monitoring is ENABLED.

@@ -1,226 +1,642 @@
 """
 central_server/server.py
 =========================
-FL Global Server — wires up HEFedProxStrategy and starts the Flower gRPC server.
 
-Pre-requisites (run once before any training)
----------------------------------------------
-    python -m security.generate_he_keys
-    # Outputs:
-    #   security/keys/he_context_full.seal    → distribute to all clients
-    #   security/keys/he_context_public.seal  → used by this server
+FL Global Server — FL-IDS-OT-ICS
+
+Features
+--------
+- Flower gRPC server
+- Homomorphic Encryption (HE)
+- FedProx
+- TLS
+- Centralized server logging
+- Round-level monitoring
+- Client-level metrics aggregated by the strategy
+- Global model checkpoints
 
 Usage
 -----
-    # Minimal (default 10 rounds, μ=0.01, wait for 6 clients)
+    python -m security.generate_he_keys
+
     python -m central_server.server
 
-    # Full options
-    python -m central_server.server \\
-        --rounds       10 \\
-        --mu           0.01 \\
-        --min-clients  6 \\
-        --server-address 0.0.0.0:8080 \\
-        --he-context   security/keys/he_context_public.seal \\
-        --save-dir     checkpoints/fl
+Or:
 
-Then in 6 separate terminals (or via docker-compose):
-    python clients/client_app.py --client-name power       --server-address 127.0.0.1:8080
-    python clients/client_app.py --client-name utilities   --server-address 127.0.0.1:8080
-    python clients/client_app.py --client-name sap         --server-address 127.0.0.1:8080
-    python clients/client_app.py --client-name pap         --server-address 127.0.0.1:8080
-    python clients/client_app.py --client-name beneficiation --server-address 127.0.0.1:8080
-    python clients/client_app.py --client-name granulation --server-address 127.0.0.1:8080
+    python -m central_server.server \
+        --rounds 10 \
+        --mu 0.01 \
+        --min-clients 6 \
+        --server-address 0.0.0.0:8080 \
+        --he-context security/keys/he_context_public.seal \
+        --save-dir checkpoints/fl
 """
 
 import argparse
 import logging
 import os
+import time
 from pathlib import Path
 
-import torch
 import flwr as fl
+import torch
 
 from central_server.strategy import HEFedProxStrategy
 from models.global_model.fl_model import build_fl_model
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s — %(message)s",
+from monitoring.monitor import (
+    get_server_logger,
+    record_round_metrics,
 )
-logger = logging.getLogger(__name__)
-
-ALL_CLIENTS = ["power", "utilities", "sap", "pap", "beneficiation", "granulation"]
 
 
-# ── Initial global model ───────────────────────────────────────────────────────
+# =============================================================================
+# SERVER LOGGER
+# =============================================================================
+
+logger = get_server_logger()
+
+
+# =============================================================================
+# CONSTANTS
+# =============================================================================
+
+ALL_CLIENTS = [
+    "power",
+    "utilities",
+    "sap",
+    "pap",
+    "beneficiation",
+    "granulation",
+]
+
+
+# =============================================================================
+# INITIAL GLOBAL MODEL
+# =============================================================================
 
 def build_initial_parameters() -> fl.common.Parameters:
     """
-    Build plaintext initial parameters for round 0.
+    Build the initial plaintext global model.
 
-    Encoding (mirrors the HE-aware client encoding, but plaintext for round 0):
-      ndarrays[0]      = trainable params concatenated as float32 flat vector
-      ndarrays[1 .. M] = BN buffer arrays (running_mean, running_var, etc.)
+    Round 0:
+        parameters[0]     -> flattened trainable parameters
+        parameters[1..M]  -> BatchNorm buffers
 
-    Why plaintext for round 0?
-      The server holds only the public key → it cannot encrypt.
-      Clients receive these plaintext params, load them into the model,
-      then immediately ENCRYPT their own updated weights when returning
-      the first fit() result.  From round 1 onward, all inter-party
-      parameter transfers are ciphertext only.
+    From round 1 onward, trainable parameters are transported
+    as encrypted CKKS ciphertexts.
     """
+
     model = build_fl_model()
 
-    # Flatten all trainable parameters into one float32 vector
+    # -------------------------------------------------------------------------
+    # Flatten trainable parameters
+    # -------------------------------------------------------------------------
+
     trainable_flat = (
-        torch.cat([p.data.view(-1) for p in model.parameters()])
+        torch.cat(
+            [
+                p.data.view(-1)
+                for p in model.parameters()
+            ]
+        )
         .detach()
         .cpu()
         .numpy()
-    )   # shape: (3905,), dtype: float32
-
-    # Collect non-trainable buffers (BN running_mean/var/count) as-is
-    buffer_arrays = [b.cpu().numpy() for b in model.buffers()]
-
-    all_arrays = [trainable_flat] + buffer_arrays
-    logger.info(
-        "Initial global model built — trainable params: %d  BN buffers: %d",
-        trainable_flat.shape[0], len(buffer_arrays),
+        .astype("float32")
     )
+
+    # -------------------------------------------------------------------------
+    # BatchNorm / non-trainable buffers
+    # -------------------------------------------------------------------------
+
+    buffer_arrays = [
+        buffer.cpu().numpy()
+        for buffer in model.buffers()
+    ]
+
+    all_arrays = [
+        trainable_flat,
+        *buffer_arrays,
+    ]
+
+    logger.info(
+        "Initial global model built | trainable_params=%d | BN_buffers=%d",
+        trainable_flat.shape[0],
+        len(buffer_arrays),
+    )
+
     return fl.common.ndarrays_to_parameters(all_arrays)
 
 
-# ── Entry point ────────────────────────────────────────────────────────────────
+# =============================================================================
+# ARGUMENTS
+# =============================================================================
 
-def main() -> fl.server.history.History:
+def parse_arguments() -> argparse.Namespace:
+
     parser = argparse.ArgumentParser(
-        description="FL-IDS-OT-ICS — Global Server (HE + FedProx)",
+        description="FL-IDS-OT-ICS Global Server (HE + FedProx + TLS + Monitoring)",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+
+    # -------------------------------------------------------------------------
+    # Federated Learning
+    # -------------------------------------------------------------------------
+
     parser.add_argument(
-        "--rounds", type=int, default=10,
+        "--rounds",
+        type=int,
+        default=10,
         help="Number of federated learning rounds.",
     )
+
     parser.add_argument(
-        "--mu", type=float, default=0.01,
-        help="FedProx proximal coefficient μ (0.0 = standard FedAvg).",
-    )
-    parser.add_argument(
-        "--min-clients", type=int, default=6,
-        help="Minimum clients required per round (defaults to all 6 sites).",
-    )
-    parser.add_argument(
-        "--server-address", default="0.0.0.0:8080",
-        help="gRPC server address.",
-    )
-    parser.add_argument(
-    "--tls-ca",
-    default=os.path.join("security", "certificates", "ca.crt"),
-    help="TLS CA certificate.",
+        "--mu",
+        type=float,
+        default=0.01,
+        help="FedProx proximal coefficient μ.",
     )
 
     parser.add_argument(
-    "--tls-cert",
-    default=os.path.join("security", "certificates", "server.crt"),
-    help="TLS server certificate.",
+        "--min-clients",
+        type=int,
+        default=6,
+        help="Minimum number of clients required per round.",
+    )
+
+    # -------------------------------------------------------------------------
+    # Flower server
+    # -------------------------------------------------------------------------
+
+    parser.add_argument(
+        "--server-address",
+        default="0.0.0.0:8080",
+        help="Flower gRPC server address.",
+    )
+
+    # -------------------------------------------------------------------------
+    # TLS
+    # -------------------------------------------------------------------------
+
+    parser.add_argument(
+        "--tls-ca",
+        default=os.path.join(
+            "security",
+            "certificates",
+            "ca.crt",
+        ),
+        help="TLS CA certificate.",
     )
 
     parser.add_argument(
-    "--tls-key",
-    default=os.path.join("security", "certificates", "server.key"),
-    help="TLS server private key.",
+        "--tls-cert",
+        default=os.path.join(
+            "security",
+            "certificates",
+            "server.crt",
+        ),
+        help="TLS server certificate.",
     )
+
+    parser.add_argument(
+        "--tls-key",
+        default=os.path.join(
+            "security",
+            "certificates",
+            "server.key",
+        ),
+        help="TLS server private key.",
+    )
+
+    # -------------------------------------------------------------------------
+    # Homomorphic Encryption
+    # -------------------------------------------------------------------------
+
     parser.add_argument(
         "--he-context",
-        default=os.path.join("security", "keys", "he_context_public.seal"),
-        help="Path to the server's PUBLIC HE context (no secret key).",
+        default=os.path.join(
+            "security",
+            "keys",
+            "he_context_public.seal",
+        ),
+        help=(
+            "Path to the PUBLIC HE context. "
+            "The server must never receive the secret key."
+        ),
     )
-    parser.add_argument(
-        "--save-dir", default=os.path.join("checkpoints", "fl"),
-        help="Directory to save global model checkpoints each round.",
-    )
-    args = parser.parse_args()
-    # ── Validate TLS certificates ─────────────────────────────────────────────
-    for tls_file in [args.tls_ca, args.tls_cert, args.tls_key]:
-          if not os.path.exists(tls_file):
-            logger.error("TLS file not found: %s", tls_file)
-            raise FileNotFoundError(f"TLS file missing: {tls_file}")
 
-    # ── Validate the HE context file ──────────────────────────────────────────
+    # -------------------------------------------------------------------------
+    # Checkpoints
+    # -------------------------------------------------------------------------
+
+    parser.add_argument(
+        "--save-dir",
+        default=os.path.join(
+            "checkpoints",
+            "fl",
+        ),
+        help="Directory used to save FL checkpoints.",
+    )
+
+    return parser.parse_args()
+
+
+# =============================================================================
+# VALIDATION
+# =============================================================================
+
+def validate_files(args: argparse.Namespace) -> None:
+    """
+    Validate required TLS and HE files before starting the server.
+    """
+
+    # -------------------------------------------------------------------------
+    # TLS files
+    # -------------------------------------------------------------------------
+
+    tls_files = {
+        "TLS CA": args.tls_ca,
+        "TLS certificate": args.tls_cert,
+        "TLS private key": args.tls_key,
+    }
+
+    for name, path in tls_files.items():
+
+        if not os.path.exists(path):
+
+            logger.error(
+                "%s not found: %s",
+                name,
+                path,
+            )
+
+            raise FileNotFoundError(
+                f"{name} missing: {path}"
+            )
+
+    # -------------------------------------------------------------------------
+    # HE public context
+    # -------------------------------------------------------------------------
+
     if not os.path.exists(args.he_context):
+
         logger.error(
-            "Public HE context not found at: %s\n"
-            "Run 'python -m security.generate_he_keys' first to create it.",
+            "Public HE context not found: %s",
             args.he_context,
         )
-        raise FileNotFoundError(f"HE public context missing: {args.he_context}")
 
-    # ── Banner ────────────────────────────────────────────────────────────────
-    logger.info("=" * 65)
-    logger.info("FL-IDS-OT-ICS — Global Server")
-    logger.info("  Rounds             : %d", args.rounds)
-    logger.info("  FedProx μ          : %.4f  (%s)",
-                args.mu, "FedAvg" if args.mu == 0 else "FedProx")
-    logger.info("  Min clients / round: %d", args.min_clients)
-    logger.info("  Server address     : %s", args.server_address)
-    logger.info("  TLS                : ENABLED")
-    logger.info("  TLS CA             : %s", args.tls_ca)
-    logger.info("  TLS certificate    : %s", args.tls_cert)
-    logger.info("  HE context (public): %s", args.he_context)
-    logger.info("  Checkpoint dir     : %s", args.save_dir)
-    logger.info("  Privacy guarantee  : server aggregates IN ENCRYPTED DOMAIN,")
-    logger.info("                       individual client params NEVER decrypted.")
-    logger.info("=" * 65)
+        logger.error(
+            "Run: python -m security.generate_he_keys"
+        )
 
-    # ── Build initial global model ─────────────────────────────────────────────
+        raise FileNotFoundError(
+            f"Public HE context missing: {args.he_context}"
+        )
+
+
+# =============================================================================
+# SERVER BANNER
+# =============================================================================
+
+def log_server_configuration(args: argparse.Namespace) -> None:
+    """
+    Print the server configuration into server.log.
+    """
+
+    logger.info("=" * 70)
+
+    logger.info(
+        "FL-IDS-OT-ICS — Global Federated Learning Server"
+    )
+
+    logger.info("-" * 70)
+
+    logger.info(
+        "Rounds              : %d",
+        args.rounds,
+    )
+
+    logger.info(
+        "FedProx μ           : %.4f (%s)",
+        args.mu,
+        "FedAvg" if args.mu == 0 else "FedProx",
+    )
+
+    logger.info(
+        "Minimum clients     : %d",
+        args.min_clients,
+    )
+
+    logger.info(
+        "Expected clients    : %s",
+        ", ".join(ALL_CLIENTS),
+    )
+
+    logger.info(
+        "Server address      : %s",
+        args.server_address,
+    )
+
+    logger.info(
+        "TLS                 : ENABLED",
+    )
+
+    logger.info(
+        "TLS CA              : %s",
+        args.tls_ca,
+    )
+
+    logger.info(
+        "TLS certificate     : %s",
+        args.tls_cert,
+    )
+
+    logger.info(
+        "HE public context   : %s",
+        args.he_context,
+    )
+
+    logger.info(
+        "Checkpoint directory: %s",
+        args.save_dir,
+    )
+
+    logger.info(
+        "Monitoring logs     : monitoring/logs/server.log",
+    )
+
+    logger.info(
+        "Monitoring metrics  : monitoring/metrics/rounds.csv",
+    )
+
+    logger.info(
+        "Privacy guarantee   : encrypted-domain aggregation",
+    )
+
+    logger.info(
+        "Server secret key   : NOT PRESENT",
+    )
+
+    logger.info("=" * 70)
+
+
+# =============================================================================
+# MAIN
+# =============================================================================
+
+def main() -> fl.server.history.History:
+
+    args = parse_arguments()
+
+    # -------------------------------------------------------------------------
+    # Validate configuration
+    # -------------------------------------------------------------------------
+
+    validate_files(args)
+
+    # -------------------------------------------------------------------------
+    # Server configuration
+    # -------------------------------------------------------------------------
+
+    log_server_configuration(args)
+
+    # -------------------------------------------------------------------------
+    # Build initial global model
+    # -------------------------------------------------------------------------
+
+    logger.info(
+        "Building initial global model..."
+    )
+
     initial_params = build_initial_parameters()
 
-    # ── Instantiate strategy ───────────────────────────────────────────────────
-    strategy = HEFedProxStrategy(
-        public_context_path    = args.he_context,
-        mu                     = args.mu,
-        min_fit_clients        = args.min_clients,
-        min_evaluate_clients   = args.min_clients,
-        min_available_clients  = args.min_clients,
-        initial_parameters     = initial_params,
-        save_dir               = args.save_dir,
-        fraction_fit           = 1.0,
-        fraction_evaluate      = 1.0,
-    )
-
-    # ── Start Flower server ────────────────────────────────────────────────────
     logger.info(
-        "Waiting for at least %d client(s) on %s …",
-        args.min_clients, args.server_address,
-    )
-    history = fl.server.start_server(
-        server_address = args.server_address,
-        strategy       = strategy,
-        config         = fl.server.ServerConfig(num_rounds=args.rounds),
-        certificates   = (
-        Path(args.tls_ca).read_bytes(),
-        Path(args.tls_cert).read_bytes(),
-        Path(args.tls_key).read_bytes(),
-    ),
+        "Initial global model ready."
     )
 
-    # ── Summary ───────────────────────────────────────────────────────────────
-    logger.info("=" * 65)
-    logger.info("FL training complete — %d rounds", args.rounds)
+    # -------------------------------------------------------------------------
+    # Instantiate HE + FedProx strategy
+    # -------------------------------------------------------------------------
+
+    logger.info(
+        "Initializing HEFedProxStrategy..."
+    )
+
+    strategy = HEFedProxStrategy(
+        public_context_path=args.he_context,
+
+        mu=args.mu,
+
+        min_fit_clients=args.min_clients,
+
+        min_evaluate_clients=args.min_clients,
+
+        min_available_clients=args.min_clients,
+
+        initial_parameters=initial_params,
+
+        save_dir=args.save_dir,
+
+        fraction_fit=1.0,
+
+        fraction_evaluate=1.0,
+    )
+
+    logger.info(
+        "HEFedProxStrategy initialized successfully."
+    )
+
+    # -------------------------------------------------------------------------
+    # TLS certificates
+    # -------------------------------------------------------------------------
+
+    tls_ca = Path(args.tls_ca).read_bytes()
+    tls_cert = Path(args.tls_cert).read_bytes()
+    tls_key = Path(args.tls_key).read_bytes()
+
+    logger.info(
+        "TLS certificates loaded successfully."
+    )
+
+    # -------------------------------------------------------------------------
+    # Start server
+    # -------------------------------------------------------------------------
+
+    logger.info(
+        "Waiting for at least %d client(s)...",
+        args.min_clients,
+    )
+
+    logger.info(
+        "Flower server listening on %s",
+        args.server_address,
+    )
+
+    logger.info(
+        "Expected clients: %s",
+        ", ".join(ALL_CLIENTS),
+    )
+
+    logger.info(
+        "Monitoring is ENABLED."
+    )
+
+    # -------------------------------------------------------------------------
+    # FL training timer
+    # -------------------------------------------------------------------------
+
+    training_start = time.perf_counter()
+
+    # -------------------------------------------------------------------------
+    # Start Flower server
+    # -------------------------------------------------------------------------
+
+    history = fl.server.start_server(
+
+        server_address=args.server_address,
+
+        strategy=strategy,
+
+        config=fl.server.ServerConfig(
+            num_rounds=args.rounds,
+        ),
+
+        certificates=(
+            tls_ca,
+            tls_cert,
+            tls_key,
+        ),
+    )
+
+    # -------------------------------------------------------------------------
+    # Training duration
+    # -------------------------------------------------------------------------
+
+    total_training_time = (
+        time.perf_counter()
+        - training_start
+    )
+
+    # -------------------------------------------------------------------------
+    # Training summary
+    # -------------------------------------------------------------------------
+
+    logger.info("=" * 70)
+
+    logger.info(
+        "FL training complete."
+    )
+
+    logger.info(
+        "Completed rounds: %d",
+        args.rounds,
+    )
+
+    logger.info(
+        "Total training duration: %.3f seconds",
+        total_training_time,
+    )
+
+    # -------------------------------------------------------------------------
+    # Distributed losses
+    # -------------------------------------------------------------------------
+
     if history.losses_distributed:
-        rounds_log = history.losses_distributed
-        logger.info("Distributed loss per round:")
-        for rnd, loss in rounds_log:
-            logger.info("  Round %2d: %.6f", rnd, loss)
-        logger.info("Final loss: %.6f", rounds_log[-1][1])
+
+        logger.info(
+            "Distributed evaluation loss:"
+        )
+
+        for round_number, loss in history.losses_distributed:
+
+            logger.info(
+                "Round %d | loss=%.6f",
+                round_number,
+                loss,
+            )
+
+    # -------------------------------------------------------------------------
+    # Distributed metrics
+    # -------------------------------------------------------------------------
+
     if history.metrics_distributed:
-        acc_history = history.metrics_distributed.get("accuracy", [])
-        if acc_history:
-            logger.info("Final accuracy (distributed): %.4f", acc_history[-1][1])
-    logger.info("=" * 65)
+
+        logger.info(
+            "Distributed evaluation metrics:"
+        )
+
+        for metric_name, values in history.metrics_distributed.items():
+
+            logger.info(
+                "Metric: %s",
+                metric_name,
+            )
+
+            for round_number, value in values:
+
+                logger.info(
+                    "Round %d | %s=%.6f",
+                    round_number,
+                    metric_name,
+                    value,
+                )
+
+    # -------------------------------------------------------------------------
+    # Final accuracy
+    # -------------------------------------------------------------------------
+
+    final_accuracy = None
+
+    if history.metrics_distributed:
+
+        accuracy_history = (
+            history.metrics_distributed.get(
+                "accuracy",
+                [],
+            )
+        )
+
+        if accuracy_history:
+
+            final_accuracy = accuracy_history[-1][1]
+
+            logger.info(
+                "Final distributed accuracy: %.6f",
+                final_accuracy,
+            )
+
+    # -------------------------------------------------------------------------
+    # Record final monitoring information
+    # -------------------------------------------------------------------------
+
+    record_round_metrics(
+        round_number=args.rounds,
+        accuracy=final_accuracy,
+        duration_seconds=total_training_time,
+        num_clients=args.min_clients,
+    )
+
+    logger.info(
+        "Final training summary recorded in monitoring/metrics/rounds.csv"
+    )
+
+    logger.info(
+        "Server log available at monitoring/logs/server.log"
+    )
+
+    logger.info(
+        "Client metrics available at monitoring/metrics/clients.csv"
+    )
+
+    logger.info("=" * 70)
+
     return history
 
+
+# =============================================================================
+# ENTRY POINT
+# =============================================================================
 
 if __name__ == "__main__":
     main()

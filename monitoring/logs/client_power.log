@@ -1,0 +1,32 @@
+2026-08-14 21:35:52 [INFO] FL-CLIENT-power - Monitoring module test: client logger OK
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - ======================================================================
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - FL client starting
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - Client        : power
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - Server        : 127.0.0.1:8080
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - Model         : mlp
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - Local epochs  : 3
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - Batch size    : 64
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - Learning rate : 0.001000
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - Device        : cpu
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - HE context    : security\keys\he_context_full.seal
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - CA certificate: security\certificates\ca.crt
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - TLS CA certificate found
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - ======================================================================
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - Initializing FL client
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - Client name : power
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - Model       : mlp
+2026-08-14 21:48:49 [INFO] FL-CLIENT-power - Device      : cpu
+2026-08-14 21:48:50 [INFO] FL-CLIENT-power - HE context loaded successfully (secret key present)
+2026-08-14 21:48:50 [INFO] FL-CLIENT-power - Parameter shapes loaded: 14
+2026-08-14 21:48:50 [INFO] FL-CLIENT-power - Buffer shapes loaded: 9
+2026-08-14 21:48:51 [INFO] FL-CLIENT-power - Dataset loaded
+2026-08-14 21:48:51 [INFO] FL-CLIENT-power - Features     : 19
+2026-08-14 21:48:51 [INFO] FL-CLIENT-power - Train samples: 24759
+2026-08-14 21:48:51 [INFO] FL-CLIENT-power - Test samples : 6190
+2026-08-14 21:48:55 [INFO] FL-CLIENT-power - Model initialized
+2026-08-14 21:48:55 [INFO] FL-CLIENT-power - Trainable parameters: 5961
+2026-08-14 21:48:55 [INFO] FL-CLIENT-power - Batch size          : 64
+2026-08-14 21:48:55 [INFO] FL-CLIENT-power - Local epochs        : 3
+2026-08-14 21:48:55 [INFO] FL-CLIENT-power - Learning rate       : 0.001000
+2026-08-14 21:48:55 [INFO] FL-CLIENT-power - ======================================================================
+2026-08-14 21:48:55 [INFO] FL-CLIENT-power - Connecting to Flower server using TLS...
