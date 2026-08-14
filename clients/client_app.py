@@ -359,106 +359,289 @@ class IDSFlowerClient(fl.client.NumPyClient):
 
     # ── Flower Callbacks ──────────────────────────────────────────────────────
 
-    def fit(
-        self,
-        parameters: List[np.ndarray],
-        config: Dict,
-    ) -> Tuple[List[np.ndarray], int, Dict]:
-        """
-        Local training with FedProx proximal regularisation.
+    
+def fit(
+    self,
+    parameters: List[np.ndarray],
+    config: Dict,
+) -> Tuple[List[np.ndarray], int, Dict]:
+   
 
-        Receives
-        --------
-        parameters : global model parameters from the server
-        config     : {"mu": float, "round": int}
+    # ─────────────────────────────────────────────────────────────────────
+    # FL configuration
+    # ─────────────────────────────────────────────────────────────────────
 
-        FedProx loss
-        ------------
-            L(w) = BCE(w; D_k) + (μ/2) · ‖w − w_global‖²
+    mu = float(config.get("mu", 0.0))
+    fl_round = int(config.get("round", 0))
 
-        where w_global is the FROZEN parameter vector received at the start of
-        this round.  The proximal term prevents excessive client drift on the
-        Non-IID industrial network data.
-        """
-        mu         = float(config.get("mu", 0.0))
-        fl_round   = int(config.get("round", 0))
+    # Start training timer
+    training_start = time.perf_counter()
 
-        self.set_parameters(parameters)
+    # Load/decrypt global model
+    self.set_parameters(parameters)
 
-        # Frozen copy of global weights for the proximal term (FedProx)
-        global_params: Optional[List[torch.Tensor]] = None
-        if mu > 0.0:
-            global_params = [p.data.clone().to(DEVICE) for p in self.model.parameters()]
+    # ─────────────────────────────────────────────────────────────────────
+    # Frozen global parameters for FedProx
+    # ─────────────────────────────────────────────────────────────────────
 
-        logger.info(
-            "[%s] Round %d — local training  epochs=%d  μ=%.4f",
-            self.client_name, fl_round, self.local_epochs, mu,
-        )
+    global_params: Optional[List[torch.Tensor]] = None
 
-        self.model.train()
-        for epoch in range(self.local_epochs):
-            epoch_task_loss = 0.0
-            for xb, yb in self.train_loader:
-                xb, yb = xb.to(DEVICE), yb.to(DEVICE)
-                self.optimizer.zero_grad()
+    if mu > 0.0:
+        global_params = [
+            p.data.clone().to(DEVICE)
+            for p in self.model.parameters()
+        ]
 
-                logits    = self.model(xb).squeeze(1)
-                task_loss = self.criterion(logits, yb)
+    self.logger.info(
+        "Round %d | local training started | epochs=%d | mu=%.4f",
+        fl_round,
+        self.local_epochs,
+        mu,
+    )
 
-                # FedProx proximal term
-                if global_params is not None:
-                    prox_loss = (mu / 2.0) * sum(
-                        ((p - g) ** 2).sum()
-                        for p, g in zip(self.model.parameters(), global_params)
+    # ─────────────────────────────────────────────────────────────────────
+    # Local training
+    # ─────────────────────────────────────────────────────────────────────
+
+    self.model.train()
+
+    avg_task_loss = 0.0
+
+    for epoch in range(self.local_epochs):
+
+        epoch_task_loss = 0.0
+
+        for xb, yb in self.train_loader:
+
+            xb = xb.to(DEVICE)
+            yb = yb.to(DEVICE)
+
+            self.optimizer.zero_grad()
+
+            # Forward pass
+            logits = self.model(xb).squeeze(1)
+
+            # Classification loss
+            task_loss = self.criterion(logits, yb)
+
+            # ─────────────────────────────────────────────────────────────
+            # FedProx proximal term
+            # ─────────────────────────────────────────────────────────────
+
+            if global_params is not None:
+
+                prox_loss = (mu / 2.0) * sum(
+                    ((p - g) ** 2).sum()
+                    for p, g in zip(
+                        self.model.parameters(),
+                        global_params,
                     )
-                    loss = task_loss + prox_loss
-                else:
-                    loss = task_loss
+                )
 
-                loss.backward()
-                self.optimizer.step()
-                epoch_task_loss += task_loss.item() * xb.size(0)
+                loss = task_loss + prox_loss
 
-            avg_task_loss = epoch_task_loss / self.n_train
-            logger.info(
-                "[%s] epoch %d/%d — task_loss=%.4f  μ=%.4f",
-                self.client_name, epoch + 1, self.local_epochs, avg_task_loss, mu,
+            else:
+                loss = task_loss
+
+            # Backpropagation
+            loss.backward()
+
+            self.optimizer.step()
+
+            # Keep track of task loss only
+            epoch_task_loss += (
+                task_loss.item() * xb.size(0)
             )
 
-        return self.get_parameters(config={}), self.n_train, {"train_loss": avg_task_loss}
+        # ─────────────────────────────────────────────────────────────────
+        # Epoch metrics
+        # ─────────────────────────────────────────────────────────────────
 
-    def evaluate(
-        self,
-        parameters: List[np.ndarray],
-        config: Dict,
-    ) -> Tuple[float, int, Dict]:
-        """
-        Local evaluation on the client's held-out test set.
-
-        Decrypts the received global model, runs inference, and returns
-        loss + accuracy (+ optional precision/recall/f1).
-        """
-        self.set_parameters(parameters)
-        self.model.eval()
-
-        total_loss, correct, total = 0.0, 0, 0
-        with torch.no_grad():
-            for xb, yb in self.test_loader:
-                xb, yb  = xb.to(DEVICE), yb.to(DEVICE)
-                logits   = self.model(xb).squeeze(1)
-                loss     = self.criterion(logits, yb)
-                total_loss += loss.item() * xb.size(0)
-                preds    = (torch.sigmoid(logits) > 0.5).float()
-                correct += (preds == yb).sum().item()
-                total   += yb.size(0)
-
-        avg_loss = total_loss / total if total > 0 else 0.0
-        accuracy = correct   / total if total > 0 else 0.0
-        logger.info(
-            "[%s] evaluate — loss=%.5f  accuracy=%.4f",
-            self.client_name, avg_loss, accuracy,
+        avg_task_loss = (
+            epoch_task_loss / self.n_train
+            if self.n_train > 0
+            else 0.0
         )
-        return avg_loss, total, {"accuracy": accuracy}
+
+        self.logger.info(
+            "Round %d | epoch %d/%d | task_loss=%.4f | mu=%.4f",
+            fl_round,
+            epoch + 1,
+            self.local_epochs,
+            avg_task_loss,
+            mu,
+        )
+
+        # Save training loss
+        record_metric(
+            client_name=self.client_name,
+            round_number=fl_round,
+            phase="train",
+            metric="loss",
+            value=avg_task_loss,
+        )
+
+        # Save FedProx coefficient
+        record_metric(
+            client_name=self.client_name,
+            round_number=fl_round,
+            phase="train",
+            metric="fedprox_mu",
+            value=mu,
+        )
+
+    # ─────────────────────────────────────────────────────────────────────
+    # Training duration
+    # ─────────────────────────────────────────────────────────────────────
+
+    training_time = time.perf_counter() - training_start
+
+    self.logger.info(
+        "Round %d | training completed | final_loss=%.4f | "
+        "duration=%.3f seconds | samples=%d",
+        fl_round,
+        avg_task_loss,
+        training_time,
+        self.n_train,
+    )
+
+    # Save training duration
+    record_metric(
+        client_name=self.client_name,
+        round_number=fl_round,
+        phase="train",
+        metric="duration_seconds",
+        value=training_time,
+    )
+
+    # Save number of training samples
+    record_metric(
+        client_name=self.client_name,
+        round_number=fl_round,
+        phase="train",
+        metric="samples",
+        value=self.n_train,
+    )
+
+    # ─────────────────────────────────────────────────────────────────────
+    # Return encrypted local model
+    # ─────────────────────────────────────────────────────────────────────
+
+    return (
+        self.get_parameters(config={}),
+        self.n_train,
+        {
+            "train_loss": avg_task_loss,
+        },
+    )
+
+def evaluate(
+    self,
+    parameters: List[np.ndarray],
+    config: Dict,
+) -> Tuple[float, int, Dict]:
+    """
+    Local evaluation on the client's held-out test set.
+
+    Decrypts the received global model, runs inference, and returns
+    loss + accuracy.
+    """
+
+    # FL round number
+    fl_round = int(config.get("round", 0))
+
+    # Start evaluation timer
+    evaluation_start = time.perf_counter()
+
+    # Load and decrypt the global model
+    self.set_parameters(parameters)
+
+    self.model.eval()
+
+    total_loss = 0.0
+    correct = 0
+    total = 0
+
+    with torch.no_grad():
+
+        for xb, yb in self.test_loader:
+
+            xb = xb.to(DEVICE)
+            yb = yb.to(DEVICE)
+
+            # Forward pass
+            logits = self.model(xb).squeeze(1)
+
+            # Classification loss
+            loss = self.criterion(logits, yb)
+
+            total_loss += loss.item() * xb.size(0)
+
+            # Binary prediction
+            preds = (torch.sigmoid(logits) > 0.5).float()
+
+            correct += (preds == yb).sum().item()
+            total += yb.size(0)
+
+    # Compute metrics
+    avg_loss = total_loss / total if total > 0 else 0.0
+    accuracy = correct / total if total > 0 else 0.0
+
+    # Evaluation duration
+    evaluation_time = time.perf_counter() - evaluation_start
+
+    # ─────────────────────────────────────────────────────────────────────
+    # Logging
+    # ─────────────────────────────────────────────────────────────────────
+
+    self.logger.info(
+        "Round %d | evaluation | loss=%.5f | accuracy=%.4f | "
+        "duration=%.3f seconds",
+        fl_round,
+        avg_loss,
+        accuracy,
+        evaluation_time,
+    )
+
+    # ─────────────────────────────────────────────────────────────────────
+    # Monitoring metrics
+    # ─────────────────────────────────────────────────────────────────────
+
+    record_metric(
+        client_name=self.client_name,
+        round_number=fl_round,
+        phase="evaluate",
+        metric="loss",
+        value=avg_loss,
+    )
+
+    record_metric(
+        client_name=self.client_name,
+        round_number=fl_round,
+        phase="evaluate",
+        metric="accuracy",
+        value=accuracy,
+    )
+
+    record_metric(
+        client_name=self.client_name,
+        round_number=fl_round,
+        phase="evaluate",
+        metric="samples",
+        value=total,
+    )
+
+    record_metric(
+        client_name=self.client_name,
+        round_number=fl_round,
+        phase="evaluate",
+        metric="duration_seconds",
+        value=evaluation_time,
+    )
+
+    return avg_loss, total, {
+        "accuracy": accuracy,
+    }
 
 
 # ── Entry point ────────────────────────────────────────────────────────────────
@@ -505,6 +688,18 @@ def main() -> None:
         "Starting FL client '%s' → server %s",
         args.client_name, args.server_address,
     )
+    client_logger = setup_client_logger(args.client_name)
+
+    client_logger.info("=" * 60)
+    client_logger.info("FL client starting")
+    client_logger.info("Client       : %s", args.client_name)
+    client_logger.info("Server       : %s", args.server_address)
+    client_logger.info("Model        : %s", args.model_type)
+    client_logger.info("Local epochs : %d", args.local_epochs)
+    client_logger.info("Batch size   : %d", args.batch_size)
+    client_logger.info("Learning rate: %.6f", args.lr)
+    client_logger.info("Device       : %s", DEVICE)
+    client_logger.info("=" * 60)
 
     client = IDSFlowerClient(
         client_name      = args.client_name,
