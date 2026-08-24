@@ -17,7 +17,7 @@ import os
 import torch
 
 from models.autoencoder.model import IDSAutoencoder
-from models.autoencoder.train import train_autoencoder, evaluate_autoencoder
+from models.autoencoder.train import train_autoencoder, evaluate_autoencoder, LATENT_DIM_CONFIG
 
 ALL_CLIENTS = ["power", "utilities", "sap", "pap", "beneficiation", "granulation"]
 CHECKPOINTS_DIR = "checkpoints/autoencoder"
@@ -40,12 +40,15 @@ def run_client(client_name: str, args) -> dict:
     logger.info("Client : %s", client_name)
     logger.info("=" * 60)
 
+    # Utilise la config par client si disponible, sinon valeur CLI
+    latent_dim = LATENT_DIM_CONFIG.get(client_name, args.latent_dim)
     model = IDSAutoencoder(
         input_dim=19,
-        latent_dim=args.latent_dim,
+        latent_dim=latent_dim,
         dropout=args.dropout,
     )
-    logger.info("IDSAutoencoder — %d parametres", model.count_parameters())
+    logger.info("IDSAutoencoder — latent_dim=%d — %d parametres",
+                latent_dim, model.count_parameters())
 
     # ── Entrainement ────────────────────────────────────────────────────────
     train_result = train_autoencoder(
@@ -66,7 +69,7 @@ def run_client(client_name: str, args) -> dict:
             "model_state_dict": model.state_dict(),
             "threshold":        threshold,
             "input_dim":        19,
-            "latent_dim":       args.latent_dim,
+            "latent_dim":       latent_dim,
             "dropout":          args.dropout,
             "train_history":    train_result["history"],
         }, ckpt_path)

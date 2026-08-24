@@ -74,7 +74,6 @@ def train_and_evaluate(client_name: str, model_type: str = "mlp",
     X_train_full, y_train_full, X_test, y_test, feature_cols = load_client_train_test(client_name)
     input_dim = len(feature_cols)
 
-    # ── Split validation interne (A4) ─────────────────────────────────────────
     X_train, X_val, y_train, y_val = train_test_split(
         X_train_full, y_train_full, test_size=0.1, random_state=42, stratify=y_train_full
     )
@@ -154,7 +153,6 @@ def train_and_evaluate(client_name: str, model_type: str = "mlp",
     if best_model_state is not None:
         model.load_state_dict(best_model_state)
 
-    # --- Calibrer le seuil (A5) ---
     model.eval()
     val_probs, val_labels = [], []
     with torch.no_grad():

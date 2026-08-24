@@ -1,0 +1,199 @@
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - ======================================================================
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - FL client starting
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - Client        : utilities
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - Server        : 127.0.0.1:8080
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - Model         : mlp
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - Local epochs  : 3
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - Batch size    : 64
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - Learning rate : 0.001000
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - Device        : cpu
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - HE context    : security\keys\he_context_full.seal
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - CA certificate: security\certificates\ca.crt
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - TLS CA certificate found
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - ======================================================================
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - Initializing FL client
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - Client name : utilities
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - Model       : mlp
+2026-08-14 21:49:52 [INFO] FL-CLIENT-utilities - Device      : cpu
+2026-08-14 21:49:53 [INFO] FL-CLIENT-utilities - HE context loaded successfully (secret key present)
+2026-08-14 21:49:53 [INFO] FL-CLIENT-utilities - Parameter shapes loaded: 14
+2026-08-14 21:49:53 [INFO] FL-CLIENT-utilities - Buffer shapes loaded: 9
+2026-08-14 21:49:53 [INFO] FL-CLIENT-utilities - Dataset loaded
+2026-08-14 21:49:53 [INFO] FL-CLIENT-utilities - Features     : 19
+2026-08-14 21:49:53 [INFO] FL-CLIENT-utilities - Train samples: 11815
+2026-08-14 21:49:53 [INFO] FL-CLIENT-utilities - Test samples : 2954
+2026-08-14 21:49:56 [INFO] FL-CLIENT-utilities - Model initialized
+2026-08-14 21:49:56 [INFO] FL-CLIENT-utilities - Trainable parameters: 5961
+2026-08-14 21:49:56 [INFO] FL-CLIENT-utilities - Batch size          : 64
+2026-08-14 21:49:56 [INFO] FL-CLIENT-utilities - Local epochs        : 3
+2026-08-14 21:49:56 [INFO] FL-CLIENT-utilities - Learning rate       : 0.001000
+2026-08-14 21:49:56 [INFO] FL-CLIENT-utilities - ======================================================================
+2026-08-14 21:49:56 [INFO] FL-CLIENT-utilities - Connecting to Flower server using TLS...
+2026-08-14 21:50:52 [INFO] FL-CLIENT-utilities - Plaintext global model initialization received
+2026-08-14 21:50:52 [INFO] FL-CLIENT-utilities - Round 1 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 21:51:01 [INFO] FL-CLIENT-utilities - Round 1 | epoch 1/3 | task_loss=0.463521 | FedProx mu=0.010000
+2026-08-14 21:51:09 [INFO] FL-CLIENT-utilities - Round 1 | epoch 2/3 | task_loss=0.310565 | FedProx mu=0.010000
+2026-08-14 21:51:18 [INFO] FL-CLIENT-utilities - Round 1 | epoch 3/3 | task_loss=0.289456 | FedProx mu=0.010000
+2026-08-14 21:51:18 [INFO] FL-CLIENT-utilities - Round 1 | training completed | final_loss=0.289456 | duration=25.992 s | samples=11815
+2026-08-14 21:51:18 [INFO] FL-CLIENT-utilities - Round 1 | encrypting local model...
+2026-08-14 21:51:18 [INFO] FL-CLIENT-utilities - Encrypting local model parameters...
+2026-08-14 21:51:18 [INFO] FL-CLIENT-utilities - Model parameters encrypted
+2026-08-14 21:51:18 [INFO] FL-CLIENT-utilities - Ciphertext size: 658214 bytes
+2026-08-14 21:51:18 [INFO] FL-CLIENT-utilities - Round 1 | encrypted model ready for transmission
+2026-08-14 21:52:46 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 21:52:46 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 21:52:46 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 21:52:46 [INFO] FL-CLIENT-utilities - Round 1 | evaluation completed | loss=2.175370 | accuracy=0.144550 | duration=0.332 s | samples=2954
+2026-08-14 21:52:50 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 21:52:50 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 21:52:50 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 21:52:50 [INFO] FL-CLIENT-utilities - Round 2 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 21:52:55 [INFO] FL-CLIENT-utilities - Round 2 | epoch 1/3 | task_loss=0.350262 | FedProx mu=0.010000
+2026-08-14 21:52:59 [INFO] FL-CLIENT-utilities - Round 2 | epoch 2/3 | task_loss=0.288492 | FedProx mu=0.010000
+2026-08-14 21:53:03 [INFO] FL-CLIENT-utilities - Round 2 | epoch 3/3 | task_loss=0.287626 | FedProx mu=0.010000
+2026-08-14 21:53:03 [INFO] FL-CLIENT-utilities - Round 2 | training completed | final_loss=0.287626 | duration=12.840 s | samples=11815
+2026-08-14 21:53:03 [INFO] FL-CLIENT-utilities - Round 2 | encrypting local model...
+2026-08-14 21:53:03 [INFO] FL-CLIENT-utilities - Encrypting local model parameters...
+2026-08-14 21:53:03 [INFO] FL-CLIENT-utilities - Model parameters encrypted
+2026-08-14 21:53:03 [INFO] FL-CLIENT-utilities - Ciphertext size: 658197 bytes
+2026-08-14 21:53:03 [INFO] FL-CLIENT-utilities - Round 2 | encrypted model ready for transmission
+2026-08-14 21:57:47 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 21:57:47 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 21:57:47 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 21:57:47 [INFO] FL-CLIENT-utilities - Round 2 | evaluation completed | loss=1.208810 | accuracy=0.143873 | duration=0.475 s | samples=2954
+2026-08-14 21:57:53 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 21:57:53 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 21:57:53 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 21:57:53 [INFO] FL-CLIENT-utilities - Round 3 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 21:58:03 [INFO] FL-CLIENT-utilities - Round 3 | epoch 1/3 | task_loss=0.326949 | FedProx mu=0.010000
+2026-08-14 21:58:09 [INFO] FL-CLIENT-utilities - Round 3 | epoch 2/3 | task_loss=0.288854 | FedProx mu=0.010000
+2026-08-14 21:58:11 [INFO] FL-CLIENT-utilities - Round 3 | epoch 3/3 | task_loss=0.281465 | FedProx mu=0.010000
+2026-08-14 21:58:11 [INFO] FL-CLIENT-utilities - Round 3 | training completed | final_loss=0.281465 | duration=18.170 s | samples=11815
+2026-08-14 21:58:11 [INFO] FL-CLIENT-utilities - Round 3 | encrypting local model...
+2026-08-14 21:58:11 [INFO] FL-CLIENT-utilities - Encrypting local model parameters...
+2026-08-14 21:58:11 [INFO] FL-CLIENT-utilities - Model parameters encrypted
+2026-08-14 21:58:11 [INFO] FL-CLIENT-utilities - Ciphertext size: 658181 bytes
+2026-08-14 21:58:11 [INFO] FL-CLIENT-utilities - Round 3 | encrypted model ready for transmission
+2026-08-14 22:02:44 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:02:44 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:02:44 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:02:45 [INFO] FL-CLIENT-utilities - Round 3 | evaluation completed | loss=0.822943 | accuracy=0.208531 | duration=0.274 s | samples=2954
+2026-08-14 22:02:50 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:02:50 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:02:50 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:02:50 [INFO] FL-CLIENT-utilities - Round 4 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:02:54 [INFO] FL-CLIENT-utilities - Round 4 | epoch 1/3 | task_loss=0.328655 | FedProx mu=0.010000
+2026-08-14 22:02:58 [INFO] FL-CLIENT-utilities - Round 4 | epoch 2/3 | task_loss=0.288534 | FedProx mu=0.010000
+2026-08-14 22:03:02 [INFO] FL-CLIENT-utilities - Round 4 | epoch 3/3 | task_loss=0.282883 | FedProx mu=0.010000
+2026-08-14 22:03:02 [INFO] FL-CLIENT-utilities - Round 4 | training completed | final_loss=0.282883 | duration=12.320 s | samples=11815
+2026-08-14 22:03:02 [INFO] FL-CLIENT-utilities - Round 4 | encrypting local model...
+2026-08-14 22:03:02 [INFO] FL-CLIENT-utilities - Encrypting local model parameters...
+2026-08-14 22:03:02 [INFO] FL-CLIENT-utilities - Model parameters encrypted
+2026-08-14 22:03:02 [INFO] FL-CLIENT-utilities - Ciphertext size: 657250 bytes
+2026-08-14 22:03:02 [INFO] FL-CLIENT-utilities - Round 4 | encrypted model ready for transmission
+2026-08-14 22:07:10 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:07:10 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:07:10 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:07:10 [INFO] FL-CLIENT-utilities - Round 4 | evaluation completed | loss=0.553241 | accuracy=0.832092 | duration=0.272 s | samples=2954
+2026-08-14 22:07:15 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:07:15 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:07:15 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:07:15 [INFO] FL-CLIENT-utilities - Round 5 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:07:21 [INFO] FL-CLIENT-utilities - Round 5 | epoch 1/3 | task_loss=0.322980 | FedProx mu=0.010000
+2026-08-14 22:07:26 [INFO] FL-CLIENT-utilities - Round 5 | epoch 2/3 | task_loss=0.284483 | FedProx mu=0.010000
+2026-08-14 22:07:32 [INFO] FL-CLIENT-utilities - Round 5 | epoch 3/3 | task_loss=0.282378 | FedProx mu=0.010000
+2026-08-14 22:07:32 [INFO] FL-CLIENT-utilities - Round 5 | training completed | final_loss=0.282378 | duration=16.990 s | samples=11815
+2026-08-14 22:07:32 [INFO] FL-CLIENT-utilities - Round 5 | encrypting local model...
+2026-08-14 22:07:32 [INFO] FL-CLIENT-utilities - Encrypting local model parameters...
+2026-08-14 22:07:32 [INFO] FL-CLIENT-utilities - Model parameters encrypted
+2026-08-14 22:07:32 [INFO] FL-CLIENT-utilities - Ciphertext size: 658150 bytes
+2026-08-14 22:07:32 [INFO] FL-CLIENT-utilities - Round 5 | encrypted model ready for transmission
+2026-08-14 22:11:39 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:11:39 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:11:39 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:11:39 [INFO] FL-CLIENT-utilities - Round 5 | evaluation completed | loss=0.595353 | accuracy=0.847326 | duration=0.250 s | samples=2954
+2026-08-14 22:11:44 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:11:44 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:11:44 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:11:44 [INFO] FL-CLIENT-utilities - Round 6 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:11:49 [INFO] FL-CLIENT-utilities - Round 6 | epoch 1/3 | task_loss=0.311089 | FedProx mu=0.010000
+2026-08-14 22:11:55 [INFO] FL-CLIENT-utilities - Round 6 | epoch 2/3 | task_loss=0.285144 | FedProx mu=0.010000
+2026-08-14 22:12:00 [INFO] FL-CLIENT-utilities - Round 6 | epoch 3/3 | task_loss=0.278835 | FedProx mu=0.010000
+2026-08-14 22:12:00 [INFO] FL-CLIENT-utilities - Round 6 | training completed | final_loss=0.278835 | duration=16.349 s | samples=11815
+2026-08-14 22:12:00 [INFO] FL-CLIENT-utilities - Round 6 | encrypting local model...
+2026-08-14 22:12:00 [INFO] FL-CLIENT-utilities - Encrypting local model parameters...
+2026-08-14 22:12:00 [INFO] FL-CLIENT-utilities - Model parameters encrypted
+2026-08-14 22:12:00 [INFO] FL-CLIENT-utilities - Ciphertext size: 656976 bytes
+2026-08-14 22:12:00 [INFO] FL-CLIENT-utilities - Round 6 | encrypted model ready for transmission
+2026-08-14 22:15:04 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:15:04 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:15:04 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:15:05 [INFO] FL-CLIENT-utilities - Round 6 | evaluation completed | loss=0.487077 | accuracy=0.901151 | duration=0.451 s | samples=2954
+2026-08-14 22:15:10 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:15:10 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:15:10 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:15:10 [INFO] FL-CLIENT-utilities - Round 7 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:15:19 [INFO] FL-CLIENT-utilities - Round 7 | epoch 1/3 | task_loss=0.312635 | FedProx mu=0.010000
+2026-08-14 22:15:27 [INFO] FL-CLIENT-utilities - Round 7 | epoch 2/3 | task_loss=0.289503 | FedProx mu=0.010000
+2026-08-14 22:15:31 [INFO] FL-CLIENT-utilities - Round 7 | epoch 3/3 | task_loss=0.279904 | FedProx mu=0.010000
+2026-08-14 22:15:31 [INFO] FL-CLIENT-utilities - Round 7 | training completed | final_loss=0.279904 | duration=21.027 s | samples=11815
+2026-08-14 22:15:31 [INFO] FL-CLIENT-utilities - Round 7 | encrypting local model...
+2026-08-14 22:15:31 [INFO] FL-CLIENT-utilities - Encrypting local model parameters...
+2026-08-14 22:15:31 [INFO] FL-CLIENT-utilities - Model parameters encrypted
+2026-08-14 22:15:31 [INFO] FL-CLIENT-utilities - Ciphertext size: 658222 bytes
+2026-08-14 22:15:31 [INFO] FL-CLIENT-utilities - Round 7 | encrypted model ready for transmission
+2026-08-14 22:20:06 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:20:06 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:20:06 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:20:07 [INFO] FL-CLIENT-utilities - Round 7 | evaluation completed | loss=0.524847 | accuracy=0.899120 | duration=0.461 s | samples=2954
+2026-08-14 22:20:12 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:20:12 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:20:12 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:20:12 [INFO] FL-CLIENT-utilities - Round 8 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:20:17 [INFO] FL-CLIENT-utilities - Round 8 | epoch 1/3 | task_loss=0.323717 | FedProx mu=0.010000
+2026-08-14 22:20:21 [INFO] FL-CLIENT-utilities - Round 8 | epoch 2/3 | task_loss=0.292340 | FedProx mu=0.010000
+2026-08-14 22:20:25 [INFO] FL-CLIENT-utilities - Round 8 | epoch 3/3 | task_loss=0.283357 | FedProx mu=0.010000
+2026-08-14 22:20:25 [INFO] FL-CLIENT-utilities - Round 8 | training completed | final_loss=0.283357 | duration=13.274 s | samples=11815
+2026-08-14 22:20:25 [INFO] FL-CLIENT-utilities - Round 8 | encrypting local model...
+2026-08-14 22:20:25 [INFO] FL-CLIENT-utilities - Encrypting local model parameters...
+2026-08-14 22:20:25 [INFO] FL-CLIENT-utilities - Model parameters encrypted
+2026-08-14 22:20:25 [INFO] FL-CLIENT-utilities - Ciphertext size: 658092 bytes
+2026-08-14 22:20:25 [INFO] FL-CLIENT-utilities - Round 8 | encrypted model ready for transmission
+2026-08-14 22:22:50 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:22:50 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:22:50 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:22:50 [INFO] FL-CLIENT-utilities - Round 8 | evaluation completed | loss=0.374690 | accuracy=0.887949 | duration=0.208 s | samples=2954
+2026-08-14 22:22:53 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:22:53 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:22:53 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:22:53 [INFO] FL-CLIENT-utilities - Round 9 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:22:56 [INFO] FL-CLIENT-utilities - Round 9 | epoch 1/3 | task_loss=0.324081 | FedProx mu=0.010000
+2026-08-14 22:23:00 [INFO] FL-CLIENT-utilities - Round 9 | epoch 2/3 | task_loss=0.287820 | FedProx mu=0.010000
+2026-08-14 22:23:04 [INFO] FL-CLIENT-utilities - Round 9 | epoch 3/3 | task_loss=0.281181 | FedProx mu=0.010000
+2026-08-14 22:23:04 [INFO] FL-CLIENT-utilities - Round 9 | training completed | final_loss=0.281181 | duration=11.566 s | samples=11815
+2026-08-14 22:23:04 [INFO] FL-CLIENT-utilities - Round 9 | encrypting local model...
+2026-08-14 22:23:04 [INFO] FL-CLIENT-utilities - Encrypting local model parameters...
+2026-08-14 22:23:04 [INFO] FL-CLIENT-utilities - Model parameters encrypted
+2026-08-14 22:23:04 [INFO] FL-CLIENT-utilities - Ciphertext size: 657548 bytes
+2026-08-14 22:23:04 [INFO] FL-CLIENT-utilities - Round 9 | encrypted model ready for transmission
+2026-08-14 22:26:16 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:26:16 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:26:16 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:26:16 [INFO] FL-CLIENT-utilities - Round 9 | evaluation completed | loss=0.559299 | accuracy=0.898104 | duration=0.226 s | samples=2954
+2026-08-14 22:26:21 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:26:21 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:26:21 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:26:21 [INFO] FL-CLIENT-utilities - Round 10 | local training started | epochs=3 | FedProx mu=0.010000
+2026-08-14 22:26:25 [INFO] FL-CLIENT-utilities - Round 10 | epoch 1/3 | task_loss=0.328118 | FedProx mu=0.010000
+2026-08-14 22:26:29 [INFO] FL-CLIENT-utilities - Round 10 | epoch 2/3 | task_loss=0.291666 | FedProx mu=0.010000
+2026-08-14 22:26:33 [INFO] FL-CLIENT-utilities - Round 10 | epoch 3/3 | task_loss=0.281194 | FedProx mu=0.010000
+2026-08-14 22:26:33 [INFO] FL-CLIENT-utilities - Round 10 | training completed | final_loss=0.281194 | duration=12.335 s | samples=11815
+2026-08-14 22:26:33 [INFO] FL-CLIENT-utilities - Round 10 | encrypting local model...
+2026-08-14 22:26:33 [INFO] FL-CLIENT-utilities - Encrypting local model parameters...
+2026-08-14 22:26:33 [INFO] FL-CLIENT-utilities - Model parameters encrypted
+2026-08-14 22:26:33 [INFO] FL-CLIENT-utilities - Ciphertext size: 658271 bytes
+2026-08-14 22:26:33 [INFO] FL-CLIENT-utilities - Round 10 | encrypted model ready for transmission
+2026-08-14 22:30:44 [INFO] FL-CLIENT-utilities - Encrypted global model received
+2026-08-14 22:30:44 [INFO] FL-CLIENT-utilities - Decrypting global model...
+2026-08-14 22:30:44 [INFO] FL-CLIENT-utilities - Global model decrypted successfully
+2026-08-14 22:30:45 [INFO] FL-CLIENT-utilities - Round 10 | evaluation completed | loss=0.444126 | accuracy=0.901151 | duration=0.282 s | samples=2954

@@ -12,6 +12,7 @@ Fenêtre principale avec :
 
 import os
 import sys
+import re
 from datetime import datetime
 
 from PySide6.QtWidgets import (
@@ -26,6 +27,7 @@ from gui.widgets.nav_sidebar  import NavSidebar
 from gui.widgets.control_panel import ControlPanel
 from gui.widgets.log_console   import LogConsole
 from gui.widgets.charts_panel  import ChartsPanel
+from gui.widgets.monitoring_panel import MonitoringPage
 from gui.icons                 import Icons, svg_to_pixmap, svg_icon
 
 from gui.workers.fl_runner import FLRunnerWorker
@@ -331,10 +333,36 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self._fl_worker: FLRunnerWorker | None = None
+        
+        # Zoom support
+        self._zoom_factor = 1.0
+        self._base_qss = _load_qss(_QSS_PATH)
 
         self._setup_window()
         self._build_ui()
-        self._apply_stylesheet()
+        self._apply_zoom()
+
+    def wheelEvent(self, event):
+        if event.modifiers() == Qt.KeyboardModifier.ControlModifier:
+            if event.angleDelta().y() > 0:
+                self._zoom_factor += 0.1
+            else:
+                self._zoom_factor -= 0.1
+                
+            self._zoom_factor = max(0.5, min(3.0, self._zoom_factor))
+            self._apply_zoom()
+            event.accept()
+        else:
+            super().wheelEvent(event)
+
+    def _apply_zoom(self):
+        def scale_match(match):
+            val = int(match.group(1))
+            new_val = max(1, int(val * self._zoom_factor))
+            return f"font-size: {new_val}px"
+            
+        scaled_qss = re.sub(r"font-size:\s*(\d+)px", scale_match, self._base_qss)
+        self.setStyleSheet(scaled_qss)
 
     # ────────────────────────────────────────────────────────────────────
     def _setup_window(self):
@@ -390,6 +418,10 @@ class MainWindow(QMainWindow):
         self.about_page = AboutPage()
         self._stack.addWidget(self.about_page)
 
+        # ── Page 3 : Monitoring ───────────────────────────────────────
+        self.monitoring_page = MonitoringPage()
+        self._stack.addWidget(self.monitoring_page)
+
         content_row.addWidget(self._stack)
         root.addLayout(content_row)
 
@@ -444,7 +476,7 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def _stop_training(self):
-        if hasattr(self, '_fl_worker') and self._fl_worker.isRunning():
+        if hasattr(self, '_fl_worker') and self._fl_worker is not None and self._fl_worker.isRunning():
             self._log("Arrêt d'urgence demandé...", "color: #C0626A; font-weight: bold;")
             self._fl_worker.stop()
             self._fl_worker.wait()

@@ -5,3 +5,18 @@
 datasets/raw/*
 datasets/processed/*
 datasets/partitions/*
+
+# ==================================
+# Python bytecode
+# ==================================
+__pycache__/
+*.pyc
+*.pyo
+
+# ==================================
+# TLS / Security
+# ==================================
+security/certificates/*.key
+security/certificates/*.crt
+security/certificates/*.csr
+security/certificates/*.srl

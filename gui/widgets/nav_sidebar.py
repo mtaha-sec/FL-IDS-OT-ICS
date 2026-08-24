@@ -64,6 +64,7 @@ class NavSidebar(QWidget):
         (Icons.DASHBOARD, "Dashboard",            0),
         (Icons.CONTROL,   "Panneau de Contrôle",  1),
         (Icons.ABOUT,     "À propos",              2),
+        (Icons.DATASET,   "Monitoring",            3),
     ]
 
     def __init__(self, parent=None):
