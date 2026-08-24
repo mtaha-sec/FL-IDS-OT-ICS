@@ -23,6 +23,7 @@ import numpy as np
 import pandas as pd
 import torch
 import torch.nn as nn
+from sklearn.metrics import precision_score, recall_score, f1_score
 from torch.utils.data import DataLoader, TensorDataset
 
 from models.local_ids.model import build_model, get_input_dim
@@ -116,22 +117,39 @@ class IDSFlowerClient(fl.client.NumPyClient):
     def evaluate(self, parameters, config):
         self.set_parameters(parameters)
         self.model.eval()
-        total_loss, correct, total = 0.0, 0, 0
+        total_loss, total = 0.0, 0
+        all_preds = []
+        all_labels = []
+        
         with torch.no_grad():
             for xb, yb in self.test_loader:
                 xb, yb = xb.to(DEVICE), yb.to(DEVICE)
                 logits = self.model(xb).squeeze(1)
                 loss = self.criterion(logits, yb)
                 total_loss += loss.item() * xb.size(0)
+                
                 preds = (torch.sigmoid(logits) > 0.5).float()
-                correct += (preds == yb).sum().item()
+                all_preds.extend(preds.cpu().numpy())
+                all_labels.extend(yb.cpu().numpy())
                 total += yb.size(0)
 
-        accuracy = correct / total if total > 0 else 0.0
         avg_loss = total_loss / total if total > 0 else 0.0
+        
+        # Calcul des métriques avec sklearn (zero_division=0 pour éviter les warnings si le modèle prédit tout dans une classe)
+        accuracy = sum([p == l for p, l in zip(all_preds, all_labels)]) / total if total > 0 else 0.0
+        precision = precision_score(all_labels, all_preds, zero_division=0)
+        recall = recall_score(all_labels, all_preds, zero_division=0)
+        f1 = f1_score(all_labels, all_preds, zero_division=0)
+        
         logger.info("[%s] evaluation locale - loss=%.4f, accuracy=%.4f",
                     self.client_name, avg_loss, accuracy)
-        return avg_loss, total, {"accuracy": accuracy}
+                    
+        return avg_loss, total, {
+            "accuracy": float(accuracy),
+            "precision": float(precision),
+            "recall": float(recall),
+            "f1": float(f1)
+        }
 
 
 def main():
@@ -140,7 +158,7 @@ def main():
                          choices=["beneficiation", "sap", "pap", "power", "utilities", "granulation"])
     parser.add_argument("--model-type", choices=["mlp", "logreg"], default="mlp",
                          help="Doit etre IDENTIQUE sur les 6 clients et le serveur")
-    parser.add_argument("--server-address", default="127.0.0.1:8080")
+    parser.add_argument("--server-address", default="127.0.0.1:8085")
     parser.add_argument("--local-epochs", type=int, default=3)
     args = parser.parse_args()
 
@@ -150,4 +168,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()s
+    main()

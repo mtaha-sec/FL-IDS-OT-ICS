@@ -1,0 +1,588 @@
+[19:07:22]  FL-IDS-OT-ICS Dashboard demarre — framework operationnel.
+[19:07:22]  Clients disponibles : power, utilities, sap, pap, beneficiation, granulation.
+[19:07:22]  Accedez au Panneau de Controle via la navigation laterale pour lancer un entrainement.
+[19:07:30]  Lancement de l'entrainement FL — {'learning_rate': 0.01, 'local_epochs': 3, 'mu': 0.1, 'num_rounds': 10, 'selected_clients': ['beneficiation', 'sap', 'pap', 'power', 'utilities', 'granulation']}
+[19:07:30]  ============================================================
+[19:07:30]  🚀 [FL RUNNER] Démarrage de l'apprentissage fédéré (Subprocess)
+[19:07:30]     ► Rounds   : 10
+[19:07:30]     ► Clients  : beneficiation, sap, pap, power, utilities, granulation
+[19:07:30]     ► Stratégie: FedProx (µ=0.1)
+[19:07:30]  ============================================================
+[19:07:30]  
+🌐 Lancement du serveur central...
+[19:07:31]  [SERVEUR] 2026-08-14 19:07:31,397 [INFO] Démarrage du serveur Flower avec FedProx (Rounds=10, MinClients=6, µ=0.1)
+[19:07:31]  [SERVEUR] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.server.start_server() is deprecated.
+[19:07:31]  [SERVEUR] Instead, use the `flower-superlink` CLI command to start a SuperLink as shown below:
+[19:07:31]  [SERVEUR] $ flower-superlink --insecure
+[19:07:31]  [SERVEUR] To view usage and all available options, run:
+[19:07:31]  [SERVEUR] $ flower-superlink --help
+[19:07:31]  [SERVEUR] Using `start_server()` is deprecated.
+[19:07:31]  [SERVEUR] This is a deprecated feature. It will be removed
+[19:07:31]  [SERVEUR] entirely in future versions of Flower.
+[19:07:31]  [SERVEUR] 2026-08-14 19:07:31,397 [WARNING] DEPRECATED FEATURE: flwr.server.start_server() is deprecated.
+[19:07:31]  [SERVEUR] Instead, use the `flower-superlink` CLI command to start a SuperLink as shown below:
+[19:07:31]  [SERVEUR] $ flower-superlink --insecure
+[19:07:31]  [SERVEUR] To view usage and all available options, run:
+[19:07:31]  [SERVEUR] $ flower-superlink --help
+[19:07:31]  [SERVEUR] Using `start_server()` is deprecated.
+[19:07:31]  [SERVEUR] This is a deprecated feature. It will be removed
+[19:07:31]  [SERVEUR] entirely in future versions of Flower.
+[19:07:31]  [SERVEUR] [92mINFO [0m:      Starting Flower server, config: num_rounds=10, no round_timeout
+[19:07:31]  [SERVEUR] 2026-08-14 19:07:31,398 [INFO] Starting Flower server, config: num_rounds=10, no round_timeout
+[19:07:31]  [SERVEUR] Port in server address 127.0.0.1:8080 is already in use.
+[19:07:32]  
+💻 Lancement des clients locaux...
+[19:07:32]     ► Démarrage de 'beneficiation'...
+[19:07:33]     ► Démarrage de 'sap'...
+[19:07:34]     ► Démarrage de 'pap'...
+[19:07:35]     ► Démarrage de 'power'...
+[19:07:36]     ► Démarrage de 'utilities'...
+[19:07:37]     ► Démarrage de 'granulation'...
+[19:07:38]  [CLIENT-SAP] 2026-08-14 19:07:38,501 [INFO] Client 'sap' : 19 features, train=36226, test=9057
+[19:07:39]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:39,287 [INFO] Client 'beneficiation' : 19 features, train=162873, test=40719
+[19:07:40]  [CLIENT-PAP] 2026-08-14 19:07:40,459 [INFO] Client 'pap' : 19 features, train=132608, test=33152
+[19:07:41]  [CLIENT-POWER] 2026-08-14 19:07:41,416 [INFO] Client 'power' : 19 features, train=24759, test=6190
+[19:07:43]  [CLIENT-UTILITIES] 2026-08-14 19:07:43,181 [INFO] Client 'utilities' : 19 features, train=11815, test=2954
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,747 [INFO] setup plugin alembic.autogenerate.schemas
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,748 [INFO] setup plugin alembic.autogenerate.tables
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,748 [INFO] setup plugin alembic.autogenerate.types
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,748 [INFO] setup plugin alembic.autogenerate.constraints
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,748 [INFO] setup plugin alembic.autogenerate.defaults
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,749 [INFO] setup plugin alembic.autogenerate.comments
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,749 [INFO] setup plugin alembic.autogenerate.checkconstraint_byname
+[19:07:44]  [CLIENT-SAP] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated.
+[19:07:44]  [CLIENT-SAP] Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below:
+[19:07:44]  [CLIENT-SAP] flwr.client.start_client(
+[19:07:44]  [CLIENT-SAP] server_address='<IP>:<PORT>',
+[19:07:44]  [CLIENT-SAP] client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+[19:07:44]  [CLIENT-SAP] )
+[19:07:44]  [CLIENT-SAP] Using `start_numpy_client()` is deprecated.
+[19:07:44]  [CLIENT-SAP] This is a deprecated feature. It will be removed
+[19:07:44]  [CLIENT-SAP] entirely in future versions of Flower.
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,860 [WARNING] DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated.
+[19:07:44]  [CLIENT-SAP] Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below:
+[19:07:44]  [CLIENT-SAP] flwr.client.start_client(
+[19:07:44]  [CLIENT-SAP] server_address='<IP>:<PORT>',
+[19:07:44]  [CLIENT-SAP] client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+[19:07:44]  [CLIENT-SAP] )
+[19:07:44]  [CLIENT-SAP] Using `start_numpy_client()` is deprecated.
+[19:07:44]  [CLIENT-SAP] This is a deprecated feature. It will be removed
+[19:07:44]  [CLIENT-SAP] entirely in future versions of Flower.
+[19:07:44]  [CLIENT-SAP] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+[19:07:44]  [CLIENT-SAP] Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+[19:07:44]  [CLIENT-SAP] $ flower-supernode --insecure --superlink='<IP>:<PORT>'
+[19:07:44]  [CLIENT-SAP] To view all available options, run:
+[19:07:44]  [CLIENT-SAP] $ flower-supernode --help
+[19:07:44]  [CLIENT-SAP] Using `start_client()` is deprecated.
+[19:07:44]  [CLIENT-SAP] This is a deprecated feature. It will be removed
+[19:07:44]  [CLIENT-SAP] entirely in future versions of Flower.
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,860 [WARNING] DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+[19:07:44]  [CLIENT-SAP] Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+[19:07:44]  [CLIENT-SAP] $ flower-supernode --insecure --superlink='<IP>:<PORT>'
+[19:07:44]  [CLIENT-SAP] To view all available options, run:
+[19:07:44]  [CLIENT-SAP] $ flower-supernode --help
+[19:07:44]  [CLIENT-SAP] Using `start_client()` is deprecated.
+[19:07:44]  [CLIENT-SAP] This is a deprecated feature. It will be removed
+[19:07:44]  [CLIENT-SAP] entirely in future versions of Flower.
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,861 [DEBUG] Using InMemoryObjectStore
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,890 [DEBUG] Opened insecure gRPC connection (no certificates were passed)
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,894 [DEBUG] ChannelConnectivity.IDLE
+[19:07:44]  [CLIENT-SAP] 2026-08-14 19:07:44,895 [DEBUG] ChannelConnectivity.CONNECTING
+[19:07:44]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:44,999 [INFO] setup plugin alembic.autogenerate.schemas
+[19:07:45]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:44,999 [INFO] setup plugin alembic.autogenerate.tables
+[19:07:45]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:44,999 [INFO] setup plugin alembic.autogenerate.types
+[19:07:45]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:45,000 [INFO] setup plugin alembic.autogenerate.constraints
+[19:07:45]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:45,000 [INFO] setup plugin alembic.autogenerate.defaults
+[19:07:45]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:45,000 [INFO] setup plugin alembic.autogenerate.comments
+[19:07:45]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:45,000 [INFO] setup plugin alembic.autogenerate.checkconstraint_byname
+[19:07:45]  [CLIENT-BENEFICIATION] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated.
+[19:07:45]  [CLIENT-BENEFICIATION] Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below:
+[19:07:45]  [CLIENT-BENEFICIATION] flwr.client.start_client(
+[19:07:45]  [CLIENT-BENEFICIATION] server_address='<IP>:<PORT>',
+[19:07:45]  [CLIENT-BENEFICIATION] client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+[19:07:45]  [CLIENT-BENEFICIATION] )
+[19:07:45]  [CLIENT-BENEFICIATION] Using `start_numpy_client()` is deprecated.
+[19:07:45]  [CLIENT-BENEFICIATION] This is a deprecated feature. It will be removed
+[19:07:45]  [CLIENT-BENEFICIATION] entirely in future versions of Flower.
+[19:07:45]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:45,080 [WARNING] DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated.
+[19:07:45]  [CLIENT-BENEFICIATION] Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below:
+[19:07:45]  [CLIENT-BENEFICIATION] flwr.client.start_client(
+[19:07:45]  [CLIENT-BENEFICIATION] server_address='<IP>:<PORT>',
+[19:07:45]  [CLIENT-BENEFICIATION] client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+[19:07:45]  [CLIENT-BENEFICIATION] )
+[19:07:45]  [CLIENT-BENEFICIATION] Using `start_numpy_client()` is deprecated.
+[19:07:45]  [CLIENT-BENEFICIATION] This is a deprecated feature. It will be removed
+[19:07:45]  [CLIENT-BENEFICIATION] entirely in future versions of Flower.
+[19:07:45]  [CLIENT-BENEFICIATION] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+[19:07:45]  [CLIENT-BENEFICIATION] Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+[19:07:45]  [CLIENT-BENEFICIATION] $ flower-supernode --insecure --superlink='<IP>:<PORT>'
+[19:07:45]  [CLIENT-BENEFICIATION] To view all available options, run:
+[19:07:45]  [CLIENT-BENEFICIATION] $ flower-supernode --help
+[19:07:45]  [CLIENT-BENEFICIATION] Using `start_client()` is deprecated.
+[19:07:45]  [CLIENT-BENEFICIATION] This is a deprecated feature. It will be removed
+[19:07:45]  [CLIENT-BENEFICIATION] entirely in future versions of Flower.
+[19:07:45]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:45,081 [WARNING] DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+[19:07:45]  [CLIENT-BENEFICIATION] Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+[19:07:45]  [CLIENT-BENEFICIATION] $ flower-supernode --insecure --superlink='<IP>:<PORT>'
+[19:07:45]  [CLIENT-BENEFICIATION] To view all available options, run:
+[19:07:45]  [CLIENT-BENEFICIATION] $ flower-supernode --help
+[19:07:45]  [CLIENT-BENEFICIATION] Using `start_client()` is deprecated.
+[19:07:45]  [CLIENT-BENEFICIATION] This is a deprecated feature. It will be removed
+[19:07:45]  [CLIENT-BENEFICIATION] entirely in future versions of Flower.
+[19:07:45]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:45,082 [DEBUG] Using InMemoryObjectStore
+[19:07:45]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:45,097 [DEBUG] Opened insecure gRPC connection (no certificates were passed)
+[19:07:45]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:45,100 [DEBUG] ChannelConnectivity.IDLE
+[19:07:45]  [CLIENT-BENEFICIATION] 2026-08-14 19:07:45,102 [DEBUG] ChannelConnectivity.CONNECTING
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,324 [INFO] setup plugin alembic.autogenerate.schemas
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,325 [INFO] setup plugin alembic.autogenerate.tables
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,325 [INFO] setup plugin alembic.autogenerate.types
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,325 [INFO] setup plugin alembic.autogenerate.constraints
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,325 [INFO] setup plugin alembic.autogenerate.defaults
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,326 [INFO] setup plugin alembic.autogenerate.comments
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,326 [INFO] setup plugin alembic.autogenerate.checkconstraint_byname
+[19:07:46]  [CLIENT-PAP] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated.
+[19:07:46]  [CLIENT-PAP] Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below:
+[19:07:46]  [CLIENT-PAP] flwr.client.start_client(
+[19:07:46]  [CLIENT-PAP] server_address='<IP>:<PORT>',
+[19:07:46]  [CLIENT-PAP] client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+[19:07:46]  [CLIENT-PAP] )
+[19:07:46]  [CLIENT-PAP] Using `start_numpy_client()` is deprecated.
+[19:07:46]  [CLIENT-PAP] This is a deprecated feature. It will be removed
+[19:07:46]  [CLIENT-PAP] entirely in future versions of Flower.
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,398 [WARNING] DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated.
+[19:07:46]  [CLIENT-PAP] Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below:
+[19:07:46]  [CLIENT-PAP] flwr.client.start_client(
+[19:07:46]  [CLIENT-PAP] server_address='<IP>:<PORT>',
+[19:07:46]  [CLIENT-PAP] client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+[19:07:46]  [CLIENT-PAP] )
+[19:07:46]  [CLIENT-PAP] Using `start_numpy_client()` is deprecated.
+[19:07:46]  [CLIENT-PAP] This is a deprecated feature. It will be removed
+[19:07:46]  [CLIENT-PAP] entirely in future versions of Flower.
+[19:07:46]  [CLIENT-PAP] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+[19:07:46]  [CLIENT-PAP] Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+[19:07:46]  [CLIENT-PAP] $ flower-supernode --insecure --superlink='<IP>:<PORT>'
+[19:07:46]  [CLIENT-PAP] To view all available options, run:
+[19:07:46]  [CLIENT-PAP] $ flower-supernode --help
+[19:07:46]  [CLIENT-PAP] Using `start_client()` is deprecated.
+[19:07:46]  [CLIENT-PAP] This is a deprecated feature. It will be removed
+[19:07:46]  [CLIENT-PAP] entirely in future versions of Flower.
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,399 [WARNING] DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+[19:07:46]  [CLIENT-PAP] Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+[19:07:46]  [CLIENT-PAP] $ flower-supernode --insecure --superlink='<IP>:<PORT>'
+[19:07:46]  [CLIENT-PAP] To view all available options, run:
+[19:07:46]  [CLIENT-PAP] $ flower-supernode --help
+[19:07:46]  [CLIENT-PAP] Using `start_client()` is deprecated.
+[19:07:46]  [CLIENT-PAP] This is a deprecated feature. It will be removed
+[19:07:46]  [CLIENT-PAP] entirely in future versions of Flower.
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,400 [DEBUG] Using InMemoryObjectStore
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,413 [DEBUG] Opened insecure gRPC connection (no certificates were passed)
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,416 [DEBUG] ChannelConnectivity.IDLE
+[19:07:46]  [CLIENT-PAP] 2026-08-14 19:07:46,417 [DEBUG] ChannelConnectivity.CONNECTING
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,125 [INFO] setup plugin alembic.autogenerate.schemas
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,126 [INFO] setup plugin alembic.autogenerate.tables
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,126 [INFO] setup plugin alembic.autogenerate.types
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,126 [INFO] setup plugin alembic.autogenerate.constraints
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,126 [INFO] setup plugin alembic.autogenerate.defaults
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,126 [INFO] setup plugin alembic.autogenerate.comments
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,126 [INFO] setup plugin alembic.autogenerate.checkconstraint_byname
+[19:07:47]  [CLIENT-POWER] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated.
+[19:07:47]  [CLIENT-POWER] Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below:
+[19:07:47]  [CLIENT-POWER] flwr.client.start_client(
+[19:07:47]  [CLIENT-POWER] server_address='<IP>:<PORT>',
+[19:07:47]  [CLIENT-POWER] client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+[19:07:47]  [CLIENT-POWER] )
+[19:07:47]  [CLIENT-POWER] Using `start_numpy_client()` is deprecated.
+[19:07:47]  [CLIENT-POWER] This is a deprecated feature. It will be removed
+[19:07:47]  [CLIENT-POWER] entirely in future versions of Flower.
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,182 [WARNING] DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated.
+[19:07:47]  [CLIENT-POWER] Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below:
+[19:07:47]  [CLIENT-POWER] flwr.client.start_client(
+[19:07:47]  [CLIENT-POWER] server_address='<IP>:<PORT>',
+[19:07:47]  [CLIENT-POWER] client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+[19:07:47]  [CLIENT-POWER] )
+[19:07:47]  [CLIENT-POWER] Using `start_numpy_client()` is deprecated.
+[19:07:47]  [CLIENT-POWER] This is a deprecated feature. It will be removed
+[19:07:47]  [CLIENT-POWER] entirely in future versions of Flower.
+[19:07:47]  [CLIENT-POWER] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+[19:07:47]  [CLIENT-POWER] Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+[19:07:47]  [CLIENT-POWER] $ flower-supernode --insecure --superlink='<IP>:<PORT>'
+[19:07:47]  [CLIENT-POWER] To view all available options, run:
+[19:07:47]  [CLIENT-POWER] $ flower-supernode --help
+[19:07:47]  [CLIENT-POWER] Using `start_client()` is deprecated.
+[19:07:47]  [CLIENT-POWER] This is a deprecated feature. It will be removed
+[19:07:47]  [CLIENT-POWER] entirely in future versions of Flower.
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,182 [WARNING] DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+[19:07:47]  [CLIENT-POWER] Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+[19:07:47]  [CLIENT-POWER] $ flower-supernode --insecure --superlink='<IP>:<PORT>'
+[19:07:47]  [CLIENT-POWER] To view all available options, run:
+[19:07:47]  [CLIENT-POWER] $ flower-supernode --help
+[19:07:47]  [CLIENT-POWER] Using `start_client()` is deprecated.
+[19:07:47]  [CLIENT-POWER] This is a deprecated feature. It will be removed
+[19:07:47]  [CLIENT-POWER] entirely in future versions of Flower.
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,183 [DEBUG] Using InMemoryObjectStore
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,194 [DEBUG] Opened insecure gRPC connection (no certificates were passed)
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,196 [DEBUG] ChannelConnectivity.IDLE
+[19:07:47]  [CLIENT-POWER] 2026-08-14 19:07:47,198 [DEBUG] ChannelConnectivity.CONNECTING
+[19:07:47]  [CLIENT-GRANULATION] 2026-08-14 19:07:47,744 [INFO] Client 'granulation' : 19 features, train=493793, test=123449
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,303 [INFO] setup plugin alembic.autogenerate.schemas
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,304 [INFO] setup plugin alembic.autogenerate.tables
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,304 [INFO] setup plugin alembic.autogenerate.types
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,304 [INFO] setup plugin alembic.autogenerate.constraints
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,304 [INFO] setup plugin alembic.autogenerate.defaults
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,304 [INFO] setup plugin alembic.autogenerate.comments
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,304 [INFO] setup plugin alembic.autogenerate.checkconstraint_byname
+[19:07:48]  [CLIENT-UTILITIES] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated.
+[19:07:48]  [CLIENT-UTILITIES] Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below:
+[19:07:48]  [CLIENT-UTILITIES] flwr.client.start_client(
+[19:07:48]  [CLIENT-UTILITIES] server_address='<IP>:<PORT>',
+[19:07:48]  [CLIENT-UTILITIES] client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+[19:07:48]  [CLIENT-UTILITIES] )
+[19:07:48]  [CLIENT-UTILITIES] Using `start_numpy_client()` is deprecated.
+[19:07:48]  [CLIENT-UTILITIES] This is a deprecated feature. It will be removed
+[19:07:48]  [CLIENT-UTILITIES] entirely in future versions of Flower.
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,354 [WARNING] DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated.
+[19:07:48]  [CLIENT-UTILITIES] Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below:
+[19:07:48]  [CLIENT-UTILITIES] flwr.client.start_client(
+[19:07:48]  [CLIENT-UTILITIES] server_address='<IP>:<PORT>',
+[19:07:48]  [CLIENT-UTILITIES] client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+[19:07:48]  [CLIENT-UTILITIES] )
+[19:07:48]  [CLIENT-UTILITIES] Using `start_numpy_client()` is deprecated.
+[19:07:48]  [CLIENT-UTILITIES] This is a deprecated feature. It will be removed
+[19:07:48]  [CLIENT-UTILITIES] entirely in future versions of Flower.
+[19:07:48]  [CLIENT-UTILITIES] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+[19:07:48]  [CLIENT-UTILITIES] Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+[19:07:48]  [CLIENT-UTILITIES] $ flower-supernode --insecure --superlink='<IP>:<PORT>'
+[19:07:48]  [CLIENT-UTILITIES] To view all available options, run:
+[19:07:48]  [CLIENT-UTILITIES] $ flower-supernode --help
+[19:07:48]  [CLIENT-UTILITIES] Using `start_client()` is deprecated.
+[19:07:48]  [CLIENT-UTILITIES] This is a deprecated feature. It will be removed
+[19:07:48]  [CLIENT-UTILITIES] entirely in future versions of Flower.
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,354 [WARNING] DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+[19:07:48]  [CLIENT-UTILITIES] Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+[19:07:48]  [CLIENT-UTILITIES] $ flower-supernode --insecure --superlink='<IP>:<PORT>'
+[19:07:48]  [CLIENT-UTILITIES] To view all available options, run:
+[19:07:48]  [CLIENT-UTILITIES] $ flower-supernode --help
+[19:07:48]  [CLIENT-UTILITIES] Using `start_client()` is deprecated.
+[19:07:48]  [CLIENT-UTILITIES] This is a deprecated feature. It will be removed
+[19:07:48]  [CLIENT-UTILITIES] entirely in future versions of Flower.
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,355 [DEBUG] Using InMemoryObjectStore
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,364 [DEBUG] Opened insecure gRPC connection (no certificates were passed)
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,366 [DEBUG] ChannelConnectivity.IDLE
+[19:07:48]  [CLIENT-UTILITIES] 2026-08-14 19:07:48,367 [DEBUG] ChannelConnectivity.CONNECTING
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,890 [INFO] setup plugin alembic.autogenerate.schemas
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,890 [INFO] setup plugin alembic.autogenerate.tables
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,890 [INFO] setup plugin alembic.autogenerate.types
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,891 [INFO] setup plugin alembic.autogenerate.constraints
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,891 [INFO] setup plugin alembic.autogenerate.defaults
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,891 [INFO] setup plugin alembic.autogenerate.comments
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,891 [INFO] setup plugin alembic.autogenerate.checkconstraint_byname
+[19:07:50]  [CLIENT-GRANULATION] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated.
+[19:07:50]  [CLIENT-GRANULATION] Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below:
+[19:07:50]  [CLIENT-GRANULATION] flwr.client.start_client(
+[19:07:50]  [CLIENT-GRANULATION] server_address='<IP>:<PORT>',
+[19:07:50]  [CLIENT-GRANULATION] client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+[19:07:50]  [CLIENT-GRANULATION] )
+[19:07:50]  [CLIENT-GRANULATION] Using `start_numpy_client()` is deprecated.
+[19:07:50]  [CLIENT-GRANULATION] This is a deprecated feature. It will be removed
+[19:07:50]  [CLIENT-GRANULATION] entirely in future versions of Flower.
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,934 [WARNING] DEPRECATED FEATURE: flwr.client.start_numpy_client() is deprecated.
+[19:07:50]  [CLIENT-GRANULATION] Instead, use `flwr.client.start_client()` by ensuring you first call the `.to_client()` method as shown below:
+[19:07:50]  [CLIENT-GRANULATION] flwr.client.start_client(
+[19:07:50]  [CLIENT-GRANULATION] server_address='<IP>:<PORT>',
+[19:07:50]  [CLIENT-GRANULATION] client=FlowerClient().to_client(), # <-- where FlowerClient is of type flwr.client.NumPyClient object
+[19:07:50]  [CLIENT-GRANULATION] )
+[19:07:50]  [CLIENT-GRANULATION] Using `start_numpy_client()` is deprecated.
+[19:07:50]  [CLIENT-GRANULATION] This is a deprecated feature. It will be removed
+[19:07:50]  [CLIENT-GRANULATION] entirely in future versions of Flower.
+[19:07:50]  [CLIENT-GRANULATION] [93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+[19:07:50]  [CLIENT-GRANULATION] Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+[19:07:50]  [CLIENT-GRANULATION] $ flower-supernode --insecure --superlink='<IP>:<PORT>'
+[19:07:50]  [CLIENT-GRANULATION] To view all available options, run:
+[19:07:50]  [CLIENT-GRANULATION] $ flower-supernode --help
+[19:07:50]  [CLIENT-GRANULATION] Using `start_client()` is deprecated.
+[19:07:50]  [CLIENT-GRANULATION] This is a deprecated feature. It will be removed
+[19:07:50]  [CLIENT-GRANULATION] entirely in future versions of Flower.
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,935 [WARNING] DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+[19:07:50]  [CLIENT-GRANULATION] Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+[19:07:50]  [CLIENT-GRANULATION] $ flower-supernode --insecure --superlink='<IP>:<PORT>'
+[19:07:50]  [CLIENT-GRANULATION] To view all available options, run:
+[19:07:50]  [CLIENT-GRANULATION] $ flower-supernode --help
+[19:07:50]  [CLIENT-GRANULATION] Using `start_client()` is deprecated.
+[19:07:50]  [CLIENT-GRANULATION] This is a deprecated feature. It will be removed
+[19:07:50]  [CLIENT-GRANULATION] entirely in future versions of Flower.
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,935 [DEBUG] Using InMemoryObjectStore
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,943 [DEBUG] Opened insecure gRPC connection (no certificates were passed)
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,944 [DEBUG] ChannelConnectivity.IDLE
+[19:07:50]  [CLIENT-GRANULATION] 2026-08-14 19:07:50,945 [DEBUG] ChannelConnectivity.CONNECTING
+[19:08:04]  [CLIENT-SAP] 2026-08-14 19:08:04,911 [DEBUG] ChannelConnectivity.TRANSIENT_FAILURE
+[19:08:05]  [CLIENT-BENEFICIATION] 2026-08-14 19:08:05,109 [DEBUG] ChannelConnectivity.TRANSIENT_FAILURE
+[19:08:05]  [CLIENT-SAP] 2026-08-14 19:08:05,124 [DEBUG] gRPC channel closed
+[19:08:05]  [CLIENT-SAP] Traceback (most recent call last):
+[19:08:05]  [CLIENT-SAP] File "<frozen runpy>", line 198, in _run_module_as_main
+[19:08:05]  [CLIENT-SAP] File "<frozen runpy>", line 88, in _run_code
+[19:08:05]  [CLIENT-SAP] File "D:\ilyass\projects\federated learning\GitHubRepo\FL-IDS-OT-ICS\clients\client_app.py", line 153, in <module>
+[19:08:05]  [CLIENT-SAP] main()
+[19:08:05]  [CLIENT-SAP] ~~~~^^
+[19:08:05]  [CLIENT-SAP] File "D:\ilyass\projects\federated learning\GitHubRepo\FL-IDS-OT-ICS\clients\client_app.py", line 149, in main
+[19:08:05]  [CLIENT-SAP] fl.client.start_numpy_client(server_address=args.server_address, client=client)
+[19:08:05]  [CLIENT-SAP] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:05]  [CLIENT-SAP] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 619, in start_numpy_client
+[19:08:05]  [CLIENT-SAP] start_client(
+[19:08:05]  [CLIENT-SAP] ~~~~~~~~~~~~^
+[19:08:05]  [CLIENT-SAP] server_address=server_address,
+[19:08:05]  [CLIENT-SAP] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:05]  [CLIENT-SAP] ...<4 lines>...
+[19:08:05]  [CLIENT-SAP] transport=transport,
+[19:08:05]  [CLIENT-SAP] ^^^^^^^^^^^^^^^^^^^^
+[19:08:05]  [CLIENT-SAP] )
+[19:08:05]  [CLIENT-SAP] ^
+[19:08:05]  [CLIENT-SAP] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 183, in start_client
+[19:08:05]  [CLIENT-SAP] start_client_internal(
+[19:08:05]  [CLIENT-SAP] ~~~~~~~~~~~~~~~~~~~~~^
+[19:08:05]  [CLIENT-SAP] server_address=server_address,
+[19:08:05]  [CLIENT-SAP] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:05]  [CLIENT-SAP] ...<10 lines>...
+[19:08:05]  [CLIENT-SAP] max_wait_time=max_wait_time,
+[19:08:05]  [CLIENT-SAP] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:05]  [CLIENT-SAP] )
+[19:08:05]  [CLIENT-SAP] ^
+[19:08:05]  [CLIENT-SAP] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 390, in start_client_internal
+[19:08:05]  [CLIENT-SAP] message = receive()
+[19:08:05]  [CLIENT-SAP] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\grpc_client\connection.py", line 141, in receive
+[19:08:05]  [CLIENT-SAP] proto = next(server_message_iterator)
+[19:08:05]  [CLIENT-SAP] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\grpc\_channel.py", line 547, in __next__
+[19:08:05]  [CLIENT-SAP] return self._next()
+[19:08:05]  [CLIENT-SAP] ~~~~~~~~~~^^
+[19:08:05]  [CLIENT-SAP] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\grpc\_channel.py", line 965, in _next
+[19:08:05]  [CLIENT-SAP] raise self
+[19:08:05]  [CLIENT-SAP] grpc._channel._MultiThreadedRendezvous: <_MultiThreadedRendezvous of RPC that terminated with:
+[19:08:05]  [CLIENT-SAP] status = StatusCode.UNAVAILABLE
+[19:08:05]  [CLIENT-SAP] details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:8080: connection attempt timed out before receiving SETTINGS frame"
+[19:08:05]  [CLIENT-SAP] debug_error_string = "UNAVAILABLE:failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:8080: connection attempt timed out before receiving SETTINGS frame"
+[19:08:05]  [CLIENT-SAP] >
+[19:08:05]  [CLIENT-BENEFICIATION] 2026-08-14 19:08:05,325 [DEBUG] gRPC channel closed
+[19:08:05]  [CLIENT-BENEFICIATION] Traceback (most recent call last):
+[19:08:05]  [CLIENT-BENEFICIATION] File "<frozen runpy>", line 198, in _run_module_as_main
+[19:08:05]  [CLIENT-BENEFICIATION] File "<frozen runpy>", line 88, in _run_code
+[19:08:05]  [CLIENT-BENEFICIATION] File "D:\ilyass\projects\federated learning\GitHubRepo\FL-IDS-OT-ICS\clients\client_app.py", line 153, in <module>
+[19:08:05]  [CLIENT-BENEFICIATION] main()
+[19:08:05]  [CLIENT-BENEFICIATION] ~~~~^^
+[19:08:05]  [CLIENT-BENEFICIATION] File "D:\ilyass\projects\federated learning\GitHubRepo\FL-IDS-OT-ICS\clients\client_app.py", line 149, in main
+[19:08:05]  [CLIENT-BENEFICIATION] fl.client.start_numpy_client(server_address=args.server_address, client=client)
+[19:08:05]  [CLIENT-BENEFICIATION] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:05]  [CLIENT-BENEFICIATION] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 619, in start_numpy_client
+[19:08:05]  [CLIENT-BENEFICIATION] start_client(
+[19:08:05]  [CLIENT-BENEFICIATION] ~~~~~~~~~~~~^
+[19:08:05]  [CLIENT-BENEFICIATION] server_address=server_address,
+[19:08:05]  [CLIENT-BENEFICIATION] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:05]  [CLIENT-BENEFICIATION] ...<4 lines>...
+[19:08:05]  [CLIENT-BENEFICIATION] transport=transport,
+[19:08:05]  [CLIENT-BENEFICIATION] ^^^^^^^^^^^^^^^^^^^^
+[19:08:05]  [CLIENT-BENEFICIATION] )
+[19:08:05]  [CLIENT-BENEFICIATION] ^
+[19:08:05]  [CLIENT-BENEFICIATION] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 183, in start_client
+[19:08:05]  [CLIENT-BENEFICIATION] start_client_internal(
+[19:08:05]  [CLIENT-BENEFICIATION] ~~~~~~~~~~~~~~~~~~~~~^
+[19:08:05]  [CLIENT-BENEFICIATION] server_address=server_address,
+[19:08:05]  [CLIENT-BENEFICIATION] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:05]  [CLIENT-BENEFICIATION] ...<10 lines>...
+[19:08:05]  [CLIENT-BENEFICIATION] max_wait_time=max_wait_time,
+[19:08:05]  [CLIENT-BENEFICIATION] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:05]  [CLIENT-BENEFICIATION] )
+[19:08:05]  [CLIENT-BENEFICIATION] ^
+[19:08:05]  [CLIENT-BENEFICIATION] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 390, in start_client_internal
+[19:08:05]  [CLIENT-BENEFICIATION] message = receive()
+[19:08:05]  [CLIENT-BENEFICIATION] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\grpc_client\connection.py", line 141, in receive
+[19:08:05]  [CLIENT-BENEFICIATION] proto = next(server_message_iterator)
+[19:08:05]  [CLIENT-BENEFICIATION] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\grpc\_channel.py", line 547, in __next__
+[19:08:05]  [CLIENT-BENEFICIATION] return self._next()
+[19:08:05]  [CLIENT-BENEFICIATION] ~~~~~~~~~~^^
+[19:08:05]  [CLIENT-BENEFICIATION] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\grpc\_channel.py", line 965, in _next
+[19:08:05]  [CLIENT-BENEFICIATION] raise self
+[19:08:05]  [CLIENT-BENEFICIATION] grpc._channel._MultiThreadedRendezvous: <_MultiThreadedRendezvous of RPC that terminated with:
+[19:08:05]  [CLIENT-BENEFICIATION] status = StatusCode.UNAVAILABLE
+[19:08:05]  [CLIENT-BENEFICIATION] details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:8080: connection attempt timed out before receiving SETTINGS frame"
+[19:08:05]  [CLIENT-BENEFICIATION] debug_error_string = "UNAVAILABLE:failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:8080: connection attempt timed out before receiving SETTINGS frame"
+[19:08:05]  [CLIENT-BENEFICIATION] >
+[19:08:06]  [CLIENT-PAP] 2026-08-14 19:08:06,425 [DEBUG] ChannelConnectivity.TRANSIENT_FAILURE
+[19:08:06]  [CLIENT-PAP] 2026-08-14 19:08:06,630 [DEBUG] gRPC channel closed
+[19:08:06]  [CLIENT-PAP] Traceback (most recent call last):
+[19:08:06]  [CLIENT-PAP] File "<frozen runpy>", line 198, in _run_module_as_main
+[19:08:06]  [CLIENT-PAP] File "<frozen runpy>", line 88, in _run_code
+[19:08:06]  [CLIENT-PAP] File "D:\ilyass\projects\federated learning\GitHubRepo\FL-IDS-OT-ICS\clients\client_app.py", line 153, in <module>
+[19:08:06]  [CLIENT-PAP] main()
+[19:08:06]  [CLIENT-PAP] ~~~~^^
+[19:08:06]  [CLIENT-PAP] File "D:\ilyass\projects\federated learning\GitHubRepo\FL-IDS-OT-ICS\clients\client_app.py", line 149, in main
+[19:08:06]  [CLIENT-PAP] fl.client.start_numpy_client(server_address=args.server_address, client=client)
+[19:08:06]  [CLIENT-PAP] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:06]  [CLIENT-PAP] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 619, in start_numpy_client
+[19:08:06]  [CLIENT-PAP] start_client(
+[19:08:06]  [CLIENT-PAP] ~~~~~~~~~~~~^
+[19:08:06]  [CLIENT-PAP] server_address=server_address,
+[19:08:06]  [CLIENT-PAP] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:06]  [CLIENT-PAP] ...<4 lines>...
+[19:08:06]  [CLIENT-PAP] transport=transport,
+[19:08:06]  [CLIENT-PAP] ^^^^^^^^^^^^^^^^^^^^
+[19:08:06]  [CLIENT-PAP] )
+[19:08:06]  [CLIENT-PAP] ^
+[19:08:06]  [CLIENT-PAP] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 183, in start_client
+[19:08:06]  [CLIENT-PAP] start_client_internal(
+[19:08:06]  [CLIENT-PAP] ~~~~~~~~~~~~~~~~~~~~~^
+[19:08:06]  [CLIENT-PAP] server_address=server_address,
+[19:08:06]  [CLIENT-PAP] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:06]  [CLIENT-PAP] ...<10 lines>...
+[19:08:06]  [CLIENT-PAP] max_wait_time=max_wait_time,
+[19:08:06]  [CLIENT-PAP] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:06]  [CLIENT-PAP] )
+[19:08:06]  [CLIENT-PAP] ^
+[19:08:06]  [CLIENT-PAP] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 390, in start_client_internal
+[19:08:06]  [CLIENT-PAP] message = receive()
+[19:08:06]  [CLIENT-PAP] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\grpc_client\connection.py", line 141, in receive
+[19:08:06]  [CLIENT-PAP] proto = next(server_message_iterator)
+[19:08:06]  [CLIENT-PAP] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\grpc\_channel.py", line 547, in __next__
+[19:08:06]  [CLIENT-PAP] return self._next()
+[19:08:06]  [CLIENT-PAP] ~~~~~~~~~~^^
+[19:08:06]  [CLIENT-PAP] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\grpc\_channel.py", line 965, in _next
+[19:08:06]  [CLIENT-PAP] raise self
+[19:08:06]  [CLIENT-PAP] grpc._channel._MultiThreadedRendezvous: <_MultiThreadedRendezvous of RPC that terminated with:
+[19:08:06]  [CLIENT-PAP] status = StatusCode.UNAVAILABLE
+[19:08:06]  [CLIENT-PAP] details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:8080: connection attempt timed out before receiving SETTINGS frame"
+[19:08:06]  [CLIENT-PAP] debug_error_string = "UNAVAILABLE:failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:8080: connection attempt timed out before receiving SETTINGS frame"
+[19:08:06]  [CLIENT-PAP] >
+[19:08:07]  [CLIENT-POWER] 2026-08-14 19:08:07,198 [DEBUG] ChannelConnectivity.TRANSIENT_FAILURE
+[19:08:07]  [CLIENT-POWER] 2026-08-14 19:08:07,403 [DEBUG] gRPC channel closed
+[19:08:07]  [CLIENT-POWER] Traceback (most recent call last):
+[19:08:07]  [CLIENT-POWER] File "<frozen runpy>", line 198, in _run_module_as_main
+[19:08:07]  [CLIENT-POWER] File "<frozen runpy>", line 88, in _run_code
+[19:08:07]  [CLIENT-POWER] File "D:\ilyass\projects\federated learning\GitHubRepo\FL-IDS-OT-ICS\clients\client_app.py", line 153, in <module>
+[19:08:07]  [CLIENT-POWER] main()
+[19:08:07]  [CLIENT-POWER] ~~~~^^
+[19:08:07]  [CLIENT-POWER] File "D:\ilyass\projects\federated learning\GitHubRepo\FL-IDS-OT-ICS\clients\client_app.py", line 149, in main
+[19:08:07]  [CLIENT-POWER] fl.client.start_numpy_client(server_address=args.server_address, client=client)
+[19:08:07]  [CLIENT-POWER] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:07]  [CLIENT-POWER] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 619, in start_numpy_client
+[19:08:07]  [CLIENT-POWER] start_client(
+[19:08:07]  [CLIENT-POWER] ~~~~~~~~~~~~^
+[19:08:07]  [CLIENT-POWER] server_address=server_address,
+[19:08:07]  [CLIENT-POWER] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:07]  [CLIENT-POWER] ...<4 lines>...
+[19:08:07]  [CLIENT-POWER] transport=transport,
+[19:08:07]  [CLIENT-POWER] ^^^^^^^^^^^^^^^^^^^^
+[19:08:07]  [CLIENT-POWER] )
+[19:08:07]  [CLIENT-POWER] ^
+[19:08:07]  [CLIENT-POWER] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 183, in start_client
+[19:08:07]  [CLIENT-POWER] start_client_internal(
+[19:08:07]  [CLIENT-POWER] ~~~~~~~~~~~~~~~~~~~~~^
+[19:08:07]  [CLIENT-POWER] server_address=server_address,
+[19:08:07]  [CLIENT-POWER] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:07]  [CLIENT-POWER] ...<10 lines>...
+[19:08:07]  [CLIENT-POWER] max_wait_time=max_wait_time,
+[19:08:07]  [CLIENT-POWER] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:07]  [CLIENT-POWER] )
+[19:08:07]  [CLIENT-POWER] ^
+[19:08:07]  [CLIENT-POWER] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 390, in start_client_internal
+[19:08:07]  [CLIENT-POWER] message = receive()
+[19:08:07]  [CLIENT-POWER] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\grpc_client\connection.py", line 141, in receive
+[19:08:07]  [CLIENT-POWER] proto = next(server_message_iterator)
+[19:08:07]  [CLIENT-POWER] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\grpc\_channel.py", line 547, in __next__
+[19:08:07]  [CLIENT-POWER] return self._next()
+[19:08:07]  [CLIENT-POWER] ~~~~~~~~~~^^
+[19:08:07]  [CLIENT-POWER] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\grpc\_channel.py", line 965, in _next
+[19:08:07]  [CLIENT-POWER] raise self
+[19:08:07]  [CLIENT-POWER] grpc._channel._MultiThreadedRendezvous: <_MultiThreadedRendezvous of RPC that terminated with:
+[19:08:07]  [CLIENT-POWER] status = StatusCode.UNAVAILABLE
+[19:08:07]  [CLIENT-POWER] details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:8080: connection attempt timed out before receiving SETTINGS frame"
+[19:08:07]  [CLIENT-POWER] debug_error_string = "UNAVAILABLE:failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:8080: connection attempt timed out before receiving SETTINGS frame"
+[19:08:07]  [CLIENT-POWER] >
+[19:08:08]  [CLIENT-UTILITIES] 2026-08-14 19:08:08,382 [DEBUG] ChannelConnectivity.TRANSIENT_FAILURE
+[19:08:08]  [CLIENT-UTILITIES] 2026-08-14 19:08:08,598 [DEBUG] gRPC channel closed
+[19:08:08]  [CLIENT-UTILITIES] Traceback (most recent call last):
+[19:08:08]  [CLIENT-UTILITIES] File "<frozen runpy>", line 198, in _run_module_as_main
+[19:08:08]  [CLIENT-UTILITIES] File "<frozen runpy>", line 88, in _run_code
+[19:08:08]  [CLIENT-UTILITIES] File "D:\ilyass\projects\federated learning\GitHubRepo\FL-IDS-OT-ICS\clients\client_app.py", line 153, in <module>
+[19:08:08]  [CLIENT-UTILITIES] main()
+[19:08:08]  [CLIENT-UTILITIES] ~~~~^^
+[19:08:08]  [CLIENT-UTILITIES] File "D:\ilyass\projects\federated learning\GitHubRepo\FL-IDS-OT-ICS\clients\client_app.py", line 149, in main
+[19:08:08]  [CLIENT-UTILITIES] fl.client.start_numpy_client(server_address=args.server_address, client=client)
+[19:08:08]  [CLIENT-UTILITIES] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:08]  [CLIENT-UTILITIES] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 619, in start_numpy_client
+[19:08:08]  [CLIENT-UTILITIES] start_client(
+[19:08:08]  [CLIENT-UTILITIES] ~~~~~~~~~~~~^
+[19:08:08]  [CLIENT-UTILITIES] server_address=server_address,
+[19:08:08]  [CLIENT-UTILITIES] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:08]  [CLIENT-UTILITIES] ...<4 lines>...
+[19:08:08]  [CLIENT-UTILITIES] transport=transport,
+[19:08:08]  [CLIENT-UTILITIES] ^^^^^^^^^^^^^^^^^^^^
+[19:08:08]  [CLIENT-UTILITIES] )
+[19:08:08]  [CLIENT-UTILITIES] ^
+[19:08:08]  [CLIENT-UTILITIES] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 183, in start_client
+[19:08:08]  [CLIENT-UTILITIES] start_client_internal(
+[19:08:08]  [CLIENT-UTILITIES] ~~~~~~~~~~~~~~~~~~~~~^
+[19:08:08]  [CLIENT-UTILITIES] server_address=server_address,
+[19:08:08]  [CLIENT-UTILITIES] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:08]  [CLIENT-UTILITIES] ...<10 lines>...
+[19:08:08]  [CLIENT-UTILITIES] max_wait_time=max_wait_time,
+[19:08:08]  [CLIENT-UTILITIES] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:08]  [CLIENT-UTILITIES] )
+[19:08:08]  [CLIENT-UTILITIES] ^
+[19:08:08]  [CLIENT-UTILITIES] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 390, in start_client_internal
+[19:08:08]  [CLIENT-UTILITIES] message = receive()
+[19:08:08]  [CLIENT-UTILITIES] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\grpc_client\connection.py", line 141, in receive
+[19:08:08]  [CLIENT-UTILITIES] proto = next(server_message_iterator)
+[19:08:08]  [CLIENT-UTILITIES] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\grpc\_channel.py", line 547, in __next__
+[19:08:08]  [CLIENT-UTILITIES] return self._next()
+[19:08:08]  [CLIENT-UTILITIES] ~~~~~~~~~~^^
+[19:08:08]  [CLIENT-UTILITIES] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\grpc\_channel.py", line 965, in _next
+[19:08:08]  [CLIENT-UTILITIES] raise self
+[19:08:08]  [CLIENT-UTILITIES] grpc._channel._MultiThreadedRendezvous: <_MultiThreadedRendezvous of RPC that terminated with:
+[19:08:08]  [CLIENT-UTILITIES] status = StatusCode.UNAVAILABLE
+[19:08:08]  [CLIENT-UTILITIES] details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:8080: connection attempt timed out before receiving SETTINGS frame"
+[19:08:08]  [CLIENT-UTILITIES] debug_error_string = "UNAVAILABLE:failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:8080: connection attempt timed out before receiving SETTINGS frame"
+[19:08:08]  [CLIENT-UTILITIES] >
+[19:08:10]  [CLIENT-GRANULATION] 2026-08-14 19:08:10,957 [DEBUG] ChannelConnectivity.TRANSIENT_FAILURE
+[19:08:11]  [CLIENT-GRANULATION] 2026-08-14 19:08:11,163 [DEBUG] gRPC channel closed
+[19:08:11]  [CLIENT-GRANULATION] Traceback (most recent call last):
+[19:08:11]  [CLIENT-GRANULATION] File "<frozen runpy>", line 198, in _run_module_as_main
+[19:08:11]  [CLIENT-GRANULATION] File "<frozen runpy>", line 88, in _run_code
+[19:08:11]  [CLIENT-GRANULATION] File "D:\ilyass\projects\federated learning\GitHubRepo\FL-IDS-OT-ICS\clients\client_app.py", line 153, in <module>
+[19:08:11]  [CLIENT-GRANULATION] main()
+[19:08:11]  [CLIENT-GRANULATION] ~~~~^^
+[19:08:11]  [CLIENT-GRANULATION] File "D:\ilyass\projects\federated learning\GitHubRepo\FL-IDS-OT-ICS\clients\client_app.py", line 149, in main
+[19:08:11]  [CLIENT-GRANULATION] fl.client.start_numpy_client(server_address=args.server_address, client=client)
+[19:08:11]  [CLIENT-GRANULATION] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:11]  [CLIENT-GRANULATION] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 619, in start_numpy_client
+[19:08:11]  [CLIENT-GRANULATION] start_client(
+[19:08:11]  [CLIENT-GRANULATION] ~~~~~~~~~~~~^
+[19:08:11]  [CLIENT-GRANULATION] server_address=server_address,
+[19:08:11]  [CLIENT-GRANULATION] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:11]  [CLIENT-GRANULATION] ...<4 lines>...
+[19:08:11]  [CLIENT-GRANULATION] transport=transport,
+[19:08:11]  [CLIENT-GRANULATION] ^^^^^^^^^^^^^^^^^^^^
+[19:08:11]  [CLIENT-GRANULATION] )
+[19:08:11]  [CLIENT-GRANULATION] ^
+[19:08:11]  [CLIENT-GRANULATION] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 183, in start_client
+[19:08:11]  [CLIENT-GRANULATION] start_client_internal(
+[19:08:11]  [CLIENT-GRANULATION] ~~~~~~~~~~~~~~~~~~~~~^
+[19:08:11]  [CLIENT-GRANULATION] server_address=server_address,
+[19:08:11]  [CLIENT-GRANULATION] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:11]  [CLIENT-GRANULATION] ...<10 lines>...
+[19:08:11]  [CLIENT-GRANULATION] max_wait_time=max_wait_time,
+[19:08:11]  [CLIENT-GRANULATION] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[19:08:11]  [CLIENT-GRANULATION] )
+[19:08:11]  [CLIENT-GRANULATION] ^
+[19:08:11]  [CLIENT-GRANULATION] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\app.py", line 390, in start_client_internal
+[19:08:11]  [CLIENT-GRANULATION] message = receive()
+[19:08:11]  [CLIENT-GRANULATION] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\flwr\compat\client\grpc_client\connection.py", line 141, in receive
+[19:08:11]  [CLIENT-GRANULATION] proto = next(server_message_iterator)
+[19:08:11]  [CLIENT-GRANULATION] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\grpc\_channel.py", line 547, in __next__
+[19:08:11]  [CLIENT-GRANULATION] return self._next()
+[19:08:11]  [CLIENT-GRANULATION] ~~~~~~~~~~^^
+[19:08:11]  [CLIENT-GRANULATION] File "C:\Users\HP 1030 G7\anaconda3\Lib\site-packages\grpc\_channel.py", line 965, in _next
+[19:08:11]  [CLIENT-GRANULATION] raise self
+[19:08:11]  [CLIENT-GRANULATION] grpc._channel._MultiThreadedRendezvous: <_MultiThreadedRendezvous of RPC that terminated with:
+[19:08:11]  [CLIENT-GRANULATION] status = StatusCode.UNAVAILABLE
+[19:08:11]  [CLIENT-GRANULATION] details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:8080: connection attempt timed out before receiving SETTINGS frame"
+[19:08:11]  [CLIENT-GRANULATION] debug_error_string = "UNAVAILABLE:failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:8080: connection attempt timed out before receiving SETTINGS frame"
+[19:08:11]  [CLIENT-GRANULATION] >
+[19:08:11]  
+✅ [FL RUNNER] Processus terminés.
