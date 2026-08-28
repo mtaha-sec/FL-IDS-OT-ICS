@@ -138,14 +138,25 @@ The FL-IDS-OT-ICS framework follows an end-to-end privacy-preserving federated l
                                   REPEAT FEDERATED TRAINING ROUNDS
                                                      │
                                                      └──────────────► 1️-Next Round(...until the 10 round)
-
-Dataset Repository:
-Google Drive:
-        ├── ICS-Flow.csv
-        ├── TON_IoT.csv
-        ├── ML-EdgeIIoT.csv
-        └── X-IIoTID.csv
-    
-
-    Dataset download:
-https://drive.google.com/drive/folders/1wtewxDU6VNqBmPSFRZfspqvBfTv8hvZF?usp=sharing
+----------------------------------------------------------------------------------------------------------------------------------------------------
+                                                            Dataset
+                                                                ↓
+                                                          Preprocessing
+                                                                ↓
+                                                         Client Partitioning
+                                                                ↓
+                                                         Local IDS Training
+                                                                ↓
+                                                             FedProx
+                                                                ↓
+                                                          CKKS Encryption
+                                                                ↓
+                                                               TLS
+                                                                ↓
+                                                           Global Server
+                                                                ↓
+                                                            Aggregation
+                                                                ↓
+                                                          Updated Global Model
+                                                                ↓
+                                                            Next Round
