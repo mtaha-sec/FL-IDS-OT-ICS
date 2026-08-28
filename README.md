@@ -139,24 +139,24 @@ The FL-IDS-OT-ICS framework follows an end-to-end privacy-preserving federated l
                                                      │
                                                      └──────────────► 1️-Next Round(...until the 10 round)
 ----------------------------------------------------------------------------------------------------------------------------------------------------
-                                                            Dataset
-                                                                ↓
-                                                          Preprocessing
-                                                                ↓
-                                                         Client Partitioning
-                                                                ↓
-                                                         Local IDS Training
-                                                                ↓
-                                                             FedProx
-                                                                ↓
-                                                          CKKS Encryption
-                                                                ↓
-                                                               TLS
-                                                                ↓
-                                                           Global Server
-                                                                ↓
-                                                            Aggregation
-                                                                ↓
-                                                          Updated Global Model
-                                                                ↓
-                                                            Next Round
+                                 Dataset
+                                    ↓
+                               Preprocessing
+                                    ↓
+                              Client Partitioning
+                                    ↓
+                              Local IDS Training
+                                    ↓
+                                 FedPro
+                                    ↓
+                              CKKS Encryption
+                                    ↓
+                                   TLS
+                                    ↓
+                              Global Server
+                                    ↓
+                               Aggregation
+                                    ↓
+                            Updated Global Model
+                                     ↓
+                               Next Round
