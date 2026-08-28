@@ -41,6 +41,104 @@ The proposed architecture consists of:
 
 > **Enable collaborative IDS model training without requiring clients to share their raw industrial network traffic or expose their local model parameters to the aggregation server in plaintext.**
 
+##  How It Works
+
+The FL-IDS-OT-ICS framework follows an end-to-end privacy-preserving federated learning workflow. Each industrial client keeps its local dataset, performs local IDS training, encrypts its model update, and securely transmits the encrypted update to the Global Server. The server aggregates the contributions and sends the updated global model back to all clients for the next federated round.
+
+### End-to-End Federated Learning Workflow
+
+```text
+                         🏭 DISTRIBUTED INDUSTRIAL OT/ICS ENVIRONMENT
+
+ ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+ │     PAP      │   │  UTILITIES   │   │ GRANULATION  │   │ BENEFICIATION│   │     POWER    │   │      SAP     │
+ │   Client 1 │   │   Client 2 │   │       Client 3 │      Client 4 │     │     Client 5 │   │      Client 6 │
+ └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
+        │                    │                    │                    │                    │                    │
+        │ 1️-Local Data     │                    │                    │                    │                    │
+        ▼                    ▼                    ▼                    ▼                    ▼                    ▼
+ ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+ │ Local Dataset│   │ Local Dataset│   │ Local Dataset│   │ Local Dataset│   │ Local Dataset│   │ Local Dataset│
+ └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
+        │                    │                    │                    │                    │                    │
+        │ 2️-Preprocessing  │                    │                    │                    │                    │
+        ▼                    ▼                    ▼                    ▼                    ▼                    ▼
+ ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+ │Preprocessing │   │Preprocessing │   │Preprocessing │   │Preprocessing │   │Preprocessing │   │Preprocessing │
+ │ & Features   │   │ & Features   │   │ & Features   │   │ & Features   │   │ & Features   │   │ & Features   │
+ └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
+        │                    │                    │                    │                    │                    │
+        │ 3️-Local Training │                    │                    │                    │                    │
+        ▼                    ▼                    ▼                    ▼                    ▼                    ▼
+ ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+ │ Local IDS    │   │ Local IDS    │   │ Local IDS    │   │ Local IDS    │   │ Local IDS    │   │ Local IDS    │
+ │ Model Train. │   │ Model Train. │   │ Model Train. │   │ Model Train. │   │ Model Train. │   │ Model Train. │
+ └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
+        │                    │                    │                    │                    │                    │
+        │ 4️-Local Model    │                    │                    │                    │                    │
+        │    Update          │                    │                    │                    │                    │
+        ▼                    ▼                    ▼                    ▼                    ▼                    ▼
+ ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+ │  Local Model │   │  Local Model │   │  Local Model │   │  Local Model │   │  Local Model │   │  Local Model │
+ │    Update    │   │    Update    │   │    Update    │   │    Update    │   │    Update    │   │    Update    │
+ └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
+        │                    │                    │                    │                    │                    │
+        │ 5️-CKKS Encryption│                    │                    │                    │                    │
+        ▼                    ▼                    ▼                    ▼                    ▼                    ▼
+ ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+ │  Encrypted │   │  Encrypted │   │   Encrypted │   │      Encrypted │   │    Encrypted │   │    Encrypted │
+ │ Model Update │   │ Model Update │   │ Model Update │   │ Model Update │   │ Model Update │   │ Model Update │
+ └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
+        │                    │                    │                    │                    │                    │
+        └────────────────────┴────────────────────┴────────────────────┴────────────────────┴────────────────────┘
+                                                     │
+                                                     │
+                                          6️-SECURE TLS TRANSMISSION
+                                                     │
+                                                     ▼
+                              ┌────────────────────────────────────────────┐
+                              │               GLOBAL SERVER              │
+                              │                                            │
+                              │  Receive Encrypted Client Updates          │
+                              │                    │                       │
+                              │                    ▼                       │
+                              │        Privacy-Preserving Aggregation    │
+                              │                    │                       │
+                              │                    ▼                       │
+                              │                 FedProx                    │
+                              │          Global Model Update               │
+                              └────────────────────┬───────────────────────┘
+                                                   │
+                                                   │
+                                     7️-UPDATED GLOBAL MODEL
+                                                   │
+                                                   │  TLS
+                                                   ▼
+        ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+        │                         SECURE GLOBAL MODEL DISTRIBUTION                                    │
+        └─────────────────────────────────────────────────────────────────────────────────────────────┘
+          │                    │                    │                    │                    │                    │
+          ▼                    ▼                    ▼                    ▼                    ▼                    ▼
+ ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+ │  Updated   │   │   Updated   │   │    Updated   │   │    Updated   │   │    Updated   │   │     Updated   │
+ │ Global Model │   │ Global Model │   │ Global Model │   │ Global Model │   │ Global Model │   │ Global Model │
+ │    → PAP     │   │ → UTILITIES  │   │ → GRANULATION│   │→ BENEFICIATION│  │   → POWER    │   │    → SAP     │
+ └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
+        │                    │                    │                    │                    │                    │
+        │           8️-Continue Local Training using the Updated Global Model
+        ▼                    ▼                    ▼                    ▼                    ▼                    ▼
+ ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+ │    PAP       │   │  UTILITIES   │   │ GRANULATION  │   │ BENEFICIATION│   │     POWER    │   │      SAP     │
+ │   Round 2    │   │   Round 2    │   │   Round 2    │   │   Round 2    │   │   Round 2    │   │   Round 2    │
+ └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
+        │                    │                    │                    │                    │                    │
+        └────────────────────┴────────────────────┴────────────────────┴────────────────────┴────────────────────┘
+                                                     │
+                                                     │
+                                  REPEAT FEDERATED TRAINING ROUNDS
+                                                     │
+                                                     └──────────────► 1️-Next Round(...until the 10 round)
+
 Dataset Repository:
 Google Drive:
         ├── ICS-Flow.csv
