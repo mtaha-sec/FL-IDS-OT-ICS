@@ -1,28 +1,41 @@
-🛡️ FL-IDS-OT-ICS
-Privacy-Preserving Federated Intrusion Detection System for Industrial OT/ICS Environments
+#  FL-IDS-OT-ICS
+## Privacy-Preserving Federated Intrusion Detection System for Industrial OT/ICS Environments
 
-A privacy-preserving Federated Learning framework for collaborative intrusion detection across distributed Industrial OT/ICS environments, combining FedProx, Homomorphic Encryption (CKKS/TenSEAL), and secure TLS communication.
+A privacy-preserving **Federated Learning-based Intrusion Detection System (FL-IDS)** designed for collaborative cybersecurity across distributed **Industrial OT/ICS environments**.
 
-📌 Overview
+The framework combines **FedProx**, **Homomorphic Encryption (CKKS/TenSEAL)**, and **secure TLS communication** to enable collaborative model training while protecting sensitive industrial data and model parameters.
 
-Industrial Operational Technology (OT) and Industrial Control Systems (ICS) generate security-sensitive network traffic across multiple sites and infrastructures.
+---
 
-Traditional centralized Intrusion Detection Systems require organizations to share raw network data with a central entity, which can create significant privacy, confidentiality, and data-governance risks.
+##  Overview
 
-This project proposes a Federated Learning-based Intrusion Detection System (FL-IDS) where each industrial site trains a local IDS model on its own data without sharing the raw dataset.
+Industrial **Operational Technology (OT)** and **Industrial Control Systems (ICS)** generate highly sensitive network traffic across multiple sites, plants, and infrastructures.
 
-The architecture consists of:
+Traditional centralized Intrusion Detection Systems (IDS) require organizations to send their raw network traffic to a central entity. This approach can introduce significant:
 
-🖥️ 1 Global Server responsible for federated aggregation
-🏭 6 distributed industrial clients/sites
-🤖 Local IDS models trained independently at each client
-🔄 FedProx for federated optimization under heterogeneous/non-IID data
-🔐 Homomorphic Encryption (HE) using CKKS/TenSEAL to protect model parameters during aggregation
-🔒 TLS to secure communication between clients and the global server
-📊 Multiple industrial cybersecurity datasets
-Main objective
+-  Privacy risks
+-  Industrial confidentiality concerns
+-  Data-governance issues
+- Security and compliance risks
 
-Enable collaborative IDS model training without requiring clients to share their raw industrial network traffic or expose their local model parameters to the aggregation server in plaintext.
+This project addresses these challenges through a **Federated Learning-based IDS**, where each industrial site trains its own local IDS model without sharing its raw network traffic with the central server.
+
+Instead of exchanging raw datasets, clients collaboratively contribute to the training of a **global IDS model** through federated optimization.
+
+---
+
+## System Architecture
+
+The proposed architecture consists of:
+
+- **1 Global Server** responsible for federated model aggregation
+- **6 Distributed Industrial Clients/Sites**
+- **Local IDS models** independently trained at each client
+- **FedProx** for federated optimization under heterogeneous and non-IID data distributions
+-  **Homomorphic Encryption (HE)** using **CKKS/TenSEAL** to protect model parameters during aggregation
+-  **TLS** to secure communication between clients and the global server
+- Multiple industrial cybersecurity datasets
+
 
 Dataset Repository:
 Google Drive:
