@@ -55,27 +55,27 @@ The FL-IDS-OT-ICS framework follows an end-to-end privacy-preserving federated l
  │   Client 1 │   │   Client 2 │   │       Client 3 │      Client 4 │     │     Client 5 │   │      Client 6 │
  └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
         │                    │                    │                    │                    │                    │
-        │ 1️-Local Data     │                    │                    │                    │                    │
+        │                                  1️-Local Data     
         ▼                    ▼                    ▼                    ▼                    ▼                    ▼
  ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
  │ Local Dataset│   │ Local Dataset│   │ Local Dataset│   │ Local Dataset│   │ Local Dataset│   │ Local Dataset│
  └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
         │                    │                    │                    │                    │                    │
-        │ 2️-Preprocessing  │                    │                    │                    │                    │
+                                          2️-Preprocessing
         ▼                    ▼                    ▼                    ▼                    ▼                    ▼
  ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
  │Preprocessing │   │Preprocessing │   │Preprocessing │   │Preprocessing │   │Preprocessing │   │Preprocessing │
  │ & Features   │   │ & Features   │   │ & Features   │   │ & Features   │   │ & Features   │   │ & Features   │
  └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
         │                    │                    │                    │                    │                    │
-        │ 3️-Local Training │                    │                    │                    │                    │
+                                         3️-Local Training  
         ▼                    ▼                    ▼                    ▼                    ▼                    ▼
  ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
  │ Local IDS    │   │ Local IDS    │   │ Local IDS    │   │ Local IDS    │   │ Local IDS    │   │ Local IDS    │
  │ Model Train. │   │ Model Train. │   │ Model Train. │   │ Model Train. │   │ Model Train. │   │ Model Train. │
  └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
         │                    │                    │                    │                    │                    │
-        │ 4️-Local Model    │                    │                    │                    │                    │
+                                        4️-Local Model Update 
         │    Update          │                    │                    │                    │                    │
         ▼                    ▼                    ▼                    ▼                    ▼                    ▼
  ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
@@ -83,7 +83,7 @@ The FL-IDS-OT-ICS framework follows an end-to-end privacy-preserving federated l
  │    Update    │   │    Update    │   │    Update    │   │    Update    │   │    Update    │   │    Update    │
  └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
         │                    │                    │                    │                    │                    │
-        │ 5️-CKKS Encryption│                    │                    │                    │                    │
+                                         5️-CKKS Encryption
         ▼                    ▼                    ▼                    ▼                    ▼                    ▼
  ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
  │  Encrypted │   │  Encrypted │   │   Encrypted │   │      Encrypted │   │    Encrypted │   │    Encrypted │
@@ -125,7 +125,7 @@ The FL-IDS-OT-ICS framework follows an end-to-end privacy-preserving federated l
  │    → PAP     │   │ → UTILITIES  │   │ → GRANULATION│   │→ BENEFICIATION│  │   → POWER    │   │    → SAP     │
  └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
         │                    │                    │                    │                    │                    │
-        │           8️-Continue Local Training using the Updated Global Model
+        │                            8️-Continue Local Training using the Updated Global Model
         ▼                    ▼                    ▼                    ▼                    ▼                    ▼
  ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
  │    PAP       │   │  UTILITIES   │   │ GRANULATION  │   │ BENEFICIATION│   │     POWER    │   │      SAP     │
