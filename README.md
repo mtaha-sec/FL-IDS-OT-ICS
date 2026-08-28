@@ -35,7 +35,7 @@ The proposed architecture consists of:
 -  **Homomorphic Encryption (HE)** using **CKKS/TenSEAL** to protect model parameters during aggregation
 -  **TLS** to secure communication between clients and the global server
 - Multiple industrial cybersecurity datasets
-  ![FL-IDS-OT-ICS Architecture](architecture/architecture.jpg)
+  ![FL-IDS-OT-ICS Architecture](architecture/architecture.jpeg)
 ###  Main Objective
 
 > **Enable collaborative IDS model training without requiring clients to share their raw industrial network traffic or expose their local model parameters to the aggregation server in plaintext.**
