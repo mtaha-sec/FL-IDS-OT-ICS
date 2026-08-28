@@ -35,7 +35,9 @@ The proposed architecture consists of:
 -  **Homomorphic Encryption (HE)** using **CKKS/TenSEAL** to protect model parameters during aggregation
 -  **TLS** to secure communication between clients and the global server
 - Multiple industrial cybersecurity datasets
+###  Main Objective
 
+> **Enable collaborative IDS model training without requiring clients to share their raw industrial network traffic or expose their local model parameters to the aggregation server in plaintext.**
 
 Dataset Repository:
 Google Drive:
