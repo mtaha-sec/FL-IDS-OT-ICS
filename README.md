@@ -35,6 +35,7 @@ The proposed architecture consists of:
 -  **Homomorphic Encryption (HE)** using **CKKS/TenSEAL** to protect model parameters during aggregation
 -  **TLS** to secure communication between clients and the global server
 - Multiple industrial cybersecurity datasets
+  
   ![FL-IDS-OT-ICS Architecture](architecture/architecture.jpeg)
 ###  Main Objective
 
